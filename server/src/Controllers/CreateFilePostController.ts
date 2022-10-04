@@ -13,7 +13,8 @@ export default class CreateFilePostController {
 				size,
 				filename,
 			},
-			generateUuid()
+			generateUuid(),
+			<number>req.body.category || 0
 		);
 
 		return res.json({ message: "Photo saved", file });
