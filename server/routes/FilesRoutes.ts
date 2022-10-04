@@ -2,19 +2,21 @@ import express from 'express';
 import options from '../../config';
 import { Router } from 'express';
 import CreateFilePostController from '../src/Controllers/CreateFilePostController';
-import bodyParser from 'body-parser';
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
 import { generateUuid } from '../src/Infrastructure/Utils/Utils';
 import GetFilesListGetController from '../src/Controllers/GetFilesListGetController';
 import GetFileByIdGetController from '../src/Controllers/GetFileByIdGetController';
+import UpdateFilePutController from '../src/Controllers/UpdateFilePutController';
 
 const router = Router();
 
 router.use(options.corsOptions);
 
-router.use(bodyParser.urlencoded({ extended: true }));
+router.use(express.json());
+
+router.use(express.urlencoded({ extended: true }));
 
 router.use('/uploads', express.static(path.resolve('uploads')));
 
@@ -53,5 +55,6 @@ const fileUploader = multer({
 router.post('/', fileUploader, new CreateFilePostController().execute);
 router.get('/', new GetFilesListGetController().execute);
 router.get('/:id', new GetFileByIdGetController().execute);
+router.put('/:id', new UpdateFilePutController().execute);
 
 export default router;
