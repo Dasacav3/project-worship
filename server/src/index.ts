@@ -3,7 +3,6 @@ import IndexRoutes from '../routes/IndexRoutes';
 import FilesRoutes from '../routes/FilesRoutes';
 import options from '../../config';
 import dotenv from 'dotenv';
-import bodyParser from 'body-parser';
 import path from 'path';
 
 dotenv.config();
@@ -11,10 +10,14 @@ dotenv.config();
 const app: Express = express();
 
 app.use('/', IndexRoutes);
+
 app.use('/files', FilesRoutes);
+
 app.use(options.corsOptions);
-app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/uploads', express.static(path.resolve('uploads')));
 
