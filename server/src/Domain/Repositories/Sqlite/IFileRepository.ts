@@ -8,4 +8,6 @@ export default interface IFileRepository {
   findOne(id: string): Promise<File | Error>;
 
   update(file: File): Promise<void>;
+
+  delete(id: string): Promise<void>;
 }

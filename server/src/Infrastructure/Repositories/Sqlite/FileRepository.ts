@@ -78,4 +78,9 @@ export default class FileRepository implements IFileRepository {
       [file.getName(), file.getCategory(), file.getUpdatedAt(), file.getId()]
     );
   }
+
+  public async delete(id: string): Promise<void> {
+    const db = await openDb();
+    await db.run('DELETE FROM files WHERE id = ?', [id]);
+  }
 }
