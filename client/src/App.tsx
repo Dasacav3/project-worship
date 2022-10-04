@@ -1,9 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+
+  const getFile = (e: any) => {
+    e.preventDefault();
+
+    let form = e.target;
+
+    let file = form?.querySelector('input[type="file"]');
+
+    if (file) {
+      console.log(file);
+    }
+
+    let fileData = file?.files[0];
+
+    if (fileData) {
+      console.log(fileData);
+    }
+
+    let formData = new FormData();
+    formData.append('file', fileData);
+
+    fetch('http://localhost:4000/files', {
+      method: 'POST',
+      body: formData,
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="App">
@@ -17,18 +53,18 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <button onClick={() => setCount(count => count + 1)}>count is {count}</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
+      <form onSubmit={getFile}>
+        <input type="file" name="file" />
+        <button>Submit</button>
+      </form>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
