@@ -8,6 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import { generateUuid } from '../src/Infrastructure/Utils/Utils';
 import GetFilesListGetController from '../src/Controllers/GetFilesListGetController';
+import GetFileByIdGetController from '../src/Controllers/GetFileByIdGetController';
 
 const router = Router();
 
@@ -51,5 +52,6 @@ const fileUploader = multer({
 
 router.post('/', fileUploader, new CreateFilePostController().execute);
 router.get('/', new GetFilesListGetController().execute);
+router.get('/:id', new GetFileByIdGetController().execute);
 
 export default router;
