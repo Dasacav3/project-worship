@@ -1,8 +1,8 @@
-import IDatabaseRepository from '../../../Domain/Repositories/Database/IDatabaseRepository';
+import IFileRepository from '../../../Domain/Repositories/Sqlite/IFileRepository';
 import { openDb } from '../../../db';
 import File from '../../../Domain/Entity/File/File';
 
-export default class FileRepository implements IDatabaseRepository {
+export default class FileRepository implements IFileRepository {
   public async save(file: File): Promise<void> {
     const db = await openDb();
     await db.run(
@@ -28,15 +28,15 @@ export default class FileRepository implements IDatabaseRepository {
     const files = await db.all('SELECT * FROM files LIMIT ?, ?', [offset, entries]);
 
     return {
-      'pagination': {
-        'count': total.total,
-        'pages': pages,
-        'current': page,
-        'next': page + 1 <= pages ? page + 1 : null,
-        'prev': page - 1 > 0 ? page - 1 : null,
-        'entries': entries
+      pagination: {
+        count: total.total,
+        pages: pages,
+        current: page,
+        next: page + 1 <= pages ? page + 1 : null,
+        prev: page - 1 > 0 ? page - 1 : null,
+        entries: entries
       },
-      'data': files.map((file: any) => {
+      data: files.map((file: any) => {
         return new File(
           file.id,
           file.name,
@@ -48,6 +48,26 @@ export default class FileRepository implements IDatabaseRepository {
           new Date(file.updated_at)
         );
       })
+    };
+  }
+
+  public async findOne(id: string): Promise<File | Error> {
+    const db = await openDb();
+    const file = await db.get('SELECT * FROM files WHERE id = ?', [id]);
+
+    if (!file) {
+      return Error('File not found');
     }
+
+    return new File(
+      file.id,
+      file.name,
+      file.type,
+      file.size,
+      file.path,
+      file.category,
+      new Date(file.created_at),
+      new Date(file.updated_at)
+    );
   }
 }
