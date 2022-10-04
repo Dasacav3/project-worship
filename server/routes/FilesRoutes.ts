@@ -7,12 +7,15 @@ import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
 import { generateUuid } from '../src/Infrastructure/Utils/Utils';
+import GetFilesListGetController from '../src/Controllers/GetFilesListGetController';
 
 const router = Router();
 
 router.use(options.corsOptions);
 
 router.use(bodyParser.urlencoded({ extended: true }));
+
+router.use('/uploads', express.static(path.resolve('uploads')));
 
 const fileUploader = multer({
   storage: multer.diskStorage({
@@ -47,7 +50,6 @@ const fileUploader = multer({
 }).single('file');
 
 router.post('/', fileUploader, new CreateFilePostController().execute);
-
-router.use('/uploads', express.static(path.resolve('uploads')));
+router.get('/', new GetFilesListGetController().execute);
 
 export default router;
