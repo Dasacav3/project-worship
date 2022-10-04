@@ -6,4 +6,6 @@ export default interface IFileRepository {
   find(page: number, entries: number): Promise<object>;
 
   findOne(id: string): Promise<File | Error>;
+
+  update(file: File): Promise<void>;
 }

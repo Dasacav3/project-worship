@@ -59,4 +59,16 @@ export default class File {
   public getUpdatedAt(): Date {
     return this.updatedAt;
   }
+
+  public setName(name: string): void {
+    this.name = name;
+  }
+
+  public setCategory(category: number): void {
+    this.category = category;
+  }
+
+  public setUpdatedAt(updatedAt: Date): void {
+    this.updatedAt = updatedAt;
+  }
 }

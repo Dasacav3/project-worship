@@ -70,4 +70,12 @@ export default class FileRepository implements IFileRepository {
       new Date(file.updated_at)
     );
   }
+
+  public async update(file: File): Promise<void> {
+    const db = await openDb();
+    await db.run(
+      'UPDATE files SET name = ?, category = ?, updated_at = ? WHERE id = ?',
+      [file.getName(), file.getCategory(), file.getUpdatedAt(), file.getId()]
+    );
+  }
 }
