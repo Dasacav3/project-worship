@@ -5,6 +5,7 @@ import CreateSongPostController from '../src/Controllers/Songs/CreateSongPostCon
 import GetSongsListGetController from '../src/Controllers/Songs/GetSongsListGetController';
 import GetSongByIdGetController from '../src/Controllers/Songs/GetSongByIdGetController';
 import UpdateSongPutController from '../src/Controllers/Songs/UpdateSongPutController';
+import RemoveSongDeleteController from '../src/Controllers/Songs/RemoveSongDeleteController';
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.post('/', new CreateSongPostController().execute);
 router.get('/', new GetSongsListGetController().execute);
 router.get('/:id', new GetSongByIdGetController().execute);
 router.put('/:id', new UpdateSongPutController().execute);
+router.delete('/:id', new RemoveSongDeleteController().execute);
 
 export default router;
