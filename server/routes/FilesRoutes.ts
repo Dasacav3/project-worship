@@ -10,6 +10,7 @@ import GetFilesListGetController from '../src/Controllers/GetFilesListGetControl
 import GetFileByIdGetController from '../src/Controllers/GetFileByIdGetController';
 import UpdateFilePutController from '../src/Controllers/UpdateFilePutController';
 import RemoveFileDeleteController from '../src/Controllers/RemoveFileDeleteController';
+import GetFileContentGetController from '../src/Controllers/GetFileContentGetController';
 
 const router = Router();
 
@@ -58,5 +59,6 @@ router.get('/', new GetFilesListGetController().execute);
 router.get('/:id', new GetFileByIdGetController().execute);
 router.put('/:id', new UpdateFilePutController().execute);
 router.delete('/:id', new RemoveFileDeleteController().execute);
+router.get('/:id/streaming', new GetFileContentGetController().execute);
 
 export default router;
