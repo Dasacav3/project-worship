@@ -1,16 +1,16 @@
-import express from 'express';
-import options from '../../config';
-import { Router } from 'express';
-import CreateFilePostController from '../src/Controllers/CreateFilePostController';
-import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
+import express from 'express';
+import options from '../../config';
+import multer from 'multer';
+import { Router } from 'express';
+import CreateFilePostController from '../src/Controllers/Files/CreateFilePostController';
 import { generateUuid } from '../src/Infrastructure/Utils/Utils';
-import GetFilesListGetController from '../src/Controllers/GetFilesListGetController';
-import GetFileByIdGetController from '../src/Controllers/GetFileByIdGetController';
-import UpdateFilePutController from '../src/Controllers/UpdateFilePutController';
-import RemoveFileDeleteController from '../src/Controllers/RemoveFileDeleteController';
-import GetFileContentGetController from '../src/Controllers/GetFileContentGetController';
+import GetFilesListGetController from '../src/Controllers/Files/GetFilesListGetController';
+import GetFileByIdGetController from '../src/Controllers/Files/GetFileByIdGetController';
+import UpdateFilePutController from '../src/Controllers/Files/UpdateFilePutController';
+import RemoveFileDeleteController from '../src/Controllers/Files/RemoveFileDeleteController';
+import GetFileContentGetController from '../src/Controllers/Files/GetFileContentGetController';
 
 const router = Router();
 
