@@ -5,5 +5,7 @@ export default interface ISongRepository {
 
   find(page: number, entries: number): Promise<object>;
 
-  findOne(id: string): Promise<object | Error>;
+  findOne(id: string): Promise<Song | Error>;
+
+  update(song: Song): Promise<void>;
 }
