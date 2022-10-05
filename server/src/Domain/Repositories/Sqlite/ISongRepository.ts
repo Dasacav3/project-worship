@@ -4,4 +4,6 @@ export default interface ISongRepository {
   save(song: Song): Promise<void>;
 
   find(page: number, entries: number): Promise<object>;
+
+  findOne(id: string): Promise<object | Error>;
 }

@@ -48,4 +48,23 @@ export default class SongRepository implements ISongRepository {
       })
     };
   }
+
+  public async findOne(id: string): Promise<object | Error> {
+    const db = await openDb();
+    const song = await db.get('SELECT * FROM songs WHERE id = ?', [id]);
+
+    if (!song) {
+      return new Error('Song not found');
+    }
+
+    return new Song(
+      song.id,
+      song.title,
+      song.tone,
+      song.type,
+      song.lyrics,
+      new Date(song.created_at),
+      new Date(song.updated_at)
+    );
+  }
 }
