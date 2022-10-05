@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import DeleteFileAction from '../Application/Files/DeleteFileAction';
+import DeleteFileAction from '../../Application/Files/DeleteFileAction';
 
 export default class RemoveFileDeleteController {
   public async execute(req: Request, res: Response): Promise<Response> {

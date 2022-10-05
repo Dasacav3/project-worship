@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { generateUuid } from '../Infrastructure/Utils/Utils';
-import UploadFileAction from '../Application/Files/UploadFileAction';
+import { generateUuid } from '../../Infrastructure/Utils/Utils';
+import UploadFileAction from '../../Application/Files/UploadFileAction';
 
 export default class CreateFilePostController {
   public execute(req: Request, res: Response): Response {

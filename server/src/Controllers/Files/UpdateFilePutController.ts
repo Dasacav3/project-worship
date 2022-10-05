@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import UpdateFileAction from '../Application/Files/UpdateFileAction';
+import UpdateFileAction from '../../Application/Files/UpdateFileAction';
 
 export default class UpdateFilePutController {
   public async execute(req: Request, res: Response): Promise<Response> {

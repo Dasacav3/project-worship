@@ -1,7 +1,7 @@
 import fs from 'fs';
-import File from '../Domain/Entity/File/File';
+import File from '../../Domain/Entity/File/File';
 import { Request, Response } from 'express';
-import GetFileByIdAction from '../Application/Files/GetFileByIdAction';
+import GetFileByIdAction from '../../Application/Files/GetFileByIdAction';
 
 export default class GetFileContentGetController {
   public execute = async (req: Request, res: Response) => {

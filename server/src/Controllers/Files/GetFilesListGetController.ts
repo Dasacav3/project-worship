@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import GetFilesAction from '../Application/Files/GetFilesAction';
+import GetFilesAction from '../../Application/Files/GetFilesAction';
 
 export default class GetFilesListGetController {
   public async execute(req: Request, res: Response): Promise<Response> {
