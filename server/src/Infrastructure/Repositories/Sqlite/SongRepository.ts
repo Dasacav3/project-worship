@@ -18,4 +18,34 @@ export default class SongRepository implements ISongRepository {
       ]
     );
   }
+
+  public async find(page: number, entries: number): Promise<object> {
+    const db = await openDb();
+    const total = await db.get('SELECT COUNT(*) as total FROM songs');
+    const pages = Math.ceil(total.total / entries);
+    const offset = (page - 1) * entries;
+    const songs = await db.all('SELECT * FROM songs LIMIT ?, ?', [offset, entries]);
+
+    return {
+      pagination: {
+        count: total.total,
+        pages: pages,
+        current: page,
+        next: page + 1 <= pages ? page + 1 : null,
+        prev: page - 1 > 0 ? page - 1 : null,
+        entries: entries
+      },
+      data: songs.map((song: any) => {
+        return new Song(
+          song.id,
+          song.title,
+          song.tone,
+          song.type,
+          song.lyrics,
+          new Date(song.created_at),
+          new Date(song.updated_at)
+        );
+      })
+    };
+  }
 }
