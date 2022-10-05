@@ -49,7 +49,7 @@ export default class SongRepository implements ISongRepository {
     };
   }
 
-  public async findOne(id: string): Promise<object | Error> {
+  public async findOne(id: string): Promise<Song | Error> {
     const db = await openDb();
     const song = await db.get('SELECT * FROM songs WHERE id = ?', [id]);
 
@@ -65,6 +65,14 @@ export default class SongRepository implements ISongRepository {
       song.lyrics,
       new Date(song.created_at),
       new Date(song.updated_at)
+    );
+  }
+
+  public async update(song: Song): Promise<void> {
+    const db = await openDb();
+    await db.run(
+      'UPDATE songs SET title = ?, tone = ?, type = ?, lyrics = ?, updated_at = ? WHERE id = ?',
+      [song.getTitle(), song.getTone(), song.getType(), song.getLyrics(), song.getUpdatedAt(), song.getId()]
     );
   }
 }
