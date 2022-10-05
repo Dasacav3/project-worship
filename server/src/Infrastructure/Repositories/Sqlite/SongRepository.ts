@@ -75,4 +75,9 @@ export default class SongRepository implements ISongRepository {
       [song.getTitle(), song.getTone(), song.getType(), song.getLyrics(), song.getUpdatedAt(), song.getId()]
     );
   }
+
+  public async delete(id: string): Promise<void> {
+    const db = await openDb();
+    await db.run('DELETE FROM songs WHERE id = ?', [id]);
+  }
 }

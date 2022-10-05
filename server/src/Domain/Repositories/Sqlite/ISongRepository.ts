@@ -8,4 +8,6 @@ export default interface ISongRepository {
   findOne(id: string): Promise<Song | Error>;
 
   update(song: Song): Promise<void>;
+
+  delete(id: string): Promise<void>;
 }
