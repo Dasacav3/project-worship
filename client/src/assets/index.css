@@ -1,3 +1,123 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+:root {
+  --color-primary: #ffc700;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 5rem;
+  padding: 1rem 1rem 0 2rem;
+  background: var(--color-primary);
+}
+
+.h-container {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  width: 90%;
+}
+
+.logo-wrap {
+  position: absolute;
+  top: -1.7rem;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.logo {
+  font-family: 'Squada One', 'Roboto';
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  border: 0.3rem solid white;
+  background: steelblue;
+  transform: rotate(-15deg);
+}
+
+.navbar {
+  list-style: none;
+  margin: 0 0 0.6rem;
+  font-weight: bold;
+}
+
+.navbar li {
+  display: inline;
+  padding: 0 0.5rem;
+}
+
+.navbar li a {
+  color: #000;
+  text-decoration: none;
+}
+
+.navbar li a:hover {
+  transition: 500ms ease-in;
+  color: rgb(71, 71, 69);
+}
+
+.navbar .btn {
+  color: white;
+  margin: 0 0 0 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  border: none;
+  background: steelblue;
+}
+
+.navbar .btn:hover {
+  transition: 200ms ease-in;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  header {
+    height: 10rem;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 1rem 0 1rem;
+  }
+
+  .h-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo-wrap {
+    position: relative;
+    margin-top: 1rem;
+  }
+
+  .navbar {
+    margin: 0;
+  }
+
+  .navbar li {
+    display: block;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+}
