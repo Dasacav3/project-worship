@@ -1,9 +1,11 @@
+import Header from '../components/Header';
+
 const Backgrounds = () => {
   return (
     <>
-      <h1>Backgrounds</h1>
+      <Header />
     </>
-  )
+  );
 };
 
 export default Backgrounds;

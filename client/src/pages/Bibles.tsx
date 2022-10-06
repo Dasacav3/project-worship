@@ -1,9 +1,11 @@
+import Header from '../components/Header';
+
 const Bibles = () => {
   return (
     <>
-      <h1>Bibles</h1>
+      <Header />
     </>
-  )
+  );
 };
 
 export default Bibles;
