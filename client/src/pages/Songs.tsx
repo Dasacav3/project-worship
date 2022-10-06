@@ -1,7 +1,9 @@
+import Header from '../components/Header';
+
 const Songs = () => {
   return (
     <>
-      <h1>Songs</h1>
+      <Header />
     </>
   );
 };
