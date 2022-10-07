@@ -6,7 +6,7 @@ import NotFound from './pages/NotFound';
 import Songs from './pages/Songs';
 import './assets/main.css';
 
-function App() {
+const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -16,6 +16,6 @@ function App() {
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
-}
+};
 
 export default App;
