@@ -1,15 +1,19 @@
 import Logo from './Logo';
 import Navbar from './Navbar';
 
-const Header = () => {
+const Header = (props: Props) => {
   return (
     <header>
       <div className="h-container">
         <Logo />
-        <Navbar />
+        <Navbar title={props.title} />
       </div>
     </header>
   );
 };
+
+interface Props {
+  title: string;
+}
 
 export default Header;
