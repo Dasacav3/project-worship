@@ -31,9 +31,7 @@ const Modal = (props: Props) => {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    {props.content}
-                  </p>
+                  <p className="my-4 text-slate-500 text-lg leading-relaxed">{props.content}</p>
                 </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
@@ -60,7 +58,7 @@ const Modal = (props: Props) => {
       ) : null}
     </>
   );
-}
+};
 
 interface Props {
   title: string;
