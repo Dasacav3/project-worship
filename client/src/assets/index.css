@@ -133,7 +133,9 @@ header {
   width: 15vw;
   transition: left 0.3s ease-in-out;
   background-color: var(--color-primary);
+  z-index: 10;
 }
+
 .sidebar-toggle {
   position: absolute;
   top: 20%;
@@ -142,6 +144,7 @@ header {
   width: 60px;
   z-index: 1;
 }
+
 .content {
   position: absolute;
   top: 60px;
@@ -151,9 +154,11 @@ header {
   transition: left 0.3s ease-in-out;
   background-color: var(--color-primary);
 }
+
 .sidebar.open {
   left: 0;
 }
+
 .content.open {
   left: 8vw;
 }
@@ -180,7 +185,79 @@ header {
   width: 100%;
 }
 
-.sidebarListItem a:hover{
+.sidebarListItem a:hover {
   transition: 500ms ease-in;
   color: rgb(71, 71, 69);
+}
+
+.wrapper {
+  @apply bg-white hover:bg-gray-800 shadow-xl hover:shadow-none cursor-pointer w-80 rounded-3xl flex flex-col items-center justify-center;
+}
+
+.wrapperAnime {
+  @apply transition-all duration-500 ease-in-out;
+}
+
+.header {
+  @apply relative mt-2 mx-2;
+}
+
+.imageWrapper {
+  @apply h-56 rounded-2xl overflow-hidden;
+}
+
+.image {
+  @apply object-cover w-full h-full;
+}
+
+.textWrapper {
+  @apply pt-10 pb-6 w-full px-4;
+}
+
+.text {
+  @apply font-medium leading-none text-base tracking-wider text-gray-400;
+}
+
+.badgeWrapper {
+  @apply absolute bottom-0 left-0 -mb-4 ml-3 flex flex-row;
+}
+
+.dangerBadge {
+  @apply h-10 w-10 flex items-center justify-center text-xl bg-white hover:bg-red-500 text-red-500 hover:text-white rounded-2xl shadow-xl;
+}
+
+.primaryBadge {
+  @apply h-10 w-16 ml-2 bg-white hover:bg-blue-600 flex items-center justify-center font-medium text-blue-600 hover:text-white rounded-2xl shadow-xl;
+}
+
+.counter {
+  @apply text-gray-800 ml-2;
+}
+
+.badgeAnime {
+  @apply transform-gpu translate-y-0 hover:-translate-y-1 transition-all duration-300 ease-in-out;
+}
+
+.containerBackgrounds {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.backgroudStructures {
+  display: grid;
+  justify-content: center;
+  width: 80%;
+  gap: 1rem;
+  margin: 2rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.paginationButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2rem 0;
+  width: 80%;
 }
