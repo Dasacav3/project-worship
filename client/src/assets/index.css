@@ -261,3 +261,30 @@ header {
   margin: 2rem 0;
   width: 80%;
 }
+
+.viewer {
+  overflow: hidden;
+}
+
+.viewer .video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.viewer div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.viewer .viewerContent {
+  color: white;
+  font-size: 10rem;
+  z-index: 10;
+}
