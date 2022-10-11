@@ -19,7 +19,6 @@ const Card = (props: Props) => {
 
 interface Props {
   title: string;
-  likes: number;
   order: number;
   path: string;
   type: string;
