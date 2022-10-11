@@ -8,7 +8,7 @@ import WindowParent from '../components/WindowParent';
 
 const Backgrounds = () => {
   const [sidebarOpen, setSideBarOpen] = useState(false);
-  const [backgrounds, setBackgrounds] = useState<any>([]);
+  const [dataBackgrounds, setDataBackgrounds] = useState<any>([]);
 
   const handleViewSidebar = () => {
     setSideBarOpen(!sidebarOpen);
@@ -28,7 +28,7 @@ const Backgrounds = () => {
 
     const files = await response.json();
 
-    setBackgrounds(files);
+    setDataBackgrounds(files);
   };
 
   return (
@@ -37,20 +37,25 @@ const Backgrounds = () => {
       <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
       <div className="containerBackgrounds">
         <div className="backgroudStructures">
-        {backgrounds.data ? backgrounds.data.map((background: any) => (
-            <Card
-              title={background.name}
-              likes={1}
-              path={`http://localhost:4000/files/${background.id}/streaming`}
-              order={1}
-              type='video'
-              />
-          )) : null}
+          {dataBackgrounds.data
+            ? dataBackgrounds.data.map((background: any, index: number) => (
+                <Card
+                  key={index}
+                  title={background.name}
+                  path={`http://localhost:4000/files/${background.id}/streaming`}
+                  order={index + 1}
+                  type={background.type.split('/')[0]}
+                />
+              ))
+            : null}
         </div>
         <div className="paginationButtons">
-          <Button title="Previous" />
-          <WindowParent />
-          <Button title="Next" />
+        <Button
+            title="Previous"
+          />
+          <Button
+            title="Next"
+          />
         </div>
       </div>
     </>
