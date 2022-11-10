@@ -1,6 +1,6 @@
 const Card = (props: Props) => {
   return (
-    <div className="wrapper wrapperAnime">
+    <div className="wrapper wrapperAnime" onClick={props.click}>
       <div className="header">
         <div className="imageWrapper">
           {props.type === 'image' ? (
@@ -22,6 +22,7 @@ interface Props {
   order: number;
   path: string;
   type: string;
+  click?: () => void;
 }
 
 export default Card;
