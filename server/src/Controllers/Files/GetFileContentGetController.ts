@@ -13,27 +13,41 @@ export default class GetFileContentGetController {
       res.status(400).json({ error: file.message });
     }
 
-    const range = req.headers.range || '';
-    const videoPath = `server/uploads/${file instanceof File ? file.getPath() : ''}`;
-    const videoSize = fs.statSync(videoPath).size;
+    if (file instanceof File) {
+      const filePath = `server/uploads/${file instanceof File ? file.getPath() : ''}`;
 
-    const chunkSize = 1 * 1e6;
-    const start = Number(range.replace(/\D/g, ''));
-    const end = Math.min(start + chunkSize, videoSize - 1);
+      // Check if file is image and return image content
+      if (file.getType().split('/')[0] === 'image') {
+        const image = fs.readFileSync(filePath);
+        res.writeHead(200, {
+          'Content-Type': file.getType(),
+          'Content-Length': image.length,
+          'Content-Disposition': `attachment; filename=${file.getName()}`
+        });
+        return res.end(image, 'binary');
+      }
 
-    const contentLength = end - start + 1;
+      const range = req.headers.range || '';
+      const fileSize = fs.statSync(filePath).size;
 
-    const headers = {
-      'Content-Range': `bytes ${start}-${end}/${videoSize}`,
-      'Accept-Ranges': 'bytes',
-      'Content-Length': contentLength,
-      'Content-Type': file instanceof File ? file.getType() : ''
-    };
+      const chunkSize = 1 * 1e6;
+      const start = Number(range.replace(/\D/g, ''));
+      const end = Math.min(start + chunkSize, fileSize - 1);
 
-    res.writeHead(206, headers);
+      const contentLength = end - start + 1;
 
-    const stream = fs.createReadStream(videoPath, { start, end });
+      const headers = {
+        'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': contentLength,
+        'Content-Type': file instanceof File ? file.getType() : ''
+      };
 
-    stream.pipe(res);
+      res.writeHead(206, headers);
+
+      const stream = fs.createReadStream(filePath, { start, end });
+
+      stream.pipe(res);
+    }
   };
 }
