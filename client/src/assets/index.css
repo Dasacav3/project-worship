@@ -206,6 +206,14 @@ header {
   @apply h-56 rounded-2xl overflow-hidden;
 }
 
+.imageWrapper img {
+  @apply w-full h-full object-cover;
+}
+
+.imageWrapper video {
+  @apply w-full h-full object-cover;
+}
+
 .image {
   @apply object-cover w-full h-full;
 }
@@ -288,4 +296,9 @@ header {
   color: white;
   font-size: 10rem;
   z-index: 10;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
 }
