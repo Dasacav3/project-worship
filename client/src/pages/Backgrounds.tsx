@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { ApiUrl } from '../api/env_vars';
+import { ApiUrl, LocalUrl } from '../api/env_vars';
 import Button from '../components/Button';
 import Card from '../components/Card';
 import Header from '../components/Header';
 import Modal from '../components/Modal';
 import SideBar from '../components/Sidebar';
 import Uploader from '../components/Uploader';
-import Viewer from '../context/Viewer';
 
 const Backgrounds = () => {
   const [sidebarOpen, setSideBarOpen] = useState(false);
@@ -52,6 +51,29 @@ const Backgrounds = () => {
     setDataBackgrounds(files);
   };
 
+  let childWindow: Window | null = null;
+
+  const openWindow = () => {
+    childWindow = window.open(
+      `${LocalUrl}/viewer`,
+      'viewer',
+      'width=500,height=400'
+    );
+  };
+
+  const sendMessage = (url: string, textContent: string, fileType: string) => {
+    if (childWindow) {
+      childWindow.postMessage(
+        {
+          urlFile: url,
+          textContent: textContent,
+          fileType: fileType
+        },
+        `${LocalUrl}/viewer`
+      );
+    }
+  };
+
   return (
     <>
       <Header title="Fondos" />
@@ -70,6 +92,10 @@ const Backgrounds = () => {
               save="Save"
               close="Close"
             />
+            <Button
+              title="Open Viewer"
+              click={() => openWindow()}
+            />
           </div>
         </div>
       </div>
@@ -83,7 +109,7 @@ const Backgrounds = () => {
                   path={`${ApiUrl}/files/${background.id}/streaming`}
                   order={index + 1}
                   type={background.type.split('/')[0]}
-                  click={() => Viewer(`${ApiUrl}/files/${background.id}/streaming`, '')}
+                  click={() => sendMessage(`${ApiUrl}/files/${background.id}/streaming`, 'Hi!', background.type.split('/')[0])}
                 />
               ))
             : null}
