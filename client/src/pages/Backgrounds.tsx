@@ -51,12 +51,15 @@ const Backgrounds = () => {
     setDataBackgrounds(files);
   };
 
+  const windowVisor = new WindowVisor(500, 500);
 
-  const windowVisor = new WindowVisor(
-    500,
-    500
-  );
+  const sendMessage = (message: object, windowVisor: WindowVisor) => {
+    if (windowVisor.checkIfClosed() != false || windowVisor.getWinObj()?.name === '') {
+      windowVisor.openObj();
+    }
 
+    return windowVisor.getWinObj()?.postMessage(message);
+  };
 
   return (
     <>
@@ -64,8 +67,7 @@ const Backgrounds = () => {
       <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
       <div>
         <div className="flex flex-row justify-center">
-          <div className="flex flex-row">
-          </div>
+          <div className="flex flex-row"></div>
         </div>
       </div>
       <div className="containerBackgrounds">
@@ -79,11 +81,14 @@ const Backgrounds = () => {
                   order={index + 1}
                   type={background.type.split('/')[0]}
                   click={() =>
-                    windowVisor.sendMessage({
-                      urlFile: `${ApiUrl}/files/${background.id}/streaming`,
-                      textContent: 'Hi!',
-                      fileType: background.type.split('/')[0]
-                    })
+                    sendMessage(
+                      {
+                        urlFile: `${ApiUrl}/files/${background.id}/streaming`,
+                        textContent: 'Hi!',
+                        fileType: background.type.split('/')[0]
+                      },
+                      windowVisor
+                    )
                   }
                 />
               ))
