@@ -8,22 +8,61 @@ const Viewer = () => {
 
   document.body.style.overflow = 'hidden';
 
+  const changeTextMarginLeft = (e: any) => {
+    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
+
+    // Record all the text elements
+    for (let key of text) {
+      key.style.marginLeft = `${e}rem`;
+    }
+  };
+
+  const changeTextMarginTop = (e: any) => {
+    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
+
+    // Record all the text elements
+    for (let key of text) {
+      key.style.marginTop = `${e}rem`;
+    }
+  };
+
+  const changeFontSize = (e: any) => {
+    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
+    // Record all the text elements
+    for (let key of text) {
+      key.style.fontSize = `${e}px`;
+    }
+  };
+
   useEffect(() => {
     window.addEventListener('message', (e) => {
+      console.trace(e);
       if (e.origin !== LocalUrl) {
         return;
       }
 
-      if (e.data.urlFile != 'undefined') {
+      if (e.data.urlFile != 'undefined' && e.data.urlFile != '') {
         setUrlFile(e.data.urlFile);
       }
 
-      if (e.data.textContent != 'undefined') {
+      if (e.data.textContent != 'undefined' && e.data.textContent != '') {
         setTextContent(e.data.textContent);
       }
 
-      if (e.data.fileType != 'undefined') {
+      if (e.data.fileType != 'undefined' && e.data.fileType != '') {
         setFileType(e.data.fileType);
+      }
+
+      if (e.data.px != 'undefined' && e.data.px != '') {
+        changeTextMarginLeft(e.data.px);
+      }
+
+      if (e.data.em != 'undefined' && e.data.em != '') {
+        changeTextMarginTop(e.data.em);
+      }
+
+      if (e.data.sz != 'undefined' && e.data.sz != '') {
+        changeFontSize(e.data.sz);
       }
     });
   }, []);
