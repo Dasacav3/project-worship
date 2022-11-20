@@ -1,7 +1,7 @@
-import { LocalUrl } from "../api/env_vars";
+import { LocalUrl } from '../api/env_vars';
 
 class WindowVisor {
-  windowObj: Window;
+  windowObj: Window | null;
   windowHeight: number;
   windowWidth: number;
   marginTop: number | undefined;
@@ -20,19 +20,29 @@ class WindowVisor {
   }
 
   openObj() {
-    let value = this.windowObj.open(`${LocalUrl}/viewer`, 'Viewer', `width=${this.windowWidth},height=${this.windowHeight}`);
+    let windowObj = this.windowObj?.open(
+      `${LocalUrl}/viewer`,
+      'Viewer',
+      `width=${this.windowWidth},height=${this.windowHeight}`
+    );
 
-    if (value) {
-      this.windowObj = value;
+    if (windowObj) {
+      this.windowObj = windowObj;
     }
+
+    this.windowObj = window.open(
+      `${LocalUrl}/viewer`,
+      'Viewer',
+      `width=${this.windowWidth},height=${this.windowHeight}`
+    );
   }
 
   close() {
-    this.windowObj.close();
+    this.windowObj?.close();
   }
 
-  resize(width: number, height: number) {
-    this.windowObj.resizeTo(width, height);
+  resize(width: number, height: number): void {
+    this.windowObj?.resizeTo(width, height);
   }
 
   setMarginTop(margin: number) {
@@ -52,7 +62,7 @@ class WindowVisor {
   }
 
   sendMessage(message: object) {
-    this.windowObj.postMessage(message, `${LocalUrl}/viewer`);
+    this.windowObj?.postMessage(message, `${LocalUrl}/viewer`);
   }
 }
 
