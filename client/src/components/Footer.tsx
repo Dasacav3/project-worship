@@ -4,24 +4,35 @@ import Button from './Button';
 import Modal from './Modal';
 import Uploader from './Uploader';
 
-const Footer = ({windowVisor} : any) => {
+const Footer = ({ windowVisor }: any) => {
   const [marginLeft, setMarginLeft] = useState([0]);
   const [marginRight, setMarginRight] = useState([0]);
   const [marginTop, setMarginTop] = useState([0]);
   const [marginBottom, setMarginBottom] = useState([0]);
-  const [fontSize, setFontSize] = useState([16]);
+  const [fontSize, setFontSize] = useState([20]);
 
   const openWindow = () => {
     windowVisor.openObj();
-    windowVisor.getWinObj().addEventListener('DOMContentLoaded', (e: any) => {
-      let data = e.target.getElementsByClassName('viewerContent');
+  };
 
-      // Record all the text elements
-      for (let key of data) {
-        console.log(key);
-      }
+  const setMarginLeftViewer = () => {
+    windowVisor.getWinObj().postMessage({ ml: marginLeft }, '*');
+  };
 
-    });
+  const setMarginRightViewer = () => {
+    windowVisor.getWinObj().postMessage({ mr: marginRight }, '*');
+  };
+
+  const setMarginTopViewer = () => {
+    windowVisor.getWinObj().postMessage({ mt: marginTop }, '*');
+  };
+
+  const setMarginBottomViewer = () => {
+    windowVisor.getWinObj().postMessage({ mb: marginBottom }, '*');
+  };
+
+  const setFontSizeViewer = () => {
+    windowVisor.getWinObj().postMessage({ fs: fontSize }, '*');
   };
 
   return (
@@ -35,6 +46,7 @@ const Footer = ({windowVisor} : any) => {
             values={marginLeft}
             onChange={values => {
               setMarginLeft(values);
+              setMarginLeftViewer();
             }}
             renderTrack={({ props, children }) => (
               <div {...props} className="w-full h-3 pr-2 my-4 bg-gray-500 rounded-md">
@@ -55,6 +67,7 @@ const Footer = ({windowVisor} : any) => {
             values={marginRight}
             onChange={values => {
               setMarginRight(values);
+              setMarginRightViewer();
             }}
             renderTrack={({ props, children }) => (
               <div {...props} className="w-full h-3 pr-2 my-4 bg-gray-500 rounded-md">
@@ -75,6 +88,7 @@ const Footer = ({windowVisor} : any) => {
             values={marginBottom}
             onChange={values => {
               setMarginBottom(values);
+              setMarginBottomViewer();
             }}
             renderTrack={({ props, children }) => (
               <div {...props} className="w-full h-3 pr-2 my-4 bg-gray-500 rounded-md">
@@ -95,6 +109,7 @@ const Footer = ({windowVisor} : any) => {
             values={marginTop}
             onChange={values => {
               setMarginTop(values);
+              setMarginTopViewer();
             }}
             renderTrack={({ props, children }) => (
               <div {...props} className="w-full h-3 pr-2 my-4 bg-gray-500 rounded-md">
@@ -110,11 +125,12 @@ const Footer = ({windowVisor} : any) => {
           />
           <Range
             step={1}
-            min={-100}
-            max={100}
+            min={20}
+            max={400}
             values={fontSize}
             onChange={values => {
               setFontSize(values);
+              setFontSizeViewer();
             }}
             renderTrack={({ props, children }) => (
               <div {...props} className="w-full h-3 pr-2 my-4 bg-gray-500 rounded-md">
