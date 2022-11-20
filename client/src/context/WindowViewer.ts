@@ -64,6 +64,10 @@ class WindowVisor {
   sendMessage(message: object) {
     this.windowObj?.postMessage(message, `${LocalUrl}/viewer`);
   }
+
+  checkIfClosed() {
+    return this.windowObj?.closed;
+  }
 }
 
 export default WindowVisor;
