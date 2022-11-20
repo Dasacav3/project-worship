@@ -13,6 +13,7 @@
     "material-icons": "^1.12.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-range": "^1.8.14",
     "react-router-dom": "^6.4.1",
     "sweetalert2": "^11.6.7"
   },
