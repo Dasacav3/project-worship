@@ -302,3 +302,13 @@ header {
   position: fixed;
   bottom: 0;
 }
+
+.range-label {
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 10;
+  font-weight: 600;
+}
