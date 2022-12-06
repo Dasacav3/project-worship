@@ -255,11 +255,11 @@ header {
 
 .backgroudStructures {
   display: grid;
-  justify-content: center;
-  width: 80%;
+  justify-items: center;
+  width: 85%;
   gap: 1rem;
-  margin: 2rem 0;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  margin: 1rem 0;
+  grid-template-columns: repeat(4, minmax(320px, 1fr));
 }
 
 .paginationButtons {
