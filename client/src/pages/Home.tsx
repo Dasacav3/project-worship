@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <>
-      <Header title='Bienvenido a Project Worship' />
+      <Header title="Bienvenido a Project Worship" />
       <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
     </>
   );

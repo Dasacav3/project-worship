@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Songs from './pages/Songs';
 import './assets/main.css';
+import Viewer from './components/Viewer';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Route path="/backgrounds" element={<Backgrounds />} />
       <Route path="/songs" element={<Songs />} />
       <Route path="/bibles" element={<Bibles />} />
+      <Route path="/viewer" element={<Viewer />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
