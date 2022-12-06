@@ -9,14 +9,10 @@ export default class GetFileContentGetController {
 
     const file = await new GetFileByIdAction().execute(id);
 
-    if (file instanceof Error) {
-      res.status(400).json({ error: file.message });
-    }
+    const filePath = `server/uploads/${file instanceof File ? file.getPath() : 'default.mp4'}`;
 
+    // Check if file is image and return image content
     if (file instanceof File) {
-      const filePath = `server/uploads/${file instanceof File ? file.getPath() : ''}`;
-
-      // Check if file is image and return image content
       if (file.getType().split('/')[0] === 'image') {
         const image = fs.readFileSync(filePath);
         res.writeHead(200, {
@@ -26,28 +22,28 @@ export default class GetFileContentGetController {
         });
         return res.end(image, 'binary');
       }
-
-      const range = req.headers.range || '';
-      const fileSize = fs.statSync(filePath).size;
-
-      const chunkSize = 1 * 1e6;
-      const start = Number(range.replace(/\D/g, ''));
-      const end = Math.min(start + chunkSize, fileSize - 1);
-
-      const contentLength = end - start + 1;
-
-      const headers = {
-        'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-        'Accept-Ranges': 'bytes',
-        'Content-Length': contentLength,
-        'Content-Type': file instanceof File ? file.getType() : ''
-      };
-
-      res.writeHead(206, headers);
-
-      const stream = fs.createReadStream(filePath, { start, end });
-
-      stream.pipe(res);
     }
+
+    const range = req.headers.range || '';
+    const fileSize = fs.statSync(filePath).size;
+
+    const chunkSize = 1 * 1e6;
+    const start = Number(range.replace(/\D/g, ''));
+    const end = Math.min(start + chunkSize, fileSize - 1);
+
+    const contentLength = end - start + 1;
+
+    const headers = {
+      'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+      'Accept-Ranges': 'bytes',
+      'Content-Length': contentLength,
+      'Content-Type': file instanceof File ? file.getType() : 'video/mp4'
+    };
+
+    res.writeHead(206, headers);
+
+    const stream = fs.createReadStream(filePath, { start, end });
+
+    stream.pipe(res);
   };
 }
