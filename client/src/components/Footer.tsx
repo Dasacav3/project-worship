@@ -9,7 +9,7 @@ const Footer = ({ windowVisor }: any) => {
   const [marginRight, setMarginRight] = useState([0]);
   const [marginTop, setMarginTop] = useState([0]);
   const [marginBottom, setMarginBottom] = useState([0]);
-  const [fontSize, setFontSize] = useState([20]);
+  const [fontSize, setFontSize] = useState([3]);
 
   const openWindow = () => {
     windowVisor.openObj();
@@ -43,7 +43,7 @@ const Footer = ({ windowVisor }: any) => {
             <label className="range-label">Margin Left</label>
             <Range
               step={1}
-              min={-100}
+              min={0}
               max={100}
               values={marginLeft}
               onChange={values => {
@@ -67,7 +67,7 @@ const Footer = ({ windowVisor }: any) => {
             <label className="range-label">Margin Right</label>
             <Range
               step={1}
-              min={-100}
+              min={0}
               max={100}
               values={marginRight}
               onChange={values => {
@@ -91,7 +91,7 @@ const Footer = ({ windowVisor }: any) => {
             <label className="range-label">Margin Bottom</label>
             <Range
               step={1}
-              min={-100}
+              min={0}
               max={100}
               values={marginBottom}
               onChange={values => {
@@ -115,7 +115,7 @@ const Footer = ({ windowVisor }: any) => {
             <label className="range-label">Margin Top</label>
             <Range
               step={1}
-              min={-100}
+              min={0}
               max={100}
               values={marginTop}
               onChange={values => {
@@ -138,9 +138,9 @@ const Footer = ({ windowVisor }: any) => {
           <div>
             <label className="range-label">Font Size</label>
             <Range
-              step={1}
-              min={20}
-              max={400}
+              step={0.5}
+              min={1}
+              max={20}
               values={fontSize}
               onChange={values => {
                 setFontSize(values);
@@ -159,7 +159,13 @@ const Footer = ({ windowVisor }: any) => {
               )}
             />
           </div>
-          <div className="flex flex-col justify-center"></div>
+          <div className="flex flex-col justify-center">
+            <Button
+              disabled={false}
+              title={<span className="material-icons-outlined">backspace</span>}
+              click={() => windowVisor.getWinObj().postMessage({ del: true }, '*')}
+            />
+          </div>
           <Modal
             title="Upload Multimedia Files"
             content={
