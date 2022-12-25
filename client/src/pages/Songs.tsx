@@ -147,6 +147,46 @@ const Songs = ({ windowVisor }: any) => {
     return windowVisor.getWinObj()?.postMessage(message);
   };
 
+  const deleteSong = async (id: string) => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this song!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    });
+
+    if (result.isConfirmed) {
+      const response = await fetch(`${ApiUrl}/songs/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      await response.json();
+
+      if (response.status === 200) {
+        Swal.fire({
+          title: 'Success',
+          text: 'Song deleted successfully',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        });
+        fetchData(`${ApiUrl}/songs`);
+      } else {
+        Swal.fire({
+          title: 'Error',
+          text: 'Error deleting song',
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
+      }
+    }
+  };
+
   return (
     <>
       <Header title="Canciones" />
@@ -154,22 +194,32 @@ const Songs = ({ windowVisor }: any) => {
       <div>
         <div className="flex flex-row justify-end w-11/12 mt-3 mb-3">
           {songIsClicked ? (
-            <Modal
-              title="Edit song"
-              content={
-                <SongForm
-                  songTitle={dataSongClicked.title}
-                  songType={dataSongClicked.type}
-                  songTone={dataSongClicked.tone}
-                  songLyrics={dataSongClicked.lyrics}
-                  songIsClicked={true}
-                />
-              }
-              open="Edit Song"
-              save="Save"
-              close="Close"
-              click={() => saveOrUpdateSong(dataSongClicked.id)}
-            />
+            <>
+              <Modal
+                title="Edit song"
+                content={
+                  <SongForm
+                    songTitle={dataSongClicked.title}
+                    songType={dataSongClicked.type}
+                    songTone={dataSongClicked.tone}
+                    songLyrics={dataSongClicked.lyrics}
+                    songIsClicked={true}
+                  />
+                }
+                open="Edit Song"
+                save="Save"
+                close="Close"
+                click={() => saveOrUpdateSong(dataSongClicked.id)}
+              />
+              <Button
+                title={
+                  <>
+                    Delete<span className="material-icons-outlined">delete</span>
+                  </>
+                }
+                click={() => deleteSong(dataSongClicked.id)}
+              />
+            </>
           ) : (
             <></>
           )}
