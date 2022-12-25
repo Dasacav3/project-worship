@@ -4,7 +4,8 @@ import GetBibleByIdAction from '../../Application/Bibles/GetBibleByIdAction';
 export default class GetBibleByIdGetController {
   public async execute(req: Request, res: Response): Promise<Response> {
     const id = typeof req.params.id === 'number' ? req.params.id : parseInt(req.params.id);
-    const bible = await new GetBibleByIdAction().execute(id);
+    const { book, chapter } = req.query;
+    const bible = await new GetBibleByIdAction().execute(id, book, chapter);
 
     if (bible instanceof Error) {
       return res.status(404).json({

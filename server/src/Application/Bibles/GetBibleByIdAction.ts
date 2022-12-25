@@ -5,7 +5,7 @@ import { BibleStructure } from '../../Domain/Entity/Bible/BibleStructure';
 import BibleRepository from '../../Infrastructure/Repositories/Sqlite/BibleRepository';
 
 export default class GetBibleByIdAction {
-  public async execute(id: number): Promise<object | Error> {
+  public async execute(id: number, book: any, chapter: any): Promise<object | Error> {
     const bibleRepository = new BibleRepository();
     const bible = await bibleRepository.findOne(id);
 
@@ -13,16 +13,16 @@ export default class GetBibleByIdAction {
       return new Error(`Bible with id ${id} not found`);
     }
 
-    const BibleContent = await this.importBible(bible instanceof Bible ? bible.getPath() : '');
+    const BibleContent = await this.importBible(
+      bible instanceof Bible ? bible.getPath() : '',
+      parseInt(book),
+      parseInt(chapter)
+    );
 
-    return {
-      data: bible,
-      structure: BibleStructure,
-      content: BibleContent
-    };
+    return BibleContent;
   }
 
-  public async importBible(path: string): Promise<object[]> {
+  public async importBible(path: string, book: number, chapter: number): Promise<object[]> {
     const biblePath = `server/bibles/${path}`;
     const fileStream = fs.createReadStream(biblePath);
 
@@ -31,7 +31,7 @@ export default class GetBibleByIdAction {
       crlfDelay: Infinity
     });
 
-    let content = [];
+    let content: any[] = [];
 
     for await (const line of rl) {
       let structure = line.split('|');
@@ -43,6 +43,8 @@ export default class GetBibleByIdAction {
       });
     }
 
-    return content;
+    return content.filter(item => {
+      return item.book === book && item.chapter === chapter;
+    });
   }
 }
