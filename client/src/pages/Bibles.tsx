@@ -104,7 +104,7 @@ const Bibles = ({ windowVisor }: any) => {
             )
           }
         >
-          {lyric.text}
+          {`${index+1}. ${lyric.text}`}
         </div>
       );
     });
