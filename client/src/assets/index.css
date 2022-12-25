@@ -320,14 +320,24 @@ header {
 .footer {
   position: fixed;
   bottom: 0;
+  padding: 1rem 2rem;
 }
 
-.range-label {
+.footer-content {
   display: flex;
-  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  z-index: 10;
+  font-weight: 600;
+}
+
+.footer-content-buttons {
+  display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: space-around;
+  margin: 0.3rem 0;
   z-index: 10;
   font-weight: 600;
 }
