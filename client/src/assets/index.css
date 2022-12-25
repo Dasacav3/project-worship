@@ -246,7 +246,8 @@ header {
   @apply transform-gpu translate-y-0 hover:-translate-y-1 transition-all duration-300 ease-in-out;
 }
 
-.containerBackgrounds {
+.containerBackgrounds,
+.containerSongs {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -262,12 +263,27 @@ header {
   grid-template-columns: repeat(4, minmax(320px, 1fr));
 }
 
+.songStructures {
+  display: grid;
+  width: 85%;
+  gap: 1rem;
+  margin: 1rem 0;
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
+}
+
 .paginationButtons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 2rem 0;
   width: 80%;
+}
+
+.songLyrics {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .viewer {
@@ -294,21 +310,34 @@ header {
 
 .viewer .viewerContent {
   color: white;
-  font-size: 10rem;
+  font-size: 3rem;
   z-index: 10;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 0px 4px 20px #000;
 }
 
 .footer {
   position: fixed;
   bottom: 0;
+  padding: 1rem 2rem;
 }
 
-.range-label {
+.footer-content {
   display: flex;
-  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  z-index: 10;
+  font-weight: 600;
+}
+
+.footer-content-buttons {
+  display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: space-around;
+  margin: 0.3rem 0;
   z-index: 10;
   font-weight: 600;
 }

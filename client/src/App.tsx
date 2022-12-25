@@ -6,15 +6,27 @@ import NotFound from './pages/NotFound';
 import Songs from './pages/Songs';
 import './assets/main.css';
 import Viewer from './components/Viewer';
+import WindowVisor from './context/WindowViewer';
 
 const App = () => {
+  const windowVisor = new WindowVisor(500, 500);
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/backgrounds" element={<Backgrounds />} />
-      <Route path="/songs" element={<Songs />} />
+      <Route path="/backgrounds" element={<Backgrounds windowVisor={windowVisor} />} />
+      <Route path="/songs" element={<Songs windowVisor={windowVisor} />} />
       <Route path="/bibles" element={<Bibles />} />
-      <Route path="/viewer" element={<Viewer />} />
+      <Route
+        path="/viewer"
+        element={
+          <Viewer
+            defaultUrlFile={localStorage.getItem('urlFile')}
+            defaultFileType={localStorage.getItem('fileType')}
+            defaultTextContent={localStorage.getItem('textContent')}
+          />
+        }
+      />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

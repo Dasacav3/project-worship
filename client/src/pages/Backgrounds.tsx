@@ -7,7 +7,7 @@ import Header from '../components/Header';
 import SideBar from '../components/Sidebar';
 import WindowVisor from '../context/WindowViewer';
 
-const Backgrounds = () => {
+const Backgrounds = ({ windowVisor }: any) => {
   const [sidebarOpen, setSideBarOpen] = useState(false);
   const [dataBackgrounds, setDataBackgrounds] = useState<any>([]);
   const [prevPage, setPrevPage] = useState('');
@@ -51,12 +51,13 @@ const Backgrounds = () => {
     setDataBackgrounds(files);
   };
 
-  const windowVisor = new WindowVisor(500, 500);
-
-  const sendMessage = (message: object, windowVisor: WindowVisor) => {
+  const sendMessage = (message: any, windowVisor: WindowVisor) => {
     if (windowVisor.checkIfClosed() != false || windowVisor.getWinObj()?.name === '') {
       windowVisor.openObj();
     }
+
+    localStorage.setItem('urlFile', message.urlFile || '');
+    localStorage.setItem('fileType', message.fileType || '');
 
     return windowVisor.getWinObj()?.postMessage(message);
   };
@@ -84,7 +85,6 @@ const Backgrounds = () => {
                     sendMessage(
                       {
                         urlFile: `${ApiUrl}/files/${background.id}/streaming`,
-                        textContent: 'Hi!',
                         fileType: background.type.split('/')[0]
                       },
                       windowVisor

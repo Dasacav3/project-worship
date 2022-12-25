@@ -9,7 +9,17 @@ const Footer = ({ windowVisor }: any) => {
   const [marginRight, setMarginRight] = useState([0]);
   const [marginTop, setMarginTop] = useState([0]);
   const [marginBottom, setMarginBottom] = useState([0]);
-  const [fontSize, setFontSize] = useState([20]);
+  const [fontSize, setFontSize] = useState([3]);
+
+  const sendMessage = (message: any, windowVisor: any) => {
+    if (windowVisor.checkIfClosed() != false || windowVisor.getWinObj()?.name === '') {
+      windowVisor.openObj();
+    }
+
+    localStorage.setItem('textContent', message.textContent || '');
+
+    return windowVisor.getWinObj()?.postMessage(message);
+  };
 
   const openWindow = () => {
     windowVisor.openObj();
@@ -37,13 +47,13 @@ const Footer = ({ windowVisor }: any) => {
 
   return (
     <>
-      <div className="w-full h-20 bg-gray-200 footer">
+      <div className="w-full bg-gray-200 footer">
         <div className="grid grid-rows-2 grid-flow-col gap-0">
-          <div>
-            <label className="range-label">Margin Left</label>
+          <div className="footer-content">
+            <label>Margin Left</label>
             <Range
               step={1}
-              min={-100}
+              min={0}
               max={100}
               values={marginLeft}
               onChange={values => {
@@ -51,7 +61,7 @@ const Footer = ({ windowVisor }: any) => {
                 setMarginLeftViewer();
               }}
               renderTrack={({ props, children }) => (
-                <div {...props} className="w-full h-3 pr-2 my-4 bg-gray-500 rounded-md">
+                <div {...props} className="w-full h-3 pr-2 bg-gray-500 rounded-md">
                   {children}
                 </div>
               )}
@@ -63,11 +73,11 @@ const Footer = ({ windowVisor }: any) => {
               )}
             />
           </div>
-          <div>
-            <label className="range-label">Margin Right</label>
+          <div className="footer-content">
+            <label>Margin Right</label>
             <Range
               step={1}
-              min={-100}
+              min={0}
               max={100}
               values={marginRight}
               onChange={values => {
@@ -75,7 +85,7 @@ const Footer = ({ windowVisor }: any) => {
                 setMarginRightViewer();
               }}
               renderTrack={({ props, children }) => (
-                <div {...props} className="w-full h-3 pr-2 my-4 bg-gray-500 rounded-md">
+                <div {...props} className="w-full h-3 pr-2 bg-gray-500 rounded-md">
                   {children}
                 </div>
               )}
@@ -87,11 +97,11 @@ const Footer = ({ windowVisor }: any) => {
               )}
             />
           </div>
-          <div>
-            <label className="range-label">Margin Bottom</label>
+          <div className="footer-content">
+            <label>Margin Bottom</label>
             <Range
               step={1}
-              min={-100}
+              min={0}
               max={100}
               values={marginBottom}
               onChange={values => {
@@ -99,7 +109,7 @@ const Footer = ({ windowVisor }: any) => {
                 setMarginBottomViewer();
               }}
               renderTrack={({ props, children }) => (
-                <div {...props} className="w-full h-3 pr-2 my-4 bg-gray-500 rounded-md">
+                <div {...props} className="w-full h-3 pr-2 bg-gray-500 rounded-md">
                   {children}
                 </div>
               )}
@@ -111,11 +121,11 @@ const Footer = ({ windowVisor }: any) => {
               )}
             />
           </div>
-          <div>
-            <label className="range-label">Margin Top</label>
+          <div className="footer-content">
+            <label>Margin Top</label>
             <Range
               step={1}
-              min={-100}
+              min={0}
               max={100}
               values={marginTop}
               onChange={values => {
@@ -123,7 +133,7 @@ const Footer = ({ windowVisor }: any) => {
                 setMarginTopViewer();
               }}
               renderTrack={({ props, children }) => (
-                <div {...props} className="w-full h-3 pr-2 my-4 bg-gray-500 rounded-md">
+                <div {...props} className="w-full h-3 pr-2 bg-gray-500 rounded-md">
                   {children}
                 </div>
               )}
@@ -135,19 +145,19 @@ const Footer = ({ windowVisor }: any) => {
               )}
             />
           </div>
-          <div>
-            <label className="range-label">Font Size</label>
+          <div className="footer-content">
+            <label>Font Size</label>
             <Range
-              step={1}
-              min={20}
-              max={400}
+              step={0.5}
+              min={1}
+              max={20}
               values={fontSize}
               onChange={values => {
                 setFontSize(values);
                 setFontSizeViewer();
               }}
               renderTrack={({ props, children }) => (
-                <div {...props} className="w-full h-3 pr-2 my-4 bg-gray-500 rounded-md">
+                <div {...props} className="w-full h-3 pr-2 bg-gray-500 rounded-md">
                   {children}
                 </div>
               )}
@@ -159,19 +169,40 @@ const Footer = ({ windowVisor }: any) => {
               )}
             />
           </div>
-          <div className="flex flex-col justify-center"></div>
-          <Modal
-            title="Upload Multimedia Files"
-            content={
-              <div className="flex justify-center">
-                <Uploader />
-              </div>
-            }
-            open="Upload File"
-            save="Save"
-            close="Close"
-          />
-          <Button title="Open Viewer" click={() => openWindow()} />
+          <div className="footer-content-buttons">
+            <Button
+              disabled={false}
+              title={
+                <>
+                  Clean <span className="material-icons-outlined">backspace</span>
+                </>
+              }
+              click={() => sendMessage({ del: true }, windowVisor)}
+            />
+            <Modal
+              title="Upload Files"
+              content={
+                <div className="flex justify-center">
+                  <Uploader />
+                </div>
+              }
+              open={
+                <>
+                  Upload <span className="material-icons-outlined">upload</span>
+                </>
+              }
+              save="Save"
+              close="Close"
+            />
+            <Button
+              title={
+                <>
+                  Open <span className="material-icons-outlined">open_in_new</span>
+                </>
+              }
+              click={() => openWindow()}
+            />
+          </div>
         </div>
       </div>
     </>

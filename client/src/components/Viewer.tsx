@@ -1,57 +1,59 @@
 import { useEffect, useState } from 'react';
 import { ApiUrl, LocalUrl } from '../api/env_vars';
 
-const Viewer = () => {
-  const [urlFile, setUrlFile] = useState('');
-  const [textContent, setTextContent] = useState('');
-  const [fileType, setFileType] = useState('video');
+const Viewer = ({
+  defaultUrlFile = `${ApiUrl}/files/default/streaming`,
+  defaultFileType = 'video',
+  defaultTextContent = ''
+}: any) => {
+  const [urlFile, setUrlFile] = useState(defaultUrlFile);
+  const [textContent, setTextContent] = useState(defaultTextContent);
+  const [fileType, setFileType] = useState(defaultFileType);
 
   document.body.style.overflow = 'hidden';
 
   const changeTextMarginLeft = (e: any) => {
     const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-    // Record all the text elements
+
     for (let key of text) {
-      key.style.marginLeft = `${e}rem`;
+      key.style.paddingLeft = `${e}rem`;
     }
   };
 
   const changeTextMarginRight = (e: any) => {
     const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-    // Record all the text elements
+
     for (let key of text) {
-      key.style.marginRight = `${e}rem`;
+      key.style.paddingRight = `${e}rem`;
     }
   };
 
   const changeTextMarginTop = (e: any) => {
     const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-    // Record all the text elements
+
     for (let key of text) {
-      key.style.marginTop = `${e}rem`;
+      key.style.paddingTop = `${e}rem`;
     }
   };
 
   const changeTextMarginBottom = (e: any) => {
     const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-    // Record all the text elements
+
     for (let key of text) {
-      key.style.marginBottom = `${e}rem`;
+      key.style.paddingBottom = `${e}rem`;
     }
   };
 
   const changeFontSize = (e: any) => {
     const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-    // Record all the text elements
+
     for (let key of text) {
-      key.style.fontSize = `${e}px`;
+      key.style.fontSize = `${e}rem`;
     }
   };
 
   const processData = (e: any) => {
     const data = e;
-
-    console.log(data, typeof data);
 
     if (data.hasOwnProperty('ml')) {
       changeTextMarginLeft(data.ml);
@@ -77,6 +79,11 @@ const Viewer = () => {
     if (data.hasOwnProperty('textContent')) {
       setTextContent(data.textContent);
     }
+
+    if (data.hasOwnProperty('del')) {
+      setTextContent('');
+      localStorage.setItem('textContent', '');
+    }
   };
 
   useEffect(() => {
@@ -95,7 +102,7 @@ const Viewer = () => {
         {fileType == 'video' && urlFile != '' ? (
           <video className="background-effect" src={urlFile} autoPlay loop muted />
         ) : (
-          <video className="background-effect" src={`${ApiUrl}/files/default/streaming`} autoPlay loop muted />
+          <video className="background-effect" src={urlFile} autoPlay loop muted />
         )}
         {fileType == 'image' && urlFile != '' ? (
           <img className="background-effect" src={urlFile} alt="background" />
