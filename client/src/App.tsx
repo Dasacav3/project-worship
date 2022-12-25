@@ -16,7 +16,7 @@ const App = () => {
       <Route path="/" element={<Home />} />
       <Route path="/backgrounds" element={<Backgrounds windowVisor={windowVisor} />} />
       <Route path="/songs" element={<Songs windowVisor={windowVisor} />} />
-      <Route path="/bibles" element={<Bibles />} />
+      <Route path="/bibles" element={<Bibles windowVisor={windowVisor} />} />
       <Route
         path="/viewer"
         element={
