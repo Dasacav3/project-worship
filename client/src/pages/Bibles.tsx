@@ -104,7 +104,7 @@ const Bibles = ({ windowVisor }: any) => {
             )
           }
         >
-          {`${index+1}. ${lyric.text}`}
+          {`${index + 1}. ${lyric.text}`}
         </div>
       );
     });
@@ -158,6 +158,9 @@ const Bibles = ({ windowVisor }: any) => {
       <div className="containerBibles">
         <div className="bibleStructures">
           <ul className="grid grid-cols-2">
+            <div className="flex justify-center font-bold col-span-2">
+              <p>Books</p>
+            </div>
             {bibleStructure ? (
               bibleStructure.map((item: any, index: number) => (
                 <div
@@ -199,9 +202,7 @@ const Bibles = ({ windowVisor }: any) => {
               <div className="flex justify-center font-bold">
                 <p>Lyrics</p>
               </div>
-              <div className="songLyrics">
-                {dataBibles}
-              </div>
+              <div className="songLyrics">{dataBibles}</div>
             </div>
           </div>
         </div>
