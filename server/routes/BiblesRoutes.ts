@@ -1,5 +1,5 @@
 import express from 'express';
-import options from '../../config';
+import options from '../config';
 import { Router } from 'express';
 import GetBiblesListGetController from '../src/Controllers/Bibles/GetBiblesListGetController';
 import GetBibleByIdGetController from '../src/Controllers/Bibles/GetBibleByIdGetController';

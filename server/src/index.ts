@@ -3,7 +3,7 @@ import IndexRoutes from '../routes/IndexRoutes';
 import FilesRoutes from '../routes/FilesRoutes';
 import BiblesRoutes from '../routes/BiblesRoutes';
 import SongsRoutes from '../routes/SongsRoutes';
-import options from '../../config';
+import options from '../config';
 import dotenv from 'dotenv';
 import path from 'path';
 

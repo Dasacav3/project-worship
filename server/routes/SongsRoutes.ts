@@ -1,5 +1,5 @@
 import express from 'express';
-import options from '../../config';
+import options from '../config';
 import { Router } from 'express';
 import CreateSongPostController from '../src/Controllers/Songs/CreateSongPostController';
 import GetSongsListGetController from '../src/Controllers/Songs/GetSongsListGetController';

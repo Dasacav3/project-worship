@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import express from 'express';
-import options from '../../config';
+import options from '../config';
 import multer from 'multer';
 import { Router } from 'express';
 import CreateFilePostController from '../src/Controllers/Files/CreateFilePostController';
