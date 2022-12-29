@@ -46,7 +46,9 @@ const Footer = ({ windowVisor }: any) => {
   };
 
   const handleBackspace = (event: any) => {
-    if (event.keyCode === 8) {
+    // Check if the key pressed is the backspace key and ctrl is pressed at the same time
+
+    if (event.keyCode === 8 && event.ctrlKey) {
       sendMessage({ del: true }, windowVisor);
     }
   };
