@@ -72,6 +72,18 @@ const Backgrounds = ({ windowVisor }: any) => {
         </div>
       </div>
       <div className="containerBackgrounds">
+        <div className="paginationButtons">
+          <Button
+            title={<><span className="material-icons">chevron_left</span></>}
+            click={() => fetchData(`${ApiUrl}/files?page=${prevPage}&entries=10`)}
+            disabled={buttonPrevStatus}
+          />
+          <Button
+            title={<><span className="material-icons">chevron_right</span></>}
+            click={() => fetchData(`${ApiUrl}/files?page=${nextPage}&entries=10`)}
+            disabled={buttonNextStatus}
+          />
+        </div>
         <div className="backgroudStructures">
           {dataBackgrounds.data
             ? dataBackgrounds.data.map((background: any, index: number) => (
@@ -93,18 +105,6 @@ const Backgrounds = ({ windowVisor }: any) => {
                 />
               ))
             : null}
-        </div>
-        <div className="paginationButtons">
-          <Button
-            title="Previous"
-            click={() => fetchData(`${ApiUrl}/files?page=${prevPage}&entries=10`)}
-            disabled={buttonPrevStatus}
-          />
-          <Button
-            title="Next"
-            click={() => fetchData(`${ApiUrl}/files?page=${nextPage}&entries=10`)}
-            disabled={buttonNextStatus}
-          />
         </div>
       </div>
       <Footer windowVisor={windowVisor} />

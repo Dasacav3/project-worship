@@ -14,10 +14,8 @@ const Bibles = ({ windowVisor }: any) => {
   const [dataBibles, setDataBibles] = useState<any>([]);
   const [totalChapters, setTotalChapters] = useState<any>([]);
   const [bibleStructure, setBibleStructure] = useState<any>([]);
-  const [prevPage, setPrevPage] = useState('');
-  const [nextPage, setNextPage] = useState('');
-  const [buttonPrevStatus, setButtonPrevStatus] = useState(false);
-  const [buttonNextStatus, setButtonNextStatus] = useState(false);
+  const [selectedIndexLyrics, setSelectedIndexLyrics] = useState(0);
+
   const handleViewSidebar = () => {
     setSideBarOpen(!sidebarOpen);
   };
@@ -50,21 +48,6 @@ const Bibles = ({ windowVisor }: any) => {
 
     const bibleVersions = await response.json();
 
-    setPrevPage(bibleVersions.pagination.prev);
-    setNextPage(bibleVersions.pagination.next);
-
-    if (bibleVersions.pagination.prev === null) {
-      setButtonPrevStatus(true);
-    } else {
-      setButtonPrevStatus(false);
-    }
-
-    if (bibleVersions.pagination.next === null) {
-      setButtonNextStatus(true);
-    } else {
-      setButtonNextStatus(false);
-    }
-
     setBibleVersions(bibleVersions);
   };
 
@@ -88,26 +71,7 @@ const Bibles = ({ windowVisor }: any) => {
       }
     });
 
-    const data = await response.json();
-
-    const lyrics = data.map((lyric: any, index: number) => {
-      return (
-        <div
-          key={index}
-          className="border w-full text-center"
-          onClick={() =>
-            sendMessage(
-              {
-                textContent: lyric.text
-              },
-              windowVisor
-            )
-          }
-        >
-          {`${index + 1}. ${lyric.text}`}
-        </div>
-      );
-    });
+    const lyrics = await response.json();
 
     setDataBibles(lyrics);
   };
@@ -120,6 +84,30 @@ const Bibles = ({ windowVisor }: any) => {
     localStorage.setItem('textContent', message.textContent || '');
 
     return windowVisor.getWinObj()?.postMessage(message);
+  };
+
+  const handleKeyDownLyrics = (event: any) => {
+    // If the down arrow is pressed
+    if (event.keyCode === 40) {
+      setSelectedIndexLyrics(Math.min(selectedIndexLyrics + 1, totalChapters.length - 1));
+      sendMessage(
+        {
+          textContent: event.target.textContent
+        },
+        windowVisor
+      );
+    }
+
+    // If the up arrow is pressed
+    if (event.keyCode === 38) {
+      setSelectedIndexLyrics(Math.max(selectedIndexLyrics - 1, 0));
+      sendMessage(
+        {
+          textContent: event.target.textContent
+        },
+        windowVisor
+      );
+    }
   };
 
   return (
@@ -164,7 +152,7 @@ const Bibles = ({ windowVisor }: any) => {
             {bibleStructure ? (
               bibleStructure.map((item: any, index: number) => (
                 <div
-                  className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200"
+                  className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200 outline-none"
                   key={index}
                   onClick={() => setTotalChaptersByBook(item)}
                 >
@@ -184,7 +172,7 @@ const Bibles = ({ windowVisor }: any) => {
                 {totalChapters ? (
                   totalChapters.map((chapter: any, index: number) => (
                     <div
-                      className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200"
+                      className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200 outline-none"
                       key={index}
                       onClick={() => searchBible(chapter)}
                     >
@@ -202,21 +190,33 @@ const Bibles = ({ windowVisor }: any) => {
               <div className="flex justify-center font-bold">
                 <p>Lyrics</p>
               </div>
-              <div className="songLyrics">{dataBibles}</div>
+              <ul className="songLyrics">
+                {dataBibles ? (
+                  dataBibles.map((lyric: any, index: number) => (
+                    <li
+                      key={index}
+                      className="border w-full text-center outline-none"
+                      onClick={() =>
+                        sendMessage(
+                          {
+                            textContent: lyric.text
+                          },
+                          windowVisor
+                        )
+                      }
+                      tabIndex={0}
+                      onKeyDown={handleKeyDownLyrics}
+                      style={{ backgroundColor: index === selectedIndexLyrics ? 'lightgray' : 'white' }}
+                    >
+                      {`${index + 1}. ${lyric.text}`}
+                    </li>
+                  ))
+                ) : (
+                  <>Que paso?</>
+                )}
+              </ul>
             </div>
           </div>
-        </div>
-        <div className="paginationButtons">
-          <Button
-            title="Previous"
-            click={() => fetchData(`${ApiUrl}/files?page=${prevPage}&entries=10`)}
-            disabled={buttonPrevStatus}
-          />
-          <Button
-            title="Next"
-            click={() => fetchData(`${ApiUrl}/files?page=${nextPage}&entries=10`)}
-            disabled={buttonNextStatus}
-          />
         </div>
       </div>
       <Footer windowVisor={windowVisor} />

@@ -250,12 +250,24 @@ const Songs = ({ windowVisor }: any) => {
         </div>
       </div>
       <div className="containerSongs">
+        <div className="paginationButtons">
+          <Button
+            title={<><span className="material-icons">chevron_left</span></>}
+            click={() => fetchData(`${ApiUrl}/files?page=${prevPage}&entries=10`)}
+            disabled={buttonPrevStatus}
+          />
+          <Button
+            title={<><span className="material-icons">chevron_right</span></>}
+            click={() => fetchData(`${ApiUrl}/files?page=${nextPage}&entries=10`)}
+            disabled={buttonNextStatus}
+          />
+        </div>
         <div className="songStructures">
           <ul className="text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200">
             {dataSongs.data ? (
               dataSongs.data.map((song: any, index: number) => (
                 <li
-                  className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200"
+                  className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200 outline-none"
                   key={index}
                   onClick={() => searchSong(song.id)}
                   tabIndex={0}
@@ -279,7 +291,7 @@ const Songs = ({ windowVisor }: any) => {
                   dataSongLyrics.map((lyric: any, index: number) => (
                     <li
                       key={index}
-                      className="border w-full text-center"
+                      className="border w-full text-center outline-none"
                       onClick={() =>
                         sendMessage(
                           {
@@ -301,18 +313,6 @@ const Songs = ({ windowVisor }: any) => {
               </ul>
             </div>
           </div>
-        </div>
-        <div className="paginationButtons">
-          <Button
-            title="Previous"
-            click={() => fetchData(`${ApiUrl}/files?page=${prevPage}&entries=10`)}
-            disabled={buttonPrevStatus}
-          />
-          <Button
-            title="Next"
-            click={() => fetchData(`${ApiUrl}/files?page=${nextPage}&entries=10`)}
-            disabled={buttonNextStatus}
-          />
         </div>
       </div>
       <Footer windowVisor={windowVisor} />
