@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Range } from 'react-range';
 import Button from './Button';
 import Modal from './Modal';
@@ -44,6 +44,16 @@ const Footer = ({ windowVisor }: any) => {
   const setFontSizeViewer = () => {
     windowVisor.getWinObj().postMessage({ fs: fontSize }, '*');
   };
+
+  const handleBackspace = (event: any) => {
+    if (event.keyCode === 8) {
+      sendMessage({ del: true }, windowVisor);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleBackspace);
+  }, []);
 
   return (
     <>
