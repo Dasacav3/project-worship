@@ -88,7 +88,7 @@ const Songs = ({ windowVisor }: any) => {
         icon: 'success',
         confirmButtonText: 'Ok'
       });
-      fetchData(`${ApiUrl}/songs`);
+      window.location.reload();
     } else {
       Swal.fire({
         title: 'Error',
@@ -97,10 +97,6 @@ const Songs = ({ windowVisor }: any) => {
         confirmButtonText: 'Ok'
       });
     }
-
-    setDataSongClicked([]);
-    setDataSongLyrics([]);
-    setSongIsClicked(false);
   };
 
   const searchSong = async (id: string) => {
