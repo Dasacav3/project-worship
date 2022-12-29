@@ -19,6 +19,8 @@ const Songs = ({ windowVisor }: any) => {
   const [dataSongClicked, setDataSongClicked] = useState<any>([]);
   const [dataSongLyrics, setDataSongLyrics] = useState<any>([]);
   const [songIsClicked, setSongIsClicked] = useState(false);
+  const [selectedIndexSong, setSelectedIndexSong] = useState(0);
+  const [selectedIndexLyrics, setSelectedIndexLyrics] = useState(0);
 
   const handleViewSidebar = () => {
     setSideBarOpen(!sidebarOpen);
@@ -113,28 +115,9 @@ const Songs = ({ windowVisor }: any) => {
 
     const arrayOfLyrics = song.lyrics.split('\n\n') as string[] | [];
 
-    const lyrics = arrayOfLyrics.map((lyric: string, index: number) => {
-      return (
-        <div
-          key={index}
-          className="border w-full text-center"
-          onClick={() =>
-            sendMessage(
-              {
-                textContent: lyric
-              },
-              windowVisor
-            )
-          }
-        >
-          {lyric}
-        </div>
-      );
-    });
-
     setSongIsClicked(true);
     setDataSongClicked(song);
-    setDataSongLyrics(lyrics);
+    setDataSongLyrics(arrayOfLyrics);
   };
 
   const sendMessage = (message: any, windowVisor: WindowVisor) => {
@@ -184,6 +167,43 @@ const Songs = ({ windowVisor }: any) => {
           confirmButtonText: 'Ok'
         });
       }
+    }
+  };
+
+  const handleKeyDownLyrics = (event: any) => {
+    // If the down arrow is pressed
+    if (event.keyCode === 40) {
+      setSelectedIndexLyrics(Math.min(selectedIndexLyrics + 1, dataSongLyrics.length - 1));
+      sendMessage(
+        {
+          textContent: dataSongLyrics[selectedIndexLyrics]
+        },
+        windowVisor
+      );
+    }
+    // If the up arrow is pressed
+    if (event.keyCode === 38) {
+      setSelectedIndexLyrics(Math.max(selectedIndexLyrics - 1, 0));
+      sendMessage(
+        {
+          textContent: dataSongLyrics[selectedIndexLyrics]
+        },
+        windowVisor
+      );
+    }
+  };
+
+  const handleKeyDownSong = (event: any) => {
+    // If the down arrow is pressed
+    if (event.keyCode === 40) {
+      setSelectedIndexSong(Math.min(selectedIndexSong + 1, dataSongs.data.length - 1));
+      searchSong(dataSongs.data[selectedIndexSong].id);
+    }
+
+    // If the up arrow is pressed
+    if (event.keyCode === 38) {
+      setSelectedIndexSong(Math.max(selectedIndexSong - 1, 0));
+      searchSong(dataSongs.data[selectedIndexSong].id);
     }
   };
 
@@ -242,6 +262,9 @@ const Songs = ({ windowVisor }: any) => {
                   className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200"
                   key={index}
                   onClick={() => searchSong(song.id)}
+                  tabIndex={0}
+                  onKeyDown={handleKeyDownSong}
+                  style={{ backgroundColor: index === selectedIndexSong ? 'lightgray' : 'white' }}
                 >
                   {song.title} - {song.type}
                 </li>
@@ -255,7 +278,31 @@ const Songs = ({ windowVisor }: any) => {
               <div className="flex justify-center font-bold">
                 <p>Lyrics</p>
               </div>
-              <div className="songLyrics">{dataSongLyrics}</div>
+              <ul className="songLyrics">
+                {dataSongLyrics ? (
+                  dataSongLyrics.map((lyric: any, index: number) => (
+                    <li
+                      key={index}
+                      className="border w-full text-center"
+                      onClick={() =>
+                        sendMessage(
+                          {
+                            textContent: lyric
+                          },
+                          windowVisor
+                        )
+                      }
+                      tabIndex={0}
+                      onKeyDown={handleKeyDownLyrics}
+                      style={{ backgroundColor: index === selectedIndexLyrics ? 'lightgray' : 'white' }}
+                    >
+                      {lyric}
+                    </li>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </ul>
             </div>
           </div>
         </div>
