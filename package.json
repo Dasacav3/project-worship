@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently --kill-others \"nodemon --exec ts-node server/src/index.ts\" \"cd client && npm run dev\""
+    "dev": "concurrently --kill-others \"nodemon --exec ts-node server/src/index.ts\" \"cd client && npm run dev\"",
+    "prod": "concurrently --kill-others \"nodemon --exec ts-node server/src/index.ts\" \"cd client && npm run build\"",
+    "backend-dev": "tsc && nodemon --exec ts-node server/src/index.ts",
+    "backend-prod": "tsc && node build/src/index.js"
   },
   "keywords": [],
   "author": "",
