@@ -129,7 +129,6 @@ header {
   position: absolute;
   top: 60px;
   left: -15vw;
-  height: 100%;
   width: 15vw;
   transition: left 0.3s ease-in-out;
   background-color: var(--color-primary);
@@ -168,7 +167,7 @@ header {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 100%;
+  height: 70vh;
   padding: 1rem;
   margin: 5em 0;
 }
@@ -330,6 +329,7 @@ header {
   position: fixed;
   bottom: 0;
   padding: 1rem 2rem;
+  z-index: 20;
 }
 
 .footer-content {
