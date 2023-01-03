@@ -181,23 +181,19 @@ Styles
 header {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
   height: 5rem;
-  padding: 1rem 1rem 0 2rem;
   background: var(--color-primary);
 }
 
 .h-container {
-  position: relative;
   display: flex;
-  justify-content: flex-end;
-  width: 90%;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
 }
 
 .logo-wrap {
-  position: absolute;
-  top: -1.7rem;
-  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -220,22 +216,10 @@ header {
   border-radius: 50%;
   border: 0.3rem solid white;
   background: steelblue;
-  transform: rotate(-15deg);
   z-index: 100;
 }
 
-.navbar {
-  list-style: none;
-  margin: 0 0 0.6rem;
-  font-weight: bold;
-}
-
-.navbar li {
-  display: inline;
-  padding: 0 0.5rem;
-}
-
-.navbar li a {
+.navbar a {
   color: white;
   font-size: 1.2em;
   font-weight: 600;
@@ -245,21 +229,6 @@ header {
 .navbar li a:hover {
   transition: 500ms ease-in;
   color: rgb(71, 71, 69);
-}
-
-.navbar .btn {
-  color: white;
-  margin: 0 0 0 0.5rem;
-  padding: 0.5rem;
-  border-radius: 0.3rem;
-  border: none;
-  background: steelblue;
-}
-
-.navbar .btn:hover {
-  transition: 200ms ease-in;
-  opacity: 0.8;
-  cursor: pointer;
 }
 
 @media (max-width: 768px) {
