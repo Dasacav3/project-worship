@@ -22,9 +22,7 @@ jobs:
           zip -r build.zip .
 
       - name: Get version
-        run: |
-          version=$(jq -r '.version' package.json)
-          echo "::set-env name=VERSION::$version"
+        run: echo ::set-env name=VERSION::$(jq -r '.version' package.json)
 
       - name: Create Release
         id: create_release
