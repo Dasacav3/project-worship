@@ -17,10 +17,9 @@ jobs:
       run: |
         npm ci
 
-    - name: Build and zip project
+    - name: Zip project
       run: |
-        npm run build
-        zip -r build.zip build/
+        zip -r . build/
 
     - name: Create Release
       id: create_release
