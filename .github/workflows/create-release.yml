@@ -22,10 +22,9 @@ jobs:
           zip -r build.zip .
 
       - name: Get version
-        run: |
-          version=$(jq -r '.version' package.json)
+        run: jq -r '.version' package.json
         env:
-          VERSION: ${{ env.version }}
+          VERSION: ${{ steps.get_version.outputs.version }}
 
       - name: Create Release
         id: create_release
