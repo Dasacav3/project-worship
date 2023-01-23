@@ -19,7 +19,7 @@ jobs:
 
     - name: Zip project
       run: |
-        zip -r . build/
+        zip -r build.zip .
 
     - name: Create Release
       id: create_release
