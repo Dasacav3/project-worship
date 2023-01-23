@@ -22,7 +22,7 @@ jobs:
           zip -r build.zip .
 
       - name: Get version
-        run: jq -r '.version' package.json
+        run: node -e "console.log(require('./package.json').version)"
         env:
           VERSION: ${{ steps.get_version.outputs.version }}
 
