@@ -1,34 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { Route, Routes } from 'react-router-dom';
+import Backgrounds from './pages/Backgrounds';
+import Bibles from './pages/Bibles';
+import Home from './pages/Home';
+import NotFound from './pages/NotFound';
+import Songs from './pages/Songs';
+import './assets/main.css';
+import Viewer from './components/Viewer';
+import WindowVisor from './context/WindowViewer';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const windowVisor = new WindowVisor(500, 500);
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/backgrounds" element={<Backgrounds windowVisor={windowVisor} />} />
+      <Route path="/songs" element={<Songs windowVisor={windowVisor} />} />
+      <Route path="/bibles" element={<Bibles windowVisor={windowVisor} />} />
+      <Route
+        path="/viewer"
+        element={
+          <Viewer
+            defaultUrlFile={localStorage.getItem('urlFile')}
+            defaultFileType={localStorage.getItem('fileType')}
+            defaultTextContent={localStorage.getItem('textContent')}
+          />
+        }
+      />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
 
-export default App
+export default App;
