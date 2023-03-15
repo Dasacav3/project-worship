@@ -31,7 +31,11 @@ const SideBar = (props: Props) => {
         </nav>
       </div>
       <button onClick={props.toggleSidebar} className="sidebar-toggle">
-        <span className="material-icons">chevron_right</span>
+        {props.isOpen ? (
+          <span className="material-icons">arrow_back</span>
+        ) : (
+          <span className="material-icons">arrow_forward</span>
+        )}
       </button>
     </div>
   );

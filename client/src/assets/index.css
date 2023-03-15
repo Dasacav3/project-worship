@@ -175,7 +175,20 @@ Styles
 }
 
 :root {
-  --color-primary: #ffc700;
+  --color-primary: #3a3627;
+  --text-color-primary: #000;
+  --text-color-secondary: #fff;
+  --button-primary: #3a3627;
+  --button-secondary: #3a3627;
+  --button-hover: #79756a;
+}
+
+.button-class {
+  background-color: var(--button-primary);
+}
+
+.button-class:hover {
+  background-color: var(--button-hover);
 }
 
 header {
@@ -184,6 +197,8 @@ header {
   align-items: center;
   height: 5rem;
   background: var(--color-primary);
+  width: 100%;
+  z-index: 100;
 }
 
 .h-container {
@@ -207,20 +222,19 @@ header {
   font-family: 'Squada One', 'Roboto';
   font-size: 1.5rem;
   text-transform: uppercase;
-  color: white;
+  color: var(--text-color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 4.5rem;
   height: 4.5rem;
   border-radius: 50%;
-  border: 0.3rem solid white;
-  background: steelblue;
+  border: 0.3rem solid var(--text-color-secondary);
   z-index: 100;
 }
 
 .navbar a {
-  color: white;
+  color: var(--text-color-secondary);
   font-size: 1.2em;
   font-weight: 600;
   text-decoration: none;
@@ -228,7 +242,7 @@ header {
 
 .navbar li a:hover {
   transition: 500ms ease-in;
-  color: rgb(71, 71, 69);
+  color: var(--text-color-primary);
 }
 
 @media (max-width: 768px) {
@@ -262,12 +276,12 @@ header {
 
 .sidebar {
   position: absolute;
-  top: 60px;
   left: -15vw;
   width: 15vw;
   transition: left 0.3s ease-in-out;
   background-color: var(--color-primary);
   z-index: 10;
+  height: calc(100% - 80px);
 }
 
 .sidebar-toggle {
@@ -277,6 +291,12 @@ header {
   height: 60px;
   width: 60px;
   z-index: 1;
+  color: var(--text-color-secondary);
+  background-color: var(--color-primary);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content {
@@ -314,14 +334,14 @@ header {
   list-style: none;
   margin: 0;
   padding: 0;
-  color: white;
+  color: var(--text-color-secondary);
   font-weight: 600;
   width: 100%;
 }
 
 .sidebarListItem a:hover {
-  transition: 500ms ease-in;
-  color: rgb(71, 71, 69);
+  transition: 0.2s ease-in;
+  color: var(--text-color-primary);
 }
 
 .wrapper {
@@ -452,12 +472,12 @@ header {
 }
 
 .viewer .viewerContent {
-  color: white;
+  color: var(--text-color-secondary);
   font-size: 3rem;
   z-index: 10;
   text-align: center;
   font-weight: bold;
-  text-shadow: 0px 4px 20px #000;
+  text-shadow: 0px 4px 20px var(--text-color-primary);
 }
 
 .footer {
@@ -497,7 +517,7 @@ input[type='radio'] + label:hover span {
 
 input[type='radio']:checked + label span {
   background-color: #3490dc;
-  box-shadow: 0px 0px 0px 2px white inset;
+  box-shadow: 0px 0px 0px 2px var(--text-color-secondary) inset;
 }
 
 input[type='radio']:checked + label {
