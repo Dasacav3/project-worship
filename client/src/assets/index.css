@@ -358,7 +358,7 @@ header {
 }
 
 .textWrapper {
-  @apply pt-10 pb-6 w-full px-4;
+  padding: 1em 0;
 }
 
 .textWrapper h1 {
