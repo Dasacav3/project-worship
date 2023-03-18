@@ -185,6 +185,8 @@ Styles
 
 .button-class {
   background-color: var(--button-primary);
+  width: 8em;
+  height: 3em;
 }
 
 .button-class:hover {
@@ -245,35 +247,6 @@ header {
   color: var(--text-color-primary);
 }
 
-@media (max-width: 768px) {
-  header {
-    height: 10rem;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 1rem 0 1rem;
-  }
-
-  .h-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .logo-wrap {
-    position: relative;
-    margin-top: 1rem;
-  }
-
-  .navbar {
-    margin: 0;
-  }
-
-  .navbar li {
-    display: block;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-}
-
 .sidebar {
   position: absolute;
   left: -15vw;
@@ -322,7 +295,6 @@ header {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 70vh;
   padding: 1rem;
   margin: 5em 0;
 }
@@ -339,9 +311,22 @@ header {
   width: 100%;
 }
 
+.sidebarListItem {
+  margin: 0.5em 0;
+}
+
 .sidebarListItem a:hover {
   transition: 0.2s ease-in;
   color: var(--text-color-primary);
+}
+
+.bible-versions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  font-weight: 600;
 }
 
 .wrapper {
@@ -374,6 +359,10 @@ header {
 
 .textWrapper {
   @apply pt-10 pb-6 w-full px-4;
+}
+
+.textWrapper h1 {
+  @apply text-gray-800;
 }
 
 .text {
@@ -440,6 +429,10 @@ header {
   justify-content: space-between;
   margin: 2rem 0;
   width: 80%;
+}
+
+.paginationButtons button {
+  cursor: pointer;
 }
 
 .songLyrics {
@@ -516,10 +509,79 @@ input[type='radio'] + label:hover span {
 }
 
 input[type='radio']:checked + label span {
-  background-color: #3490dc;
+  background-color: var(--color-primary);
   box-shadow: 0px 0px 0px 2px var(--text-color-secondary) inset;
 }
 
 input[type='radio']:checked + label {
-  color: #3490dc;
+  color: var(--color-primary);
+}
+
+@media (max-width: 1400px) {
+  .backgroudStructures {
+    grid-template-columns: repeat(3, minmax(320px, 1fr));
+  }
+}
+
+@media (max-width: 1100px) {
+  .backgroudStructures,
+  .bibleStructures {
+    grid-template-columns: repeat(2, minmax(320px, 1fr));
+  }
+
+  .sidebarListItem a {
+    font-size: 0em;
+  }
+
+  .sidebarListItem span.material-icons {
+    font-size: 30px !important;
+  }
+
+  .sidebar-toggle {
+    width: 40px;
+    height: 40px;
+    right: -40px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    height: 10rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .h-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo-wrap {
+    position: relative;
+    margin-top: 1rem;
+  }
+
+  .navbar {
+    margin: 0;
+  }
+
+  .navbar li {
+    display: block;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .backgroudStructures,
+  .songStructures,
+  .bibleStructures {
+    grid-template-columns: 1fr;
+  }
+
+  .bible-versions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
 }

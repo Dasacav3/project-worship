@@ -4,7 +4,7 @@ const Button = (props: Props) => {
       <button
         disabled={props.disabled}
         onClick={props.click}
-        className="button-class inline-flex justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 w-fit h-fit"
+        className="button-class font-bold flex justify-evenly rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 w-fit h-fit"
       >
         {props.href ? <a href={props.href}>{props.title}</a> : props.title}
       </button>

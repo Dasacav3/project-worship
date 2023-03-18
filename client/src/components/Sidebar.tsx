@@ -7,22 +7,22 @@ const SideBar = (props: Props) => {
       <div className="sidebarContent">
         <nav>
           <ul className="sidebarList">
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" title="Home">
               <a href="/">
                 <span className="material-icons">add_home</span> Inicio
               </a>
             </li>
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" title="Backgrounds">
               <a href="/backgrounds">
                 <span className="material-icons">wallpaper</span> Fondos
               </a>
             </li>
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" title="Songs">
               <a href="/songs">
                 <span className="material-icons">library_music</span> Canciones
               </a>
             </li>
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" title="Bibles">
               <a href="/bibles">
                 <span className="material-icons">description</span> Biblia
               </a>

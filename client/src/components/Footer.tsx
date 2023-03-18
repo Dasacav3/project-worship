@@ -203,7 +203,8 @@ const Footer = ({ windowVisor }: any) => {
                   Upload <span className="material-icons-outlined">upload</span>
                 </>
               }
-              save="Save"
+              closeButton={true}
+              saveButton={false}
               close="Close"
             />
             <Button
