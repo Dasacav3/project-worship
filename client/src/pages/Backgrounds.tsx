@@ -6,6 +6,8 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import SideBar from '../components/Sidebar';
 import WindowVisor from '../context/WindowViewer';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 
 const Backgrounds = ({ windowVisor }: any) => {
   const [sidebarOpen, setSideBarOpen] = useState(false);
@@ -62,6 +64,38 @@ const Backgrounds = ({ windowVisor }: any) => {
     return windowVisor.getWinObj()?.postMessage(message);
   };
 
+  const deleteFile = async (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    event.stopPropagation();
+
+    const response = await fetch(`${ApiUrl}/files/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const data = await response.json();
+
+    if (response.status === 200) {
+      Swal.fire({
+        title: 'Success',
+        text: 'File deleted successfully',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1200
+      });
+      fetchData(`${ApiUrl}/files`);
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: 'Error deleting file',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1200
+      });
+    }
+  };
+
   return (
     <>
       <Header title="Fondos" />
@@ -74,12 +108,20 @@ const Backgrounds = ({ windowVisor }: any) => {
       <div className="containerBackgrounds">
         <div className="paginationButtons">
           <Button
-            title={<><span className="material-icons">chevron_left</span></>}
+            title={
+              <>
+                <span className="material-icons">chevron_left</span>
+              </>
+            }
             click={() => fetchData(`${ApiUrl}/files?page=${prevPage}&entries=10`)}
             disabled={buttonPrevStatus}
           />
           <Button
-            title={<><span className="material-icons">chevron_right</span></>}
+            title={
+              <>
+                <span className="material-icons">chevron_right</span>
+              </>
+            }
             click={() => fetchData(`${ApiUrl}/files?page=${nextPage}&entries=10`)}
             disabled={buttonNextStatus}
           />
@@ -88,6 +130,8 @@ const Backgrounds = ({ windowVisor }: any) => {
           {dataBackgrounds.data
             ? dataBackgrounds.data.map((background: any, index: number) => (
                 <Card
+                  id={background.id}
+                  delete={(event, id) => deleteFile(event, id)}
                   key={index}
                   title={background.name}
                   path={`${ApiUrl}/files/${background.id}/streaming`}
