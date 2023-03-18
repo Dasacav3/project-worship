@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 import { ApiUrl } from '../api/env_vars';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
@@ -86,7 +87,8 @@ const Songs = ({ windowVisor }: any) => {
         title: 'Success',
         text: 'Song saved successfully',
         icon: 'success',
-        confirmButtonText: 'Ok'
+        showConfirmButton: false,
+        timer: 1200
       });
       window.location.reload();
     } else {
@@ -94,7 +96,8 @@ const Songs = ({ windowVisor }: any) => {
         title: 'Error',
         text: 'Error saving song',
         icon: 'error',
-        confirmButtonText: 'Ok'
+        showConfirmButton: false,
+        timer: 1200
       });
     }
   };
@@ -223,6 +226,8 @@ const Songs = ({ windowVisor }: any) => {
                   />
                 }
                 open="Edit Song"
+                saveButton={true}
+                closeButton={true}
                 save="Save"
                 close="Close"
                 click={() => saveOrUpdateSong(dataSongClicked.id)}
@@ -245,6 +250,8 @@ const Songs = ({ windowVisor }: any) => {
             open="Add Song"
             save="Save"
             close="Close"
+            saveButton={true}
+            closeButton={true}
             click={() => saveOrUpdateSong()}
           />
         </div>
@@ -252,18 +259,26 @@ const Songs = ({ windowVisor }: any) => {
       <div className="containerSongs">
         <div className="paginationButtons">
           <Button
-            title={<><span className="material-icons">chevron_left</span></>}
+            title={
+              <>
+                <span className="material-icons">chevron_left</span>
+              </>
+            }
             click={() => fetchData(`${ApiUrl}/files?page=${prevPage}&entries=10`)}
             disabled={buttonPrevStatus}
           />
           <Button
-            title={<><span className="material-icons">chevron_right</span></>}
+            title={
+              <>
+                <span className="material-icons">chevron_right</span>
+              </>
+            }
             click={() => fetchData(`${ApiUrl}/files?page=${nextPage}&entries=10`)}
             disabled={buttonNextStatus}
           />
         </div>
         <div className="songStructures">
-          <ul className="text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200">
+          <ul className="text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 cursor-pointer">
             {dataSongs.data ? (
               dataSongs.data.map((song: any, index: number) => (
                 <li
@@ -286,7 +301,7 @@ const Songs = ({ windowVisor }: any) => {
               <div className="flex justify-center font-bold">
                 <p>Lyrics</p>
               </div>
-              <ul className="songLyrics">
+              <ul className="songLyrics cursor-pointer">
                 {dataSongLyrics ? (
                   dataSongLyrics.map((lyric: any, index: number) => (
                     <li

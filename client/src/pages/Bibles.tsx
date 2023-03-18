@@ -114,9 +114,9 @@ const Bibles = ({ windowVisor }: any) => {
     <>
       <Header title="Biblias" />
       <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
-      <div>
-        <div className="flex flex-row justify-end w-11/12 mt-3 mb-3">
-          <ul className="text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 flex flex-row">
+      <div className="bible-versions">
+        <div>
+          <ul className="text-sm text-gray-900 bg-white rounded-lg border border-gray-200 flex flex-row">
             {bibleVersions.data ? (
               bibleVersions.data.map((version: any, index: number) => (
                 <li
@@ -152,7 +152,7 @@ const Bibles = ({ windowVisor }: any) => {
             {bibleStructure ? (
               bibleStructure.map((item: any, index: number) => (
                 <div
-                  className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200 outline-none"
+                  className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200 outline-none cursor-pointer"
                   key={index}
                   onClick={() => setTotalChaptersByBook(item)}
                 >
@@ -168,7 +168,7 @@ const Bibles = ({ windowVisor }: any) => {
               <div className="flex justify-center font-bold">
                 <p>Chapters</p>
               </div>
-              <div className="grid grid-cols-10">
+              <div className="grid grid-cols-10 cursor-pointer">
                 {totalChapters ? (
                   totalChapters.map((chapter: any, index: number) => (
                     <div
@@ -190,7 +190,7 @@ const Bibles = ({ windowVisor }: any) => {
               <div className="flex justify-center font-bold">
                 <p>Lyrics</p>
               </div>
-              <ul className="songLyrics">
+              <ul className="songLyrics cursor-pointer">
                 {dataBibles ? (
                   dataBibles.map((lyric: any, index: number) => (
                     <li
