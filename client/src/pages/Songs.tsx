@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 import { ApiUrl } from '../api/env_vars';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
@@ -86,7 +87,8 @@ const Songs = ({ windowVisor }: any) => {
         title: 'Success',
         text: 'Song saved successfully',
         icon: 'success',
-        confirmButtonText: 'Ok'
+        showConfirmButton: false,
+        timer: 1200
       });
       window.location.reload();
     } else {
@@ -94,7 +96,8 @@ const Songs = ({ windowVisor }: any) => {
         title: 'Error',
         text: 'Error saving song',
         icon: 'error',
-        confirmButtonText: 'Ok'
+        showConfirmButton: false,
+        timer: 1200
       });
     }
   };

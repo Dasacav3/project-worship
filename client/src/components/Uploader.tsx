@@ -1,5 +1,6 @@
 import { ApiUrl } from '../api/env_vars';
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 
 const Uploader = () => {
   const handleFile = (e: any) => {
@@ -23,14 +24,16 @@ const Uploader = () => {
         title: 'Success',
         text: 'File uploaded successfully',
         icon: 'success',
-        confirmButtonText: 'Ok'
+        showConfirmButton: false,
+        timer: 1200
       });
     } else {
       Swal.fire({
         title: 'Error',
         text: 'Error uploading file',
         icon: 'error',
-        confirmButtonText: 'Ok'
+        showConfirmButton: false,
+        timer: 1200
       });
     }
 
