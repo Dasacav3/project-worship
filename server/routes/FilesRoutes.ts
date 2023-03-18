@@ -25,7 +25,7 @@ router.use('/uploads', express.static(path.resolve('uploads')));
 const fileUploader = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      const dir = path.join(options.__dirname, '/server/uploads');
+      const dir = path.join(options.__dirname, '/uploads');
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
       }
