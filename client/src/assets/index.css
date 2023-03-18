@@ -175,7 +175,22 @@ Styles
 }
 
 :root {
-  --color-primary: #ffc700;
+  --color-primary: #3a3627;
+  --text-color-primary: #000;
+  --text-color-secondary: #fff;
+  --button-primary: #3a3627;
+  --button-secondary: #3a3627;
+  --button-hover: #79756a;
+}
+
+.button-class {
+  background-color: var(--button-primary);
+  width: 8em;
+  height: 3em;
+}
+
+.button-class:hover {
+  background-color: var(--button-hover);
 }
 
 header {
@@ -184,6 +199,8 @@ header {
   align-items: center;
   height: 5rem;
   background: var(--color-primary);
+  width: 100%;
+  z-index: 100;
 }
 
 .h-container {
@@ -207,20 +224,19 @@ header {
   font-family: 'Squada One', 'Roboto';
   font-size: 1.5rem;
   text-transform: uppercase;
-  color: white;
+  color: var(--text-color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 4.5rem;
   height: 4.5rem;
   border-radius: 50%;
-  border: 0.3rem solid white;
-  background: steelblue;
+  border: 0.3rem solid var(--text-color-secondary);
   z-index: 100;
 }
 
 .navbar a {
-  color: white;
+  color: var(--text-color-secondary);
   font-size: 1.2em;
   font-weight: 600;
   text-decoration: none;
@@ -228,46 +244,17 @@ header {
 
 .navbar li a:hover {
   transition: 500ms ease-in;
-  color: rgb(71, 71, 69);
-}
-
-@media (max-width: 768px) {
-  header {
-    height: 10rem;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 1rem 0 1rem;
-  }
-
-  .h-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .logo-wrap {
-    position: relative;
-    margin-top: 1rem;
-  }
-
-  .navbar {
-    margin: 0;
-  }
-
-  .navbar li {
-    display: block;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
+  color: var(--text-color-primary);
 }
 
 .sidebar {
   position: absolute;
-  top: 60px;
   left: -15vw;
   width: 15vw;
   transition: left 0.3s ease-in-out;
   background-color: var(--color-primary);
   z-index: 10;
+  height: calc(100% - 80px);
 }
 
 .sidebar-toggle {
@@ -277,6 +264,12 @@ header {
   height: 60px;
   width: 60px;
   z-index: 1;
+  color: var(--text-color-secondary);
+  background-color: var(--color-primary);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content {
@@ -302,7 +295,6 @@ header {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 70vh;
   padding: 1rem;
   margin: 5em 0;
 }
@@ -314,14 +306,27 @@ header {
   list-style: none;
   margin: 0;
   padding: 0;
-  color: white;
+  color: var(--text-color-secondary);
   font-weight: 600;
   width: 100%;
 }
 
+.sidebarListItem {
+  margin: 0.5em 0;
+}
+
 .sidebarListItem a:hover {
-  transition: 500ms ease-in;
-  color: rgb(71, 71, 69);
+  transition: 0.2s ease-in;
+  color: var(--text-color-primary);
+}
+
+.bible-versions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  font-weight: 600;
 }
 
 .wrapper {
@@ -354,6 +359,10 @@ header {
 
 .textWrapper {
   @apply pt-10 pb-6 w-full px-4;
+}
+
+.textWrapper h1 {
+  @apply text-gray-800;
 }
 
 .text {
@@ -422,6 +431,10 @@ header {
   width: 80%;
 }
 
+.paginationButtons button {
+  cursor: pointer;
+}
+
 .songLyrics {
   display: flex;
   flex-direction: column;
@@ -452,12 +465,12 @@ header {
 }
 
 .viewer .viewerContent {
-  color: white;
+  color: var(--text-color-secondary);
   font-size: 3rem;
   z-index: 10;
   text-align: center;
   font-weight: bold;
-  text-shadow: 0px 4px 20px #000;
+  text-shadow: 0px 4px 20px var(--text-color-primary);
 }
 
 .footer {
@@ -496,10 +509,79 @@ input[type='radio'] + label:hover span {
 }
 
 input[type='radio']:checked + label span {
-  background-color: #3490dc;
-  box-shadow: 0px 0px 0px 2px white inset;
+  background-color: var(--color-primary);
+  box-shadow: 0px 0px 0px 2px var(--text-color-secondary) inset;
 }
 
 input[type='radio']:checked + label {
-  color: #3490dc;
+  color: var(--color-primary);
+}
+
+@media (max-width: 1400px) {
+  .backgroudStructures {
+    grid-template-columns: repeat(3, minmax(320px, 1fr));
+  }
+}
+
+@media (max-width: 1100px) {
+  .backgroudStructures,
+  .bibleStructures {
+    grid-template-columns: repeat(2, minmax(320px, 1fr));
+  }
+
+  .sidebarListItem a {
+    font-size: 0em;
+  }
+
+  .sidebarListItem span.material-icons {
+    font-size: 30px !important;
+  }
+
+  .sidebar-toggle {
+    width: 40px;
+    height: 40px;
+    right: -40px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    height: 10rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .h-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo-wrap {
+    position: relative;
+    margin-top: 1rem;
+  }
+
+  .navbar {
+    margin: 0;
+  }
+
+  .navbar li {
+    display: block;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .backgroudStructures,
+  .songStructures,
+  .bibleStructures {
+    grid-template-columns: 1fr;
+  }
+
+  .bible-versions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
 }
