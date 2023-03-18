@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTransition, animated } from 'react-spring';
 import { ApiUrl, LocalUrl } from '../api/env_vars';
 
 const Viewer = ({
@@ -11,6 +12,14 @@ const Viewer = ({
   const [fileType, setFileType] = useState(defaultFileType);
 
   document.body.style.overflow = 'hidden';
+
+  const transitions = useTransition(textContent, {
+    from: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 0 },
+    enter: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 1 },
+    leave: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 0 },
+    update: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 1 },
+    config: { mass: 1, tension: 120, friction: 30 },
+  });
 
   const changeTextMarginLeft = (e: any) => {
     const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
