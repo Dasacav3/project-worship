@@ -1,0 +1,20 @@
+{
+    "home": "Inicio",
+    "songs": {
+        "title": "Canciones",
+        "add": "Agregar Canción",
+        "edit": "Editar Canción",
+        "delete": "Eliminar Canción",
+        "lyrics": "Letra"
+    },
+    "backgrounds": "Fondos",
+    "bibles": "Biblias",
+    "marginButton": "Margen Abajo",
+    "marginLeft": "Margen Izquierda",
+    "marginRight": "Margen Derecha",
+    "marginTop": "Margen Arriba",
+    "fontSize": "Tamaño de Letra",
+    "addSong": "Agregar Canción",
+    "upload": "Subir",
+    "deleteButton": "Eliminar"
+}

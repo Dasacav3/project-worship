@@ -1,0 +1,19 @@
+{
+    "home": "Home",
+    "songs": {
+        "title": "Songs",
+        "add": "Add Song",
+        "edit": "Edit Song",
+        "delete": "Delete Song",
+        "lyrics": "Lyrics"
+    },
+    "backgrounds": "Backgrounds",
+    "bibles": "Bibles",
+    "marginButton": "Margin Button",
+    "marginLeft": "Margin Left",
+    "marginRight": "Margin Right",
+    "marginTop": "Margin Top",
+    "fontSize": "Font Size",
+    "addSong": "Add Song",
+    "upload": "Upload"
+}
