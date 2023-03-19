@@ -145,14 +145,14 @@ const Bibles = ({ windowVisor }: any) => {
       </div>
       <div className="containerBibles">
         <div className="bibleStructures">
-          <ul className="grid grid-cols-2">
+          <ul className="grid grid-cols-2 overflow-scroll">
             <div className="flex justify-center font-bold col-span-2">
               <p>Books</p>
             </div>
             {bibleStructure ? (
               bibleStructure.map((item: any, index: number) => (
                 <div
-                  className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200 outline-none cursor-pointer"
+                  className="py-2 px-4 w-full rounded-md border border-gray-300 outline-none cursor-pointer"
                   key={index}
                   onClick={() => setTotalChaptersByBook(item)}
                 >
@@ -163,8 +163,8 @@ const Bibles = ({ windowVisor }: any) => {
               <></>
             )}
           </ul>
-          <div>
-            <div className="">
+          <div className="overflow-scroll">
+            <div>
               <div className="flex justify-center font-bold">
                 <p>Chapters</p>
               </div>
@@ -172,7 +172,7 @@ const Bibles = ({ windowVisor }: any) => {
                 {totalChapters ? (
                   totalChapters.map((chapter: any, index: number) => (
                     <div
-                      className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200 outline-none"
+                      className="py-2 text-center w-full rounded-xl border border-gray-400 outline-none"
                       key={index}
                       onClick={() => searchBible(chapter)}
                     >
@@ -185,8 +185,8 @@ const Bibles = ({ windowVisor }: any) => {
               </div>
             </div>
           </div>
-          <div>
-            <div className="">
+          <div className="overflow-auto">
+            <div>
               <div className="flex justify-center font-bold">
                 <p>Lyrics</p>
               </div>
@@ -195,7 +195,7 @@ const Bibles = ({ windowVisor }: any) => {
                   dataBibles.map((lyric: any, index: number) => (
                     <li
                       key={index}
-                      className="border w-full text-center outline-none"
+                      className="border border-gray-300 w-full text-center outline-none"
                       onClick={() =>
                         sendMessage(
                           {

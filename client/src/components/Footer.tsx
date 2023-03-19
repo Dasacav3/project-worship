@@ -5,11 +5,21 @@ import Modal from './Modal';
 import Uploader from './Uploader';
 
 const Footer = ({ windowVisor }: any) => {
-  const [marginLeft, setMarginLeft] = useState([0]);
-  const [marginRight, setMarginRight] = useState([0]);
-  const [marginTop, setMarginTop] = useState([0]);
-  const [marginBottom, setMarginBottom] = useState([0]);
-  const [fontSize, setFontSize] = useState([3]);
+  const [marginLeft, setMarginLeft] = useState([
+    localStorage.getItem('ml') ? parseInt(localStorage.getItem('ml') || '0') : 0
+  ]);
+  const [marginRight, setMarginRight] = useState([
+    localStorage.getItem('mr') ? parseInt(localStorage.getItem('mr') || '0') : 0
+  ]);
+  const [marginTop, setMarginTop] = useState([
+    localStorage.getItem('mt') ? parseInt(localStorage.getItem('mt') || '0') : 0
+  ]);
+  const [marginBottom, setMarginBottom] = useState([
+    localStorage.getItem('mb') ? parseInt(localStorage.getItem('mb') || '0') : 0
+  ]);
+  const [fontSize, setFontSize] = useState([
+    localStorage.getItem('fs') ? parseInt(localStorage.getItem('fs') || '0') : 3
+  ]);
 
   const sendMessage = (message: any, windowVisor: any) => {
     if (windowVisor.checkIfClosed() != false || windowVisor.getWinObj()?.name === '') {

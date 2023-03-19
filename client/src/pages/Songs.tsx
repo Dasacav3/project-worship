@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2/dist/sweetalert2.js'
-import 'sweetalert2/src/sweetalert2.scss'
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 import { ApiUrl } from '../api/env_vars';
 import Button from '../components/Button';
 import Footer from '../components/Footer';
@@ -155,7 +155,8 @@ const Songs = ({ windowVisor }: any) => {
           title: 'Success',
           text: 'Song deleted successfully',
           icon: 'success',
-          confirmButtonText: 'Ok'
+          showConfirmButton: false,
+          timer: 1500
         });
         fetchData(`${ApiUrl}/songs`);
       } else {
@@ -163,7 +164,8 @@ const Songs = ({ windowVisor }: any) => {
           title: 'Error',
           text: 'Error deleting song',
           icon: 'error',
-          confirmButtonText: 'Ok'
+          showConfirmButton: false,
+          timer: 2000
         });
       }
     }
@@ -278,7 +280,10 @@ const Songs = ({ windowVisor }: any) => {
           />
         </div>
         <div className="songStructures">
-          <ul className="text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 cursor-pointer">
+          <ul className="text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 cursor-pointer overflow-scroll">
+            <div className="flex justify-center font-bold border-none">
+              <p>Songs</p>
+            </div>
             {dataSongs.data ? (
               dataSongs.data.map((song: any, index: number) => (
                 <li
@@ -296,8 +301,8 @@ const Songs = ({ windowVisor }: any) => {
               <></>
             )}
           </ul>
-          <div>
-            <div className="">
+          <div className="overflow-scroll">
+            <div>
               <div className="flex justify-center font-bold">
                 <p>Lyrics</p>
               </div>
