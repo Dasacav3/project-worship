@@ -5,10 +5,12 @@ import { ApiUrl, LocalUrl } from '../api/env_vars';
 const Viewer = ({
   defaultUrlFile = `${ApiUrl}/files/default/streaming`,
   defaultFileType = 'video',
-  defaultTextContent = ''
+  defaultTextContent = '',
+  defaultActiveInfo = ''
 }: any) => {
   const [urlFile, setUrlFile] = useState(defaultUrlFile);
   const [textContent, setTextContent] = useState(defaultTextContent);
+  const [activeInfo, setActiveInfo] = useState(defaultActiveInfo);
   const [fileType, setFileType] = useState(defaultFileType);
 
   document.body.style.overflow = 'hidden';
@@ -94,6 +96,10 @@ const Viewer = ({
       setTextContent(data.textContent);
     }
 
+    if (data.hasOwnProperty('activeInfo')) {
+      setActiveInfo(data.activeInfo);
+    }
+
     if (data.hasOwnProperty('del')) {
       setTextContent('');
       localStorage.setItem('textContent', '');
@@ -125,6 +131,7 @@ const Viewer = ({
         )}
         <div>
           <p className="viewerContent">{textContent}</p>
+          <p className="viewerContent">{activeInfo}</p>
         </div>
       </div>
     </>
