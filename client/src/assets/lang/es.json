@@ -23,5 +23,8 @@
         "deleteConfirmTitle": "Confirmar Eliminación",
         "accept": "Aceptar",
         "cancel": "Cancelar"
+    },
+    "backgrounds": {
+        "title": "Fondos"
     }
 }
