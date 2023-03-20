@@ -19,12 +19,23 @@ export default class SongRepository implements ISongRepository {
     );
   }
 
-  public async find(page: number, entries: number): Promise<object> {
+  public async find(page: number, entries: number, search: string): Promise<object> {
     const db = await openDb();
-    const total = await db.get('SELECT COUNT(*) as total FROM songs');
-    const pages = Math.ceil(total.total / entries);
-    const offset = (page - 1) * entries;
-    const songs = await db.all('SELECT * FROM songs LIMIT ?, ?', [offset, entries]);
+    let total: any;
+    let pages: number = 0;
+    let songs: any;
+
+    if (search.length > 0) {
+      total = await db.get('SELECT COUNT(*) as total FROM songs WHERE title LIKE ? OR lyrics LIKE ?', [`%${search}%`, `%${search}%`]);
+      pages = Math.ceil(total.total / entries);
+      const offset = (page - 1) * entries;
+      songs = await db.all('SELECT * FROM songs WHERE title LIKE ? OR lyrics LIKE ? LIMIT ?, ?', [`%${search}%`, `%${search}%`, offset, entries]);
+    } else {
+      total = await db.get('SELECT COUNT(*) as total FROM songs');
+      pages = Math.ceil(total.total / entries);
+      const offset = (page - 1) * entries;
+      songs = await db.all('SELECT * FROM songs LIMIT ?, ?', [offset, entries]);
+    }
 
     return {
       pagination: {

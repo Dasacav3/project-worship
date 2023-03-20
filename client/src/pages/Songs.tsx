@@ -23,6 +23,7 @@ const Songs = ({ windowVisor }: any) => {
   const [songIsClicked, setSongIsClicked] = useState(false);
   const [selectedIndexSong, setSelectedIndexSong] = useState(0);
   const [selectedIndexLyrics, setSelectedIndexLyrics] = useState(0);
+  const [input, setInput] = useState('');
 
   const handleViewSidebar = () => {
     setSideBarOpen(!sidebarOpen);
@@ -214,12 +215,35 @@ const Songs = ({ windowVisor }: any) => {
     }
   };
 
+  const searchSongByNameOrContent = async (e: any) => {
+    setInput(e.target.value);
+    const response = await fetch(`${ApiUrl}/songs?search=${e.target.value}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const data = await response.json();
+
+    setDataSongs(data);
+  };
+
   return (
     <>
       <Header title={songsTranslation.title} />
       <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
       <div>
         <div className="flex flex-row justify-end w-11/12 mt-3 mb-3">
+          <div className="flex w-9/12">
+            <input
+              type="text"
+              value={input}
+              onChange={searchSongByNameOrContent}
+              placeholder="Buscar..."
+              className="border border-gray-300 rounded px-4 py-2"
+            />
+          </div>
           {songIsClicked ? (
             <>
               <Modal
@@ -243,7 +267,8 @@ const Songs = ({ windowVisor }: any) => {
               <Button
                 title={
                   <>
-                    {songsTranslation.delete}<span className="material-icons-outlined">delete</span>
+                    {songsTranslation.delete}
+                    <span className="material-icons-outlined">delete</span>
                   </>
                 }
                 click={() => deleteSong(dataSongClicked.id)}
