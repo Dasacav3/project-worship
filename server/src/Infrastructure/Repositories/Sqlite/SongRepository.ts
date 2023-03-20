@@ -29,12 +29,12 @@ export default class SongRepository implements ISongRepository {
       total = await db.get('SELECT COUNT(*) as total FROM songs WHERE title LIKE ? OR lyrics LIKE ?', [`%${search}%`, `%${search}%`]);
       pages = Math.ceil(total.total / entries);
       const offset = (page - 1) * entries;
-      songs = await db.all('SELECT * FROM songs WHERE title LIKE ? OR lyrics LIKE ? LIMIT ?, ?', [`%${search}%`, `%${search}%`, offset, entries]);
+      songs = await db.all('SELECT * FROM songs WHERE title LIKE ? OR lyrics LIKE ? ORDER BY title LIMIT ? OFFSET ?', [`%${search}%`, `%${search}%`, entries, offset]);
     } else {
       total = await db.get('SELECT COUNT(*) as total FROM songs');
       pages = Math.ceil(total.total / entries);
       const offset = (page - 1) * entries;
-      songs = await db.all('SELECT * FROM songs LIMIT ?, ?', [offset, entries]);
+      songs = await db.all('SELECT * FROM songs ORDER BY title LIMIT ? OFFSET ?', [entries, offset]);
     }
 
     return {

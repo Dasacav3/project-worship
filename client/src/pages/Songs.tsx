@@ -25,13 +25,50 @@ const Songs = ({ windowVisor }: any) => {
   const [selectedIndexLyrics, setSelectedIndexLyrics] = useState(0);
   const [input, setInput] = useState('');
 
+  useEffect(() => {
+    fetchData(`${ApiUrl}/songs`);
+  }, []);
+
   const handleViewSidebar = () => {
     setSideBarOpen(!sidebarOpen);
   };
 
-  useEffect(() => {
-    fetchData(`${ApiUrl}/songs`);
-  }, []);
+  const handleFile = (e: any) => {
+    handleUpload(e.target.files[0], e);
+  };
+
+  const handleUpload = async (file: File, event: any) => {
+    const formData = new FormData();
+
+    formData.append('file', file);
+
+    const response = await fetch(`${ApiUrl}/songs/import`, {
+      method: 'POST',
+      body: formData
+    });
+
+    await response.json();
+
+    if (response.status === 200) {
+      Swal.fire({
+        title: songsTranslation.importSuccessTitle,
+        text: songsTranslation.importSuccess,
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1200
+      });
+    } else {
+      Swal.fire({
+        title: songsTranslation.importErrorTitle,
+        text: songsTranslation.importError,
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1200
+      });
+    }
+
+    event.target.value = null;
+  };
 
   const songsTranslation: any = i18n.t('songs', { returnObjects: true });
 
@@ -243,6 +280,39 @@ const Songs = ({ windowVisor }: any) => {
               placeholder={songsTranslation.search}
               className="border border-gray-300 rounded px-4 py-2"
             />
+            <Modal
+              title={songsTranslation.edit}
+              content={
+                <div className="w-full h-full flex">
+                  <div className="extraOutline p-4 bg-white w-max bg-whtie m-auto rounded-lg">
+                    <div
+                      className="file_upload p-5 relative border-4 border-dotted border-gray-300 rounded-lg"
+                      style={{
+                        width: '450px'
+                      }}
+                    >
+                      <div className="flex w-full justify-center">
+                        <span className="material-icons text-yellow-700 text-6xl">upload_file</span>
+                      </div>
+                      <div className="input_field flex flex-col w-max mx-auto text-center">
+                        <label>
+                          <input className="text-sm cursor-pointer w-36 hidden" type="file" onChange={handleFile} />
+                          <div className="bg-yellow-700 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-yellow-600">
+                            Select
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+              open={songsTranslation.import}
+              saveButton={true}
+              closeButton={true}
+              save={songsTranslation.save}
+              close={songsTranslation.close}
+              click={() => saveOrUpdateSong(dataSongClicked.id)}
+            />
           </div>
           {songIsClicked ? (
             <>
@@ -297,7 +367,7 @@ const Songs = ({ windowVisor }: any) => {
                 <span className="material-icons">chevron_left</span>
               </>
             }
-            click={() => fetchData(`${ApiUrl}/files?page=${prevPage}&entries=10`)}
+            click={() => fetchData(`${ApiUrl}/songs?page=${prevPage}&entries=10`)}
             disabled={buttonPrevStatus}
           />
           <Button
@@ -306,7 +376,7 @@ const Songs = ({ windowVisor }: any) => {
                 <span className="material-icons">chevron_right</span>
               </>
             }
-            click={() => fetchData(`${ApiUrl}/files?page=${nextPage}&entries=10`)}
+            click={() => fetchData(`${ApiUrl}/songs?page=${nextPage}&entries=10`)}
             disabled={buttonNextStatus}
           />
         </div>
@@ -325,7 +395,7 @@ const Songs = ({ windowVisor }: any) => {
                   onKeyDown={handleKeyDownSong}
                   style={{ backgroundColor: index === selectedIndexSong ? 'lightgray' : 'white' }}
                 >
-                  {song.title} - {song.type}
+                  {song.title}
                 </li>
               ))
             ) : (
