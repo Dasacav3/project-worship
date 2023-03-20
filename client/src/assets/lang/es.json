@@ -36,6 +36,14 @@
         "clean": "Limpiar",
         "upload": "Subir",
         "open": "Abrir",
-        "uploadFiles": "Subir Archivos"
+        "uploadFiles": "Subir Archivos",
+        "close": "Cerrar"
+    },
+    "uploader": {
+        "success": "Subido con éxito",
+        "successTitle": "Exito",
+        "errorTitle": "Error",
+        "error": "Error al subir el archivo",
+        "selectFile": "Seleccionar Archivo"
     }
 }

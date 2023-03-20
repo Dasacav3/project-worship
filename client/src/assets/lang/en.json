@@ -34,6 +34,14 @@
         "clean": "Clean",
         "upload": "Upload",
         "open": "Open",
-        "uploadFiles": "Upload Files"
+        "uploadFiles": "Upload Files",
+        "close": "Close"
+    },
+    "uploader": {
+        "success": "File uploaded successfully",
+        "successTitle": "Upload Success",
+        "errorTitle": "Upload Error",
+        "error": "Error uploading file",
+        "selectFile": "Select File"
     }
 }

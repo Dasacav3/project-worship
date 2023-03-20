@@ -218,7 +218,7 @@ const Footer = ({ windowVisor }: any) => {
               }
               closeButton={true}
               saveButton={false}
-              close="Close"
+              close={footerTranslations.close}
             />
             <Button
               title={
