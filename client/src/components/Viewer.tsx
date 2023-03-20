@@ -18,7 +18,7 @@ const Viewer = ({
     enter: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 1 },
     leave: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 0 },
     update: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 1 },
-    config: { mass: 1, tension: 120, friction: 30 },
+    config: { mass: 1, tension: 120, friction: 30 }
   });
 
   const changeTextMarginLeft = (e: any) => {
@@ -66,18 +66,23 @@ const Viewer = ({
 
     if (data.hasOwnProperty('ml')) {
       changeTextMarginLeft(data.ml);
+      localStorage.setItem('ml', data.ml);
     }
     if (data.hasOwnProperty('mt')) {
       changeTextMarginTop(data.mt);
+      localStorage.setItem('mt', data.mt);
     }
     if (data.hasOwnProperty('mr')) {
       changeTextMarginRight(data.mr);
+      localStorage.setItem('mr', data.mr);
     }
     if (data.hasOwnProperty('mb')) {
       changeTextMarginBottom(data.mb);
+      localStorage.setItem('mb', data.mb);
     }
     if (data.hasOwnProperty('fs')) {
       changeFontSize(data.fs);
+      localStorage.setItem('fs', data.fs);
     }
     if (data.hasOwnProperty('fileType')) {
       setFileType(data.fileType);

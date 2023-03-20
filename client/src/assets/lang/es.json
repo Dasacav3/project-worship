@@ -1,0 +1,61 @@
+{
+    "songs": {
+        "title": "Canciones",
+        "add": "Agregar",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "lyrics": "Letra",
+        "save": "Guardar",
+        "close": "Cerrar",
+        "new": "Nueva Canción",
+        "formTitle": "Título",
+        "formType": "Tipo",
+        "formTone": "Tono",
+        "successTitle": "Exito",
+        "errorTitle": "Error",
+        "success": "Canción guardada con éxito",
+        "error": "Error al guardar la canción",
+        "deleteSuccessTitle": "Exito",
+        "deleteSuccess": "Canción eliminada con éxito",
+        "deleteErrorTitle": "Error",
+        "deleteError": "Error al eliminar la canción",
+        "deleteConfirm": "¿Está seguro que desea eliminar la canción?",
+        "deleteConfirmTitle": "Confirmar Eliminación",
+        "accept": "Aceptar",
+        "cancel": "Cancelar"
+    },
+    "backgrounds": {
+        "title": "Fondos"
+    },
+    "footer": {
+        "marginLeft": "Margen Izquierdo",
+        "marginRight": "Margen Derecho",
+        "marginTop": "Margen Superior",
+        "marginBottom": "Margen Inferior",
+        "fontSize": "Tamaño de Letra",
+        "clean": "Limpiar",
+        "upload": "Subir",
+        "open": "Abrir",
+        "uploadFiles": "Subir Archivos",
+        "close": "Cerrar"
+    },
+    "uploader": {
+        "success": "Subido con éxito",
+        "successTitle": "Exito",
+        "errorTitle": "Error",
+        "error": "Error al subir el archivo",
+        "selectFile": "Seleccionar Archivo"
+    },
+    "sidebar": {
+        "home": "Inicio",
+        "songs": "Canciones",
+        "backgrounds": "Fondos",
+        "bible": "Biblia"
+    },
+    "bibles": {
+        "title": "Biblias",
+        "books": "Libros",
+        "chapters": "Capítulos",
+        "verses": "Versículos"
+    }
+}

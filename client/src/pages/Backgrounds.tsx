@@ -8,6 +8,7 @@ import SideBar from '../components/Sidebar';
 import WindowVisor from '../context/WindowViewer';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
+import i18n from '../store/i18n';
 
 const Backgrounds = ({ windowVisor }: any) => {
   const [sidebarOpen, setSideBarOpen] = useState(false);
@@ -16,6 +17,8 @@ const Backgrounds = ({ windowVisor }: any) => {
   const [nextPage, setNextPage] = useState('');
   const [buttonPrevStatus, setButtonPrevStatus] = useState(false);
   const [buttonNextStatus, setButtonNextStatus] = useState(false);
+
+  const backgroundsTranslations : any = i18n.t('backgrounds', { returnObjects: true });
 
   const handleViewSidebar = () => {
     setSideBarOpen(!sidebarOpen);
@@ -98,7 +101,7 @@ const Backgrounds = ({ windowVisor }: any) => {
 
   return (
     <>
-      <Header title="Fondos" />
+      <Header title={backgroundsTranslations.title} />
       <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
       <div>
         <div className="flex flex-row justify-center">
