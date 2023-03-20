@@ -137,7 +137,7 @@ const Backgrounds = ({ windowVisor }: any) => {
                   delete={(event, id) => deleteFile(event, id)}
                   key={index}
                   title={background.name}
-                  path={`${ApiUrl}/files/${background.id}/streaming`}
+                  path={`${ApiUrl}/files/${background.id}/thumbnail`}
                   order={index + 1}
                   type={background.type.split('/')[0]}
                   click={() =>
