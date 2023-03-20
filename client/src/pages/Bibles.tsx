@@ -11,11 +11,9 @@ const Bibles = ({ windowVisor }: any) => {
   const [bibleVersions, setBibleVersions] = useState<any>([]);
   const [activeBibleVersion, setActiveBibleVersion] = useState<any>(1);
   const [activeBook, setActiveBook] = useState<any>(1);
-  const [activeInfo, setActiveInfo] = useState<any>([]);
   const [dataBibles, setDataBibles] = useState<any>([]);
   const [totalChapters, setTotalChapters] = useState<any>([]);
   const [bibleStructure, setBibleStructure] = useState<any>([]);
-  const [selectedIndexLyrics, setSelectedIndexLyrics] = useState(0);
 
   const biblesTranslations: any = i18n.t('bibles', { returnObjects: true });
 
@@ -88,32 +86,6 @@ const Bibles = ({ windowVisor }: any) => {
     localStorage.setItem('activeInfo', message.activeInfo || '');
 
     return windowVisor.getWinObj()?.postMessage(message);
-  };
-
-  const handleKeyDownLyrics = (event: any) => {
-    // If the down arrow is pressed
-    if (event.keyCode === 40) {
-      setSelectedIndexLyrics(Math.min(selectedIndexLyrics + 1, totalChapters.length - 1));
-      sendMessage(
-        {
-          textContent: `${event.target.textContent}`,
-          activeInfo: activeInfo
-        },
-        windowVisor
-      );
-    }
-
-    // If the up arrow is pressed
-    if (event.keyCode === 38) {
-      setSelectedIndexLyrics(Math.max(selectedIndexLyrics - 1, 0));
-      sendMessage(
-        {
-          textContent: `${event.target.textContent}`,
-          activeInfo: activeInfo
-        },
-        windowVisor
-      );
-    }
   };
 
   return (
@@ -204,11 +176,11 @@ const Bibles = ({ windowVisor }: any) => {
                       className="border border-gray-300 w-full text-center outline-none"
                       onClick={() =>
                         {
-                          let info = `${lyric.bookName} ${lyric.chapter}:${index + 1}`
-                          setActiveInfo(info)
+                          let info = `${lyric.bookName} ${lyric.chapter}:${index + 1}`;
+                          let text = `${lyric.text}`;
                           sendMessage(
                             {
-                              textContent: `${lyric.text}`,
+                              textContent: text,
                               activeInfo: info
                             },
                             windowVisor
@@ -216,8 +188,6 @@ const Bibles = ({ windowVisor }: any) => {
                         }
                       }
                       tabIndex={0}
-                      onKeyDown={handleKeyDownLyrics}
-                      style={{ backgroundColor: index === selectedIndexLyrics ? 'lightgray' : 'white' }}
                     >
                       {`${index + 1}. ${lyric.text}`}
                     </li>
