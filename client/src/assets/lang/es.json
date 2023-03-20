@@ -25,7 +25,11 @@
         "cancel": "Cancelar"
     },
     "backgrounds": {
-        "title": "Fondos"
+        "title": "Fondos",
+        "deleteFileSuccessTitle": "Exito",
+        "deleteFileSuccessText": "Archivo eliminado con éxito",
+        "deleteFileErrorTitle": "Error",
+        "deleteFileErrorText": "El archivo no pudo ser eliminado"
     },
     "footer": {
         "marginLeft": "Margen Izquierdo",

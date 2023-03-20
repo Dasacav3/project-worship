@@ -23,7 +23,11 @@
         "cancel": "Cancel"
     },
     "backgrounds": {
-        "title": "Backgrounds"
+        "title": "Backgrounds",
+        "deleteFileSuccessTitle": "Success",
+        "deleteFileSuccessText": "File deleted successfully",
+        "deleteFileErrorTitle": "Error",
+        "deleteFileErrorText": "Error deleting file"
     },
     "footer": {
         "marginLeft": "Margin Left",
