@@ -469,7 +469,6 @@ header {
 
 .viewer .viewerContent {
   color: var(--text-color-secondary);
-  font-size: 3rem;
   z-index: 10;
   line-height: 1em;
   text-align: center;

@@ -17,7 +17,7 @@ const Viewer = ({
 
   const transitionTextContent = useTransition(textContent, {
     from: { opacity: 0, transition: 'all 0.08s ease-in-out' },
-    enter: { opacity: 1, transition: 'all 0.08s ease-in-out' },
+    enter: { opacity: 1, transition: 'all 0.08s ease-in-out' }
   });
 
   const transitionActiveInfo = useTransition(activeInfo, {
@@ -26,43 +26,28 @@ const Viewer = ({
   });
 
   const changeTextMarginLeft = (e: any) => {
-    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-
-    for (let key of text) {
-      key.style.paddingLeft = `${e}rem`;
-    }
+    const text = document.getElementById('textContent') as HTMLElement;
+    text.style.paddingLeft = `${e}rem`;
   };
 
   const changeTextMarginRight = (e: any) => {
-    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-
-    for (let key of text) {
-      key.style.paddingRight = `${e}rem`;
-    }
+    const text = document.getElementById('textContent') as HTMLElement;
+    text.style.paddingRight = `${e}rem`;
   };
 
   const changeTextMarginTop = (e: any) => {
-    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-
-    for (let key of text) {
-      key.style.paddingTop = `${e}rem`;
-    }
+    const text = document.getElementById('textContent') as HTMLElement;
+    text.style.paddingTop = `${e}rem`;
   };
 
   const changeTextMarginBottom = (e: any) => {
-    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-
-    for (let key of text) {
-      key.style.paddingBottom = `${e}rem`;
-    }
+    const text = document.getElementById('textContent') as HTMLElement;
+    text.style.paddingBottom = `${e}rem`;
   };
 
   const changeFontSize = (e: any) => {
-    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-
-    for (let key of text) {
-      key.style.fontSize = `${e}rem`;
-    }
+    const textContent = document.getElementById('textContent') as HTMLElement;
+    textContent.style.fontSize = `${e}rem`;
   };
 
   const processData = (e: any) => {
@@ -116,6 +101,11 @@ const Viewer = ({
         return;
       }
 
+      changeFontSize(localStorage.getItem('fs') || 3);
+      changeTextMarginLeft(localStorage.getItem('ml') || 0);
+      changeTextMarginRight(localStorage.getItem('mr') || 0);
+      changeTextMarginTop(localStorage.getItem('mt') || 0);
+      changeTextMarginBottom(localStorage.getItem('mb') || 0);
       processData(e.data);
     });
   }, []);
@@ -133,7 +123,7 @@ const Viewer = ({
         ) : (
           <></>
         )}
-        <div>
+        <div id="textContent">
           {transitionTextContent((style, item) => (
             <animated.p className="viewerContent" style={style}>
               {item}

@@ -40,22 +40,27 @@ const Footer = ({ windowVisor }: any) => {
 
   const setMarginLeftViewer = () => {
     windowVisor.getWinObj().postMessage({ ml: marginLeft }, '*');
+    localStorage.setItem('ml', marginLeft.toString());
   };
 
   const setMarginRightViewer = () => {
     windowVisor.getWinObj().postMessage({ mr: marginRight }, '*');
+    localStorage.setItem('mr', marginRight.toString());
   };
 
   const setMarginTopViewer = () => {
     windowVisor.getWinObj().postMessage({ mt: marginTop }, '*');
+    localStorage.setItem('mt', marginTop.toString());
   };
 
   const setMarginBottomViewer = () => {
     windowVisor.getWinObj().postMessage({ mb: marginBottom }, '*');
+    localStorage.setItem('mb', marginBottom.toString());
   };
 
-  const setFontSizeViewer = () => {
-    windowVisor.getWinObj().postMessage({ fs: fontSize }, '*');
+  const setFontSizeViewer = (values: number) => {
+    windowVisor.getWinObj().postMessage({ fs: values }, '*');
+    localStorage.setItem('fs', values.toString());
   };
 
   const handleBackspace = (event: any) => {
@@ -77,7 +82,7 @@ const Footer = ({ windowVisor }: any) => {
           <div className="footer-content">
             <label>{footerTranslations.marginLeft}</label>
             <Range
-              step={1}
+              step={0.5}
               min={0}
               max={100}
               values={marginLeft}
@@ -101,7 +106,7 @@ const Footer = ({ windowVisor }: any) => {
           <div className="footer-content">
             <label>{footerTranslations.marginRight}</label>
             <Range
-              step={1}
+              step={0.5}
               min={0}
               max={100}
               values={marginRight}
@@ -125,7 +130,7 @@ const Footer = ({ windowVisor }: any) => {
           <div className="footer-content">
             <label>{footerTranslations.marginBottom}</label>
             <Range
-              step={1}
+              step={0.5}
               min={0}
               max={100}
               values={marginBottom}
@@ -149,7 +154,7 @@ const Footer = ({ windowVisor }: any) => {
           <div className="footer-content">
             <label>{footerTranslations.marginTop}</label>
             <Range
-              step={1}
+              step={0.5}
               min={0}
               max={100}
               values={marginTop}
@@ -173,13 +178,13 @@ const Footer = ({ windowVisor }: any) => {
           <div className="footer-content">
             <label>{footerTranslations.fontSize}</label>
             <Range
-              step={0.5}
+              step={0.3}
               min={1}
               max={20}
               values={fontSize}
               onChange={values => {
                 setFontSize(values);
-                setFontSizeViewer();
+                setFontSizeViewer(values[0]);
               }}
               renderTrack={({ props, children }) => (
                 <div {...props} className="w-full h-3 pr-2 bg-gray-500 rounded-md">
