@@ -24,5 +24,16 @@
     },
     "backgrounds": {
         "title": "Backgrounds"
+    },
+    "footer": {
+        "marginLeft": "Margin Left",
+        "marginRight": "Margin Right",
+        "marginTop": "Margin Top",
+        "marginBottom": "Margin Bottom",
+        "fontSize": "Font Size",
+        "clean": "Clean",
+        "upload": "Upload",
+        "open": "Open",
+        "uploadFiles": "Upload Files"
     }
 }

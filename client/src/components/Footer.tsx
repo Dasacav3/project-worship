@@ -3,6 +3,7 @@ import { Range } from 'react-range';
 import Button from './Button';
 import Modal from './Modal';
 import Uploader from './Uploader';
+import i18n from '../store/i18n';
 
 const Footer = ({ windowVisor }: any) => {
   const [marginLeft, setMarginLeft] = useState([
@@ -20,6 +21,8 @@ const Footer = ({ windowVisor }: any) => {
   const [fontSize, setFontSize] = useState([
     localStorage.getItem('fs') ? parseInt(localStorage.getItem('fs') || '0') : 3
   ]);
+
+  const footerTranslations : any = i18n.t('footer', { returnObjects: true });
 
   const sendMessage = (message: any, windowVisor: any) => {
     if (windowVisor.checkIfClosed() != false || windowVisor.getWinObj()?.name === '') {
@@ -72,7 +75,7 @@ const Footer = ({ windowVisor }: any) => {
       <div className="w-full bg-gray-200 footer">
         <div className="grid grid-rows-2 grid-flow-col gap-0">
           <div className="footer-content">
-            <label>Margin Left</label>
+            <label>{footerTranslations.marginLeft}</label>
             <Range
               step={1}
               min={0}
@@ -96,7 +99,7 @@ const Footer = ({ windowVisor }: any) => {
             />
           </div>
           <div className="footer-content">
-            <label>Margin Right</label>
+            <label>{footerTranslations.marginRight}</label>
             <Range
               step={1}
               min={0}
@@ -120,7 +123,7 @@ const Footer = ({ windowVisor }: any) => {
             />
           </div>
           <div className="footer-content">
-            <label>Margin Bottom</label>
+            <label>{footerTranslations.marginBottom}</label>
             <Range
               step={1}
               min={0}
@@ -144,7 +147,7 @@ const Footer = ({ windowVisor }: any) => {
             />
           </div>
           <div className="footer-content">
-            <label>Margin Top</label>
+            <label>{footerTranslations.marginTop}</label>
             <Range
               step={1}
               min={0}
@@ -168,7 +171,7 @@ const Footer = ({ windowVisor }: any) => {
             />
           </div>
           <div className="footer-content">
-            <label>Font Size</label>
+            <label>{footerTranslations.fontSize}</label>
             <Range
               step={0.5}
               min={1}
@@ -196,13 +199,13 @@ const Footer = ({ windowVisor }: any) => {
               disabled={false}
               title={
                 <>
-                  Clean <span className="material-icons-outlined">backspace</span>
+                  {footerTranslations.clean} <span className="material-icons-outlined">backspace</span>
                 </>
               }
               click={() => sendMessage({ del: true }, windowVisor)}
             />
             <Modal
-              title="Upload Files"
+              title={footerTranslations.uploadFiles}
               content={
                 <div className="flex justify-center">
                   <Uploader />
@@ -210,7 +213,7 @@ const Footer = ({ windowVisor }: any) => {
               }
               open={
                 <>
-                  Upload <span className="material-icons-outlined">upload</span>
+                  {footerTranslations.upload} <span className="material-icons-outlined">upload</span>
                 </>
               }
               closeButton={true}
@@ -220,7 +223,7 @@ const Footer = ({ windowVisor }: any) => {
             <Button
               title={
                 <>
-                  Open <span className="material-icons-outlined">open_in_new</span>
+                  {footerTranslations.open} <span className="material-icons-outlined">open_in_new</span>
                 </>
               }
               click={() => openWindow()}

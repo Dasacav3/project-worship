@@ -26,5 +26,16 @@
     },
     "backgrounds": {
         "title": "Fondos"
+    },
+    "footer": {
+        "marginLeft": "Margen Izquierdo",
+        "marginRight": "Margen Derecho",
+        "marginTop": "Margen Superior",
+        "marginBottom": "Margen Inferior",
+        "fontSize": "Tamaño de Letra",
+        "clean": "Limpiar",
+        "upload": "Subir",
+        "open": "Abrir",
+        "uploadFiles": "Subir Archivos"
     }
 }
