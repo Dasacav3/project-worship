@@ -49,5 +49,11 @@
         "songs": "Songs",
         "backgrounds": "Backgrounds",
         "bible": "Bible"
+    },
+    "bibles": {
+        "title": "Bibles",
+        "books": "Books",
+        "chapters": "Chapters",
+        "verses": "Verses"
     }
 }

@@ -51,5 +51,11 @@
         "songs": "Canciones",
         "backgrounds": "Fondos",
         "bible": "Biblia"
+    },
+    "bibles": {
+        "title": "Biblias",
+        "books": "Libros",
+        "chapters": "Capítulos",
+        "verses": "Versículos"
     }
 }
