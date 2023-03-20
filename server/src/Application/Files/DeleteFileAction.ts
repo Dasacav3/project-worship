@@ -14,12 +14,22 @@ export default class DeleteFileAction {
     await fileRepository.delete(id);
 
     const filePath = `server/uploads/${file instanceof File ? file.getPath() : ''}`;
-    unlink(filePath, (err) => {
-      if (err) {
-        return new Error('File not found.');
-      }
-    });
+    if (filePath) {
+      unlink(filePath, err => {
+        if (err) {
+          return new Error('File not found.');
+        }
+      });
+    }
 
+    const thumbnailPath = file instanceof File ? file.getThumbnailPath() : '';
+    if (thumbnailPath) {
+      unlink(thumbnailPath, err => {
+        if (err) {
+          return new Error('File not found.');
+        }
+      });
+    }
     return file;
   }
 }

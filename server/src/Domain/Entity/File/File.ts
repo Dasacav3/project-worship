@@ -4,6 +4,7 @@ export default class File {
   private type: string;
   private size: number;
   private path: string;
+  private thumbnailPath: string;
   private category: number;
   private createdAt: Date;
   private updatedAt: Date;
@@ -14,6 +15,7 @@ export default class File {
     type: string,
     size: number,
     path: string,
+    thumbnailPath: string,
     category: number,
     createdAt: Date,
     updatedAt: Date
@@ -23,6 +25,7 @@ export default class File {
     this.type = type;
     this.size = size;
     this.path = path;
+    this.thumbnailPath = thumbnailPath;
     this.category = category;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
@@ -46,6 +49,10 @@ export default class File {
 
   public getPath(): string {
     return this.path;
+  }
+
+  public getThumbnailPath(): string {
+    return this.thumbnailPath;
   }
 
   public getCategory(): number {
