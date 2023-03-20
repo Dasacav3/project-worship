@@ -20,7 +20,8 @@
         "confirmDelete": "Are you sure you want to delete this song?",
         "confirmDeleteTitle": "Confirm Delete",
         "accept": "Accept",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "search": "Search"
     },
     "backgrounds": {
         "title": "Backgrounds",

@@ -22,7 +22,8 @@
         "deleteConfirm": "¿Está seguro que desea eliminar la canción?",
         "deleteConfirmTitle": "Confirmar Eliminación",
         "accept": "Aceptar",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "search": "Buscar"
     },
     "backgrounds": {
         "title": "Fondos",

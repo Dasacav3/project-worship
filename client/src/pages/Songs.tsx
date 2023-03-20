@@ -240,7 +240,7 @@ const Songs = ({ windowVisor }: any) => {
               type="text"
               value={input}
               onChange={searchSongByNameOrContent}
-              placeholder="Buscar..."
+              placeholder={songsTranslation.search}
               className="border border-gray-300 rounded px-4 py-2"
             />
           </div>
