@@ -43,5 +43,11 @@
         "errorTitle": "Upload Error",
         "error": "Error uploading file",
         "selectFile": "Select File"
+    },
+    "sidebar": {
+        "home": "Home",
+        "songs": "Songs",
+        "backgrounds": "Backgrounds",
+        "bible": "Bible"
     }
 }

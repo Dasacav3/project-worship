@@ -45,5 +45,11 @@
         "errorTitle": "Error",
         "error": "Error al subir el archivo",
         "selectFile": "Seleccionar Archivo"
+    },
+    "sidebar": {
+        "home": "Inicio",
+        "songs": "Canciones",
+        "backgrounds": "Fondos",
+        "bible": "Biblia"
     }
 }
