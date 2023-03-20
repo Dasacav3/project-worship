@@ -204,11 +204,12 @@ const Bibles = ({ windowVisor }: any) => {
                       className="border border-gray-300 w-full text-center outline-none"
                       onClick={() =>
                         {
-                          setActiveInfo(`${lyric.bookName} ${lyric.chapter}:${index + 1}`)
+                          let info = `${lyric.bookName} ${lyric.chapter}:${index + 1}`
+                          setActiveInfo(info)
                           sendMessage(
                             {
                               textContent: `${lyric.text}`,
-                              activeInfo: activeInfo
+                              activeInfo: info
                             },
                             windowVisor
                           )
