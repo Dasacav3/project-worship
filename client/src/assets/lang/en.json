@@ -25,7 +25,8 @@
         "importSuccessTitle": "Import Success",
         "importSuccess": "Songs imported successfully",
         "importErrorTitle": "Import Error",
-        "importError": "Error importing songs"
+        "importError": "Error importing songs",
+        "import": "Import"
     },
     "backgrounds": {
         "title": "Backgrounds",
