@@ -9,6 +9,7 @@ import Modal from '../components/Modal';
 import SideBar from '../components/Sidebar';
 import SongForm from '../components/SongForm';
 import WindowVisor from '../context/WindowViewer';
+import i18n from '../store/i18n';
 
 const Songs = ({ windowVisor }: any) => {
   const [sidebarOpen, setSideBarOpen] = useState(false);
@@ -30,6 +31,8 @@ const Songs = ({ windowVisor }: any) => {
   useEffect(() => {
     fetchData(`${ApiUrl}/songs`);
   }, []);
+
+  const songsTranslation: any = i18n.t('songs', { returnObjects: true });
 
   const fetchData = async (url: string): Promise<void> => {
     const response = await fetch(url, {
@@ -84,8 +87,8 @@ const Songs = ({ windowVisor }: any) => {
 
     if (response.status === 201 || response.status === 200) {
       Swal.fire({
-        title: 'Success',
-        text: 'Song saved successfully',
+        title: songsTranslation.successTitle,
+        text: songsTranslation.success,
         icon: 'success',
         showConfirmButton: false,
         timer: 1200
@@ -93,8 +96,8 @@ const Songs = ({ windowVisor }: any) => {
       window.location.reload();
     } else {
       Swal.fire({
-        title: 'Error',
-        text: 'Error saving song',
+        title: songsTranslation.errorTitle,
+        text: songsTranslation.error,
         icon: 'error',
         showConfirmButton: false,
         timer: 1200
@@ -131,13 +134,14 @@ const Songs = ({ windowVisor }: any) => {
 
   const deleteSong = async (id: string) => {
     const result = await Swal.fire({
-      title: 'Are you sure?',
-      text: 'You will not be able to recover this song!',
+      title: songsTranslation.deleteConfirmTitle,
+      text: songsTranslation.deleteConfirm,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: songsTranslation.accept,
+      cancelButtonText: songsTranslation.cancel
     });
 
     if (result.isConfirmed) {
@@ -152,8 +156,8 @@ const Songs = ({ windowVisor }: any) => {
 
       if (response.status === 200) {
         Swal.fire({
-          title: 'Success',
-          text: 'Song deleted successfully',
+          title: songsTranslation.deleteSuccessTitle,
+          text: songsTranslation.deleteSuccess,
           icon: 'success',
           showConfirmButton: false,
           timer: 1500
@@ -161,8 +165,8 @@ const Songs = ({ windowVisor }: any) => {
         fetchData(`${ApiUrl}/songs`);
       } else {
         Swal.fire({
-          title: 'Error',
-          text: 'Error deleting song',
+          title: songsTranslation.deleteErrorTitle,
+          text: songsTranslation.deleteError,
           icon: 'error',
           showConfirmButton: false,
           timer: 2000
@@ -210,14 +214,14 @@ const Songs = ({ windowVisor }: any) => {
 
   return (
     <>
-      <Header title="Canciones" />
+      <Header title={songsTranslation.title} />
       <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
       <div>
         <div className="flex flex-row justify-end w-11/12 mt-3 mb-3">
           {songIsClicked ? (
             <>
               <Modal
-                title="Edit song"
+                title={songsTranslation.edit}
                 content={
                   <SongForm
                     songTitle={dataSongClicked.title}
@@ -227,17 +231,17 @@ const Songs = ({ windowVisor }: any) => {
                     songIsClicked={true}
                   />
                 }
-                open="Edit Song"
+                open={songsTranslation.edit}
                 saveButton={true}
                 closeButton={true}
-                save="Save"
-                close="Close"
+                save={songsTranslation.save}
+                close={songsTranslation.close}
                 click={() => saveOrUpdateSong(dataSongClicked.id)}
               />
               <Button
                 title={
                   <>
-                    Delete<span className="material-icons-outlined">delete</span>
+                    {songsTranslation.delete}<span className="material-icons-outlined">delete</span>
                   </>
                 }
                 click={() => deleteSong(dataSongClicked.id)}
@@ -247,11 +251,11 @@ const Songs = ({ windowVisor }: any) => {
             <></>
           )}
           <Modal
-            title="New song"
+            title={songsTranslation.new}
             content={<SongForm />}
-            open="Add Song"
-            save="Save"
-            close="Close"
+            open={songsTranslation.add}
+            save={songsTranslation.save}
+            close={songsTranslation.close}
             saveButton={true}
             closeButton={true}
             click={() => saveOrUpdateSong()}
@@ -282,7 +286,7 @@ const Songs = ({ windowVisor }: any) => {
         <div className="songStructures">
           <ul className="text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 cursor-pointer overflow-scroll">
             <div className="flex justify-center font-bold border-none">
-              <p>Songs</p>
+              <p>{songsTranslation.title}</p>
             </div>
             {dataSongs.data ? (
               dataSongs.data.map((song: any, index: number) => (
@@ -304,7 +308,7 @@ const Songs = ({ windowVisor }: any) => {
           <div className="overflow-scroll">
             <div>
               <div className="flex justify-center font-bold">
-                <p>Lyrics</p>
+                <p>{songsTranslation?.lyrics}</p>
               </div>
               <ul className="songLyrics cursor-pointer">
                 {dataSongLyrics ? (

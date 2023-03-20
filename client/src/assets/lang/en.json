@@ -1,19 +1,25 @@
 {
-    "home": "Home",
     "songs": {
         "title": "Songs",
         "add": "Add Song",
         "edit": "Edit Song",
         "delete": "Delete Song",
-        "lyrics": "Lyrics"
-    },
-    "backgrounds": "Backgrounds",
-    "bibles": "Bibles",
-    "marginButton": "Margin Button",
-    "marginLeft": "Margin Left",
-    "marginRight": "Margin Right",
-    "marginTop": "Margin Top",
-    "fontSize": "Font Size",
-    "addSong": "Add Song",
-    "upload": "Upload"
+        "lyrics": "Lyrics",
+        "save": "Save",
+        "close": "Close",
+        "new": "New Song",
+        "formTitle": "Title",
+        "formType": "Type",
+        "formTone": "Tone",
+        "success": "Song saved successfully",
+        "error": "Error saving song",
+        "deleteSuccessTitle": "Delete Success",
+        "deleteSuccess": "Song deleted successfully",
+        "deleteErrorTitle": "Delete Error",
+        "deleteError": "Error deleting song",
+        "confirmDelete": "Are you sure you want to delete this song?",
+        "confirmDeleteTitle": "Confirm Delete",
+        "accept": "Accept",
+        "cancel": "Cancel"
+    }
 }

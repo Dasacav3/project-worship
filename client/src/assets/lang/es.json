@@ -1,20 +1,27 @@
 {
-    "home": "Inicio",
     "songs": {
         "title": "Canciones",
-        "add": "Agregar Canción",
-        "edit": "Editar Canción",
-        "delete": "Eliminar Canción",
-        "lyrics": "Letra"
-    },
-    "backgrounds": "Fondos",
-    "bibles": "Biblias",
-    "marginButton": "Margen Abajo",
-    "marginLeft": "Margen Izquierda",
-    "marginRight": "Margen Derecha",
-    "marginTop": "Margen Arriba",
-    "fontSize": "Tamaño de Letra",
-    "addSong": "Agregar Canción",
-    "upload": "Subir",
-    "deleteButton": "Eliminar"
+        "add": "Agregar",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "lyrics": "Letra",
+        "save": "Guardar",
+        "close": "Cerrar",
+        "new": "Nueva Canción",
+        "formTitle": "Título",
+        "formType": "Tipo",
+        "formTone": "Tono",
+        "successTitle": "Exito",
+        "errorTitle": "Error",
+        "success": "Canción guardada con éxito",
+        "error": "Error al guardar la canción",
+        "deleteSuccessTitle": "Exito",
+        "deleteSuccess": "Canción eliminada con éxito",
+        "deleteErrorTitle": "Error",
+        "deleteError": "Error al eliminar la canción",
+        "deleteConfirm": "¿Está seguro que desea eliminar la canción?",
+        "deleteConfirmTitle": "Confirmar Eliminación",
+        "accept": "Aceptar",
+        "cancel": "Cancelar"
+    }
 }
