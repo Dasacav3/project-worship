@@ -181,7 +181,8 @@ const Songs = ({ windowVisor }: any) => {
       setSelectedIndexLyrics(Math.min(selectedIndexLyrics + 1, dataSongLyrics.length - 1));
       sendMessage(
         {
-          textContent: dataSongLyrics[selectedIndexLyrics]
+          textContent: dataSongLyrics[selectedIndexLyrics],
+          activeInfo: ''
         },
         windowVisor
       );
@@ -191,7 +192,8 @@ const Songs = ({ windowVisor }: any) => {
       setSelectedIndexLyrics(Math.max(selectedIndexLyrics - 1, 0));
       sendMessage(
         {
-          textContent: dataSongLyrics[selectedIndexLyrics]
+          textContent: dataSongLyrics[selectedIndexLyrics],
+          activeInfo: ''
         },
         windowVisor
       );
@@ -319,7 +321,8 @@ const Songs = ({ windowVisor }: any) => {
                       onClick={() =>
                         sendMessage(
                           {
-                            textContent: lyric
+                            textContent: lyric,
+                            activeInfo: ''
                           },
                           windowVisor
                         )
