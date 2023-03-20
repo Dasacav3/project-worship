@@ -5,11 +5,7 @@ const Card = (props: Props) => {
     <div className="wrapper wrapperAnime" onClick={props.click}>
       <div className="header">
         <div className="imageWrapper">
-          {props.type === 'image' ? (
-            <img src={props.path} alt="image" />
-          ) : (
-            <video src={props.path} preload="metadata" />
-          )}
+          <img src={props.path} alt="image" />
         </div>
       </div>
       <div className="textWrapper flex justify-center">

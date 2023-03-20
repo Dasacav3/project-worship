@@ -81,8 +81,8 @@ const Backgrounds = ({ windowVisor }: any) => {
 
     if (response.status === 200) {
       Swal.fire({
-        title: 'Success',
-        text: 'File deleted successfully',
+        title: backgroundsTranslations.deleteFileSuccessTitle,
+        text: backgroundsTranslations.deleteFileSuccessText,
         icon: 'success',
         showConfirmButton: false,
         timer: 1200
@@ -90,8 +90,8 @@ const Backgrounds = ({ windowVisor }: any) => {
       fetchData(`${ApiUrl}/files`);
     } else {
       Swal.fire({
-        title: 'Error',
-        text: 'Error deleting file',
+        title: backgroundsTranslations.deleteFileErrorTitle,
+        text: backgroundsTranslations.deleteFileErrorText,
         icon: 'error',
         showConfirmButton: false,
         timer: 1200
@@ -137,7 +137,7 @@ const Backgrounds = ({ windowVisor }: any) => {
                   delete={(event, id) => deleteFile(event, id)}
                   key={index}
                   title={background.name}
-                  path={`${ApiUrl}/files/${background.id}/streaming`}
+                  path={`${ApiUrl}/files/${background.id}/thumbnail`}
                   order={index + 1}
                   type={background.type.split('/')[0]}
                   click={() =>

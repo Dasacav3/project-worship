@@ -6,13 +6,14 @@ export default class FileRepository implements IFileRepository {
   public async save(file: File): Promise<void> {
     const db = await openDb();
     await db.run(
-      'INSERT INTO files (id, name, type, size, path, category, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO files (id, name, type, size, path, thumbnail_path, category, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
       [
         file.getId(),
         file.getName(),
         file.getType(),
         file.getSize(),
         file.getPath(),
+        file.getThumbnailPath(),
         file.getCategory(),
         file.getCreatedAt(),
         file.getUpdatedAt()
@@ -43,6 +44,7 @@ export default class FileRepository implements IFileRepository {
           file.type,
           file.size,
           file.path,
+          file.thumbnail_path,
           file.category,
           new Date(file.created_at),
           new Date(file.updated_at)
@@ -65,6 +67,7 @@ export default class FileRepository implements IFileRepository {
       file.type,
       file.size,
       file.path,
+      file.thumbnail_path,
       file.category,
       new Date(file.created_at),
       new Date(file.updated_at)
