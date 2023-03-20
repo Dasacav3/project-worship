@@ -104,7 +104,9 @@ const Viewer = ({
 
     if (data.hasOwnProperty('del')) {
       setTextContent('');
+      setActiveInfo('');
       localStorage.setItem('textContent', '');
+      localStorage.setItem('activeInfo', '');
     }
   };
 
