@@ -15,12 +15,14 @@ const Viewer = ({
 
   document.body.style.overflow = 'hidden';
 
-  const transitions = useTransition(textContent, {
-    from: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 0 },
-    enter: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 1 },
-    leave: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 0 },
-    update: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 1 },
-    config: { mass: 1, tension: 120, friction: 30 }
+  const transitionTextContent = useTransition(textContent, {
+    from: { opacity: 0, transition: 'all 0.08s ease-in-out' },
+    enter: { opacity: 1, transition: 'all 0.08s ease-in-out' },
+  });
+
+  const transitionActiveInfo = useTransition(activeInfo, {
+    from: { opacity: 0, transition: 'all 0.08s ease-in-out' },
+    enter: { opacity: 1, transition: 'all 0.08s ease-in-out' }
   });
 
   const changeTextMarginLeft = (e: any) => {
@@ -130,8 +132,16 @@ const Viewer = ({
           <></>
         )}
         <div>
-          <p className="viewerContent">{textContent}</p>
-          <p className="viewerContent">{activeInfo}</p>
+          {transitionTextContent((style, item) => (
+            <animated.p className="viewerContent" style={style}>
+              {item}
+            </animated.p>
+          ))}
+          {transitionActiveInfo((style, item) => (
+            <animated.p className="viewerContent" style={style}>
+              {item}
+            </animated.p>
+          ))}
         </div>
       </div>
     </>
