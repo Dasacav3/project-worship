@@ -23,7 +23,11 @@
         "deleteConfirmTitle": "Confirmar Eliminación",
         "accept": "Aceptar",
         "cancel": "Cancelar",
-        "search": "Buscar"
+        "search": "Buscar",
+        "importSuccessTitle": "Exito",
+        "importSuccess": "Canciones importadas con éxito",
+        "importErrorTitle": "Error",
+        "importError": "Error al importar las canciones"
     },
     "backgrounds": {
         "title": "Fondos",

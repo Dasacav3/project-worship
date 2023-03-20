@@ -21,7 +21,11 @@
         "confirmDeleteTitle": "Confirm Delete",
         "accept": "Accept",
         "cancel": "Cancel",
-        "search": "Search"
+        "search": "Search",
+        "importSuccessTitle": "Import Success",
+        "importSuccess": "Songs imported successfully",
+        "importErrorTitle": "Import Error",
+        "importError": "Error importing songs"
     },
     "backgrounds": {
         "title": "Backgrounds",
