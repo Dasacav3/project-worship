@@ -1,55 +1,22 @@
-name: Node.js CI
-
+name: Create Release
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
+    branches:
+      - master
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [14.x]
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Run build bash script
-      run: ./execute.sh
-    - name: Archive Production Artifact
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Comprimir archivos
+      run: zip -r project-worship.zip ./
+    - name: Crear release
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: gh release create $(jq -r '.version' package.json) --generate-notes project-worship.zip
+    - name: Subir archivo
       uses: actions/upload-artifact@v2
       with:
-        name: project-worship-${{ github.sha }}
-        path: build
-    - name: Archive Production Artifact as ZIP
-      uses: montudor/action-zip@v1.1.0
-      with:
-        args: -r project-worship-${{ github.sha }}.zip build
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.sha }}
-        release_name: 'Project Worship v${{ env.VERSION }}'
-        body: |
-          Release for version ${{ env.VERSION }}
-        draft: false
-        prerelease: false
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./project-worship-${{ github.sha }}.zip
-        asset_name: project-worship-${{ github.sha }}.zip
-        asset_content_type: application/zip
+        name: project-worship
+        path: ./project-worship.zip
