@@ -7,10 +7,11 @@ export class FileFactory {
     type: string,
     size: number,
     path: string,
+    thumbnailPath: string,
     category: number,
     createdAt: Date,
     updatedAt: Date
   ): File {
-    return new File(id, name, type, size, path, category, createdAt, updatedAt);
+    return new File(id, name, type, size, path, thumbnailPath, category, createdAt, updatedAt);
   }
 }

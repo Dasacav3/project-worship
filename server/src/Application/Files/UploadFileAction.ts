@@ -16,6 +16,7 @@ export default class UploadFileAction {
       file.mimetype || '',
       file.size || 0,
       file.filename || '',
+      file.thumbnailPath || '',
       category,
       new Date(),
       new Date()

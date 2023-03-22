@@ -37,6 +37,7 @@ export default class GetBibleByIdAction {
       let structure = line.split('|');
       content.push({
         book: parseInt(structure[0]),
+        bookName: BibleStructure.find(item => item.id === parseInt(structure[0]))?.book,
         chapter: parseInt(structure[1]),
         verse: parseInt(structure[2]),
         text: structure[3]

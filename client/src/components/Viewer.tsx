@@ -5,60 +5,49 @@ import { ApiUrl, LocalUrl } from '../api/env_vars';
 const Viewer = ({
   defaultUrlFile = `${ApiUrl}/files/default/streaming`,
   defaultFileType = 'video',
-  defaultTextContent = ''
+  defaultTextContent = '',
+  defaultActiveInfo = ''
 }: any) => {
   const [urlFile, setUrlFile] = useState(defaultUrlFile);
   const [textContent, setTextContent] = useState(defaultTextContent);
+  const [activeInfo, setActiveInfo] = useState(defaultActiveInfo);
   const [fileType, setFileType] = useState(defaultFileType);
 
   document.body.style.overflow = 'hidden';
 
-  const transitions = useTransition(textContent, {
-    from: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 0 },
-    enter: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 1 },
-    leave: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 0 },
-    update: { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0% 100%)', opacity: 1 },
-    config: { mass: 1, tension: 120, friction: 30 },
+  const transitionTextContent = useTransition(textContent, {
+    from: { opacity: 0, transition: 'all 0.08s ease-in-out' },
+    enter: { opacity: 1, transition: 'all 0.08s ease-in-out' }
+  });
+
+  const transitionActiveInfo = useTransition(activeInfo, {
+    from: { opacity: 0, transition: 'all 0.08s ease-in-out' },
+    enter: { opacity: 1, transition: 'all 0.08s ease-in-out' }
   });
 
   const changeTextMarginLeft = (e: any) => {
-    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-
-    for (let key of text) {
-      key.style.paddingLeft = `${e}rem`;
-    }
+    const text = document.getElementById('textContent') as HTMLElement;
+    text.style.paddingLeft = `${e}rem`;
   };
 
   const changeTextMarginRight = (e: any) => {
-    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-
-    for (let key of text) {
-      key.style.paddingRight = `${e}rem`;
-    }
+    const text = document.getElementById('textContent') as HTMLElement;
+    text.style.paddingRight = `${e}rem`;
   };
 
   const changeTextMarginTop = (e: any) => {
-    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-
-    for (let key of text) {
-      key.style.paddingTop = `${e}rem`;
-    }
+    const text = document.getElementById('textContent') as HTMLElement;
+    text.style.paddingTop = `${e}rem`;
   };
 
   const changeTextMarginBottom = (e: any) => {
-    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-
-    for (let key of text) {
-      key.style.paddingBottom = `${e}rem`;
-    }
+    const text = document.getElementById('textContent') as HTMLElement;
+    text.style.paddingBottom = `${e}rem`;
   };
 
   const changeFontSize = (e: any) => {
-    const text = Array.from(document.getElementsByClassName('viewerContent') as HTMLCollectionOf<HTMLElement>);
-
-    for (let key of text) {
-      key.style.fontSize = `${e}rem`;
-    }
+    const textContent = document.getElementById('textContent') as HTMLElement;
+    textContent.style.fontSize = `${e}rem`;
   };
 
   const processData = (e: any) => {
@@ -66,18 +55,23 @@ const Viewer = ({
 
     if (data.hasOwnProperty('ml')) {
       changeTextMarginLeft(data.ml);
+      localStorage.setItem('ml', data.ml);
     }
     if (data.hasOwnProperty('mt')) {
       changeTextMarginTop(data.mt);
+      localStorage.setItem('mt', data.mt);
     }
     if (data.hasOwnProperty('mr')) {
       changeTextMarginRight(data.mr);
+      localStorage.setItem('mr', data.mr);
     }
     if (data.hasOwnProperty('mb')) {
       changeTextMarginBottom(data.mb);
+      localStorage.setItem('mb', data.mb);
     }
     if (data.hasOwnProperty('fs')) {
       changeFontSize(data.fs);
+      localStorage.setItem('fs', data.fs);
     }
     if (data.hasOwnProperty('fileType')) {
       setFileType(data.fileType);
@@ -89,9 +83,15 @@ const Viewer = ({
       setTextContent(data.textContent);
     }
 
+    if (data.hasOwnProperty('activeInfo')) {
+      setActiveInfo(data.activeInfo);
+    }
+
     if (data.hasOwnProperty('del')) {
       setTextContent('');
+      setActiveInfo('');
       localStorage.setItem('textContent', '');
+      localStorage.setItem('activeInfo', '');
     }
   };
 
@@ -101,6 +101,11 @@ const Viewer = ({
         return;
       }
 
+      changeFontSize(localStorage.getItem('fs') || 3);
+      changeTextMarginLeft(localStorage.getItem('ml') || 0);
+      changeTextMarginRight(localStorage.getItem('mr') || 0);
+      changeTextMarginTop(localStorage.getItem('mt') || 0);
+      changeTextMarginBottom(localStorage.getItem('mb') || 0);
       processData(e.data);
     });
   }, []);
@@ -118,8 +123,17 @@ const Viewer = ({
         ) : (
           <></>
         )}
-        <div>
-          <p className="viewerContent">{textContent}</p>
+        <div id="textContent">
+          {transitionTextContent((style, item) => (
+            <animated.p className="viewerContent" style={style}>
+              {item}
+            </animated.p>
+          ))}
+          {transitionActiveInfo((style, item) => (
+            <animated.p className="viewerContent" style={style}>
+              {item}
+            </animated.p>
+          ))}
         </div>
       </div>
     </>

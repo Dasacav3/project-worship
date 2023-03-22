@@ -1,6 +1,8 @@
 import 'material-icons/iconfont/material-icons.css';
+import i18n from '../store/i18n';
 
 const SideBar = (props: Props) => {
+  const sidebarTranslations : any = i18n.t('sidebar', { returnObjects: true });
   const sidebarClass = props.isOpen ? 'sidebar open' : 'sidebar';
   return (
     <div className={sidebarClass}>
@@ -9,22 +11,22 @@ const SideBar = (props: Props) => {
           <ul className="sidebarList">
             <li className="sidebarListItem" title="Home">
               <a href="/">
-                <span className="material-icons">add_home</span> Inicio
+                <span className="material-icons">add_home</span> {sidebarTranslations.home}
               </a>
             </li>
             <li className="sidebarListItem" title="Backgrounds">
               <a href="/backgrounds">
-                <span className="material-icons">wallpaper</span> Fondos
+                <span className="material-icons">wallpaper</span> {sidebarTranslations.backgrounds}
               </a>
             </li>
             <li className="sidebarListItem" title="Songs">
               <a href="/songs">
-                <span className="material-icons">library_music</span> Canciones
+                <span className="material-icons">library_music</span> {sidebarTranslations.songs}
               </a>
             </li>
             <li className="sidebarListItem" title="Bibles">
               <a href="/bibles">
-                <span className="material-icons">description</span> Biblia
+                <span className="material-icons">description</span> {sidebarTranslations.bible}
               </a>
             </li>
           </ul>

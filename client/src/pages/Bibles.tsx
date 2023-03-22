@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { ApiUrl } from '../api/env_vars';
-import Button from '../components/Button';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import SideBar from '../components/Sidebar';
 import WindowVisor from '../context/WindowViewer';
+import i18n from '../store/i18n';
 
 const Bibles = ({ windowVisor }: any) => {
   const [sidebarOpen, setSideBarOpen] = useState(false);
@@ -14,7 +14,8 @@ const Bibles = ({ windowVisor }: any) => {
   const [dataBibles, setDataBibles] = useState<any>([]);
   const [totalChapters, setTotalChapters] = useState<any>([]);
   const [bibleStructure, setBibleStructure] = useState<any>([]);
-  const [selectedIndexLyrics, setSelectedIndexLyrics] = useState(0);
+
+  const biblesTranslations: any = i18n.t('bibles', { returnObjects: true });
 
   const handleViewSidebar = () => {
     setSideBarOpen(!sidebarOpen);
@@ -82,37 +83,14 @@ const Bibles = ({ windowVisor }: any) => {
     }
 
     localStorage.setItem('textContent', message.textContent || '');
+    localStorage.setItem('activeInfo', message.activeInfo || '');
 
     return windowVisor.getWinObj()?.postMessage(message);
   };
 
-  const handleKeyDownLyrics = (event: any) => {
-    // If the down arrow is pressed
-    if (event.keyCode === 40) {
-      setSelectedIndexLyrics(Math.min(selectedIndexLyrics + 1, totalChapters.length - 1));
-      sendMessage(
-        {
-          textContent: event.target.textContent
-        },
-        windowVisor
-      );
-    }
-
-    // If the up arrow is pressed
-    if (event.keyCode === 38) {
-      setSelectedIndexLyrics(Math.max(selectedIndexLyrics - 1, 0));
-      sendMessage(
-        {
-          textContent: event.target.textContent
-        },
-        windowVisor
-      );
-    }
-  };
-
   return (
     <>
-      <Header title="Biblias" />
+      <Header title={biblesTranslations.title} />
       <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
       <div className="bible-versions">
         <div>
@@ -145,14 +123,14 @@ const Bibles = ({ windowVisor }: any) => {
       </div>
       <div className="containerBibles">
         <div className="bibleStructures">
-          <ul className="grid grid-cols-2">
+          <ul className="grid grid-cols-2 overflow-scroll">
             <div className="flex justify-center font-bold col-span-2">
-              <p>Books</p>
+              <p>{biblesTranslations.books}</p>
             </div>
             {bibleStructure ? (
               bibleStructure.map((item: any, index: number) => (
                 <div
-                  className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200 outline-none cursor-pointer"
+                  className="py-2 px-4 w-full rounded-md border border-gray-300 outline-none cursor-pointer"
                   key={index}
                   onClick={() => setTotalChaptersByBook(item)}
                 >
@@ -163,16 +141,16 @@ const Bibles = ({ windowVisor }: any) => {
               <></>
             )}
           </ul>
-          <div>
-            <div className="">
+          <div className="overflow-scroll">
+            <div>
               <div className="flex justify-center font-bold">
-                <p>Chapters</p>
+                <p>{biblesTranslations.chapters}</p>
               </div>
               <div className="grid grid-cols-10 cursor-pointer">
                 {totalChapters ? (
                   totalChapters.map((chapter: any, index: number) => (
                     <div
-                      className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200 outline-none"
+                      className="py-2 text-center w-full rounded-xl border border-gray-400 outline-none"
                       key={index}
                       onClick={() => searchBible(chapter)}
                     >
@@ -185,34 +163,37 @@ const Bibles = ({ windowVisor }: any) => {
               </div>
             </div>
           </div>
-          <div>
-            <div className="">
+          <div className="overflow-auto">
+            <div>
               <div className="flex justify-center font-bold">
-                <p>Lyrics</p>
+                <p>{biblesTranslations.verses}</p>
               </div>
               <ul className="songLyrics cursor-pointer">
                 {dataBibles ? (
                   dataBibles.map((lyric: any, index: number) => (
                     <li
                       key={index}
-                      className="border w-full text-center outline-none"
+                      className="border border-gray-300 w-full text-center outline-none"
                       onClick={() =>
-                        sendMessage(
-                          {
-                            textContent: lyric.text
-                          },
-                          windowVisor
-                        )
+                        {
+                          let info = `${lyric.bookName} ${lyric.chapter}:${index + 1}`;
+                          let text = `${lyric.text}`;
+                          sendMessage(
+                            {
+                              textContent: text,
+                              activeInfo: info
+                            },
+                            windowVisor
+                          )
+                        }
                       }
                       tabIndex={0}
-                      onKeyDown={handleKeyDownLyrics}
-                      style={{ backgroundColor: index === selectedIndexLyrics ? 'lightgray' : 'white' }}
                     >
                       {`${index + 1}. ${lyric.text}`}
                     </li>
                   ))
                 ) : (
-                  <>Que paso?</>
+                  <></>
                 )}
               </ul>
             </div>

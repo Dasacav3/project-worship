@@ -16,7 +16,7 @@ type Props = {
   title: any;
   href?: string;
   disabled?: boolean;
-  click?: () => any;
+  click?: (event?: any) => any;
 };
 
 export default Button;
