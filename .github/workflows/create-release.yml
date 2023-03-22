@@ -1,45 +1,23 @@
-name: Node.js CI
-
+name: Create Release
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
-
+    branches:
+      - master
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - name: Archive Production Artifact
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Comprimir archivos
+      run: zip -r project-worship.zip ./
+    - name: Crear release
+      run: gh release create $(jq -r '.version' package.json) --generate-notes project-worship.zip
+    - name: Subir archivo
       uses: actions/upload-artifact@v2
       with:
-        name: project-worship-${{ github.sha }}
-        path: ./
-    - name: Archive Production Artifact as ZIP
-      uses: montudor/action-zip@v1.0.0
-      with:
-        path: .
-        args: -r project-worship-${{ github.sha }}.zip ./
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.sha }}
-        release_name: 'Project Worship v${{ env.VERSION }}'
-        body: |
-          Release for version ${{ env.VERSION }}
-        draft: false
-        prerelease: false
-    - name: Upload Release Asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./project-worship-${{ github.sha }}.zip
-        asset_name: project-worship-${{ github.sha }}.zip
-        asset_content_type: application/zip
+        name: project-worship
+        path: ./project-worship.zip
