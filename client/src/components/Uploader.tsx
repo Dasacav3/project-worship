@@ -1,11 +1,14 @@
 import { ApiUrl } from '../api/env_vars';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+import i18n from '../store/i18n';
 
 const Uploader = () => {
   const handleFile = (e: any) => {
     handleUpload(e.target.files[0], e);
   };
+
+  const uploaderTranslations : any = i18n.t('uploader', { returnObjects: true });
 
   const handleUpload = async (file: File, event: any) => {
     const formData = new FormData();
@@ -21,16 +24,16 @@ const Uploader = () => {
 
     if (response.status === 200) {
       Swal.fire({
-        title: 'Success',
-        text: 'File uploaded successfully',
+        title: uploaderTranslations.successTitle,
+        text: uploaderTranslations.success,
         icon: 'success',
         showConfirmButton: false,
         timer: 1200
       });
     } else {
       Swal.fire({
-        title: 'Error',
-        text: 'Error uploading file',
+        title: uploaderTranslations.errorTitle,
+        text: uploaderTranslations.error,
         icon: 'error',
         showConfirmButton: false,
         timer: 1200
@@ -56,11 +59,9 @@ const Uploader = () => {
             <label>
               <input className="text-sm cursor-pointer w-36 hidden" type="file" onChange={handleFile} />
               <div className="bg-yellow-700 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-yellow-600">
-                Select
+                {uploaderTranslations.selectFile}
               </div>
             </label>
-
-            <div className="title text-yellow-600 uppercase">or drop files here</div>
           </div>
         </div>
       </div>

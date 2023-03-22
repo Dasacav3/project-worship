@@ -1,0 +1,69 @@
+{
+    "songs": {
+        "title": "Songs",
+        "add": "Add Song",
+        "edit": "Edit Song",
+        "delete": "Delete Song",
+        "lyrics": "Lyrics",
+        "save": "Save",
+        "close": "Close",
+        "new": "New Song",
+        "formTitle": "Title",
+        "formType": "Type",
+        "formTone": "Tone",
+        "success": "Song saved successfully",
+        "error": "Error saving song",
+        "deleteSuccessTitle": "Delete Success",
+        "deleteSuccess": "Song deleted successfully",
+        "deleteErrorTitle": "Delete Error",
+        "deleteError": "Error deleting song",
+        "confirmDelete": "Are you sure you want to delete this song?",
+        "confirmDeleteTitle": "Confirm Delete",
+        "accept": "Accept",
+        "cancel": "Cancel",
+        "search": "Search",
+        "importSuccessTitle": "Import Success",
+        "importSuccess": "Songs imported successfully",
+        "importErrorTitle": "Import Error",
+        "importError": "Error importing songs",
+        "import": "Import"
+    },
+    "backgrounds": {
+        "title": "Backgrounds",
+        "deleteFileSuccessTitle": "Success",
+        "deleteFileSuccessText": "File deleted successfully",
+        "deleteFileErrorTitle": "Error",
+        "deleteFileErrorText": "Error deleting file"
+    },
+    "footer": {
+        "marginLeft": "Margin Left",
+        "marginRight": "Margin Right",
+        "marginTop": "Margin Top",
+        "marginBottom": "Margin Bottom",
+        "fontSize": "Font Size",
+        "clean": "Clean",
+        "upload": "Upload",
+        "open": "Open",
+        "uploadFiles": "Upload Files",
+        "close": "Close"
+    },
+    "uploader": {
+        "success": "File uploaded successfully",
+        "successTitle": "Upload Success",
+        "errorTitle": "Upload Error",
+        "error": "Error uploading file",
+        "selectFile": "Select File"
+    },
+    "sidebar": {
+        "home": "Home",
+        "songs": "Songs",
+        "backgrounds": "Backgrounds",
+        "bible": "Bible"
+    },
+    "bibles": {
+        "title": "Bibles",
+        "books": "Books",
+        "chapters": "Chapters",
+        "verses": "Verses"
+    }
+}

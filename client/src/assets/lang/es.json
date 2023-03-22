@@ -1,0 +1,71 @@
+{
+    "songs": {
+        "title": "Canciones",
+        "add": "Agregar",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "lyrics": "Letra",
+        "save": "Guardar",
+        "close": "Cerrar",
+        "new": "Nueva Canción",
+        "formTitle": "Título",
+        "formType": "Tipo",
+        "formTone": "Tono",
+        "successTitle": "Exito",
+        "errorTitle": "Error",
+        "success": "Canción guardada con éxito",
+        "error": "Error al guardar la canción",
+        "deleteSuccessTitle": "Exito",
+        "deleteSuccess": "Canción eliminada con éxito",
+        "deleteErrorTitle": "Error",
+        "deleteError": "Error al eliminar la canción",
+        "deleteConfirm": "¿Está seguro que desea eliminar la canción?",
+        "deleteConfirmTitle": "Confirmar Eliminación",
+        "accept": "Aceptar",
+        "cancel": "Cancelar",
+        "search": "Buscar",
+        "importSuccessTitle": "Exito",
+        "importSuccess": "Canciones importadas con éxito",
+        "importErrorTitle": "Error",
+        "importError": "Error al importar las canciones",
+        "import": "Importar"
+    },
+    "backgrounds": {
+        "title": "Fondos",
+        "deleteFileSuccessTitle": "Exito",
+        "deleteFileSuccessText": "Archivo eliminado con éxito",
+        "deleteFileErrorTitle": "Error",
+        "deleteFileErrorText": "El archivo no pudo ser eliminado"
+    },
+    "footer": {
+        "marginLeft": "Margen Izquierdo",
+        "marginRight": "Margen Derecho",
+        "marginTop": "Margen Superior",
+        "marginBottom": "Margen Inferior",
+        "fontSize": "Tamaño de Letra",
+        "clean": "Limpiar",
+        "upload": "Subir",
+        "open": "Abrir",
+        "uploadFiles": "Subir Archivos",
+        "close": "Cerrar"
+    },
+    "uploader": {
+        "success": "Subido con éxito",
+        "successTitle": "Exito",
+        "errorTitle": "Error",
+        "error": "Error al subir el archivo",
+        "selectFile": "Seleccionar Archivo"
+    },
+    "sidebar": {
+        "home": "Inicio",
+        "songs": "Canciones",
+        "backgrounds": "Fondos",
+        "bible": "Biblia"
+    },
+    "bibles": {
+        "title": "Biblias",
+        "books": "Libros",
+        "chapters": "Capítulos",
+        "verses": "Versículos"
+    }
+}

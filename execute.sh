@@ -1,6 +1,6 @@
 # Npm packages for backend
 
-npm install -g postcss-cli autoprefixer cssnano
+npm install -g postcss-cli postcss
 
 npm install
 
@@ -18,4 +18,3 @@ postcss src/assets/index.css -o src/assets/main.css
 
 cd ..
 
-npm run dev

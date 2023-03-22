@@ -24,6 +24,7 @@ const App = () => {
             defaultUrlFile={localStorage.getItem('urlFile')}
             defaultFileType={localStorage.getItem('fileType')}
             defaultTextContent={localStorage.getItem('textContent')}
+            defaultActiveInfo={localStorage.getItem('activeInfo')}
           />
         }
       />
