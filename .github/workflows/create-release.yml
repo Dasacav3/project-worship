@@ -27,11 +27,11 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: project-worship-${{ github.sha }}
-        path: .
+        path: ./
     - name: Archive Production Artifact as ZIP
       uses: montudor/action-zip@v1.0.0
       with:
-        args: -r project-worship-${{ github.sha }}.zip .
+        args: -r project-worship-${{ github.sha }}.zip ./
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
