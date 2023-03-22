@@ -9,5 +9,5 @@ npm install
 # Compile tailwindcss and postcss
 postcss src/assets/index.css -o src/assets/main.css
 
-# Run the app
+# Go to root folder
 cd ..
