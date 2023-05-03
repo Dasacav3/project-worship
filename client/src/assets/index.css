@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /**
 Fonts
 */
@@ -546,7 +542,8 @@ input[type='radio']:checked + label {
     right: -40px;
   }
 
-  .bibleStructures, .songStructures  {
+  .bibleStructures,
+  .songStructures {
     height: 60vh;
   }
 }
@@ -592,7 +589,8 @@ input[type='radio']:checked + label {
     width: 100%;
   }
 
-  .bibleStructures, .songStructures {
+  .bibleStructures,
+  .songStructures {
     height: 50vh;
   }
 }
