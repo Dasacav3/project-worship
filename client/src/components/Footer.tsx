@@ -19,7 +19,7 @@ const Footer = ({ windowVisor }: any) => {
     localStorage.getItem('mb') ? parseInt(localStorage.getItem('mb') || '0') : 0
   ]);
   const [fontSize, setFontSize] = useState([
-    localStorage.getItem('fs') ? parseInt(localStorage.getItem('fs') || '0') : 3
+    localStorage.getItem('fs') ? parseInt(localStorage.getItem('fs') || '3') : 3
   ]);
 
   const footerTranslations : any = i18n.t('footer', { returnObjects: true });
