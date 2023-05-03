@@ -270,9 +270,9 @@ const Songs = ({ windowVisor }: any) => {
     <>
       <Header title={songsTranslation.title} />
       <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
-      <div>
-        <div className="flex flex-row justify-end w-11/12 mt-3 mb-3">
-          <div className="flex w-9/12">
+      <div className="w-10/12 m-auto">
+        <div className="flex flex-row justify-between mt-3 mb-3">
+          <div className="flex">
             <input
               type="text"
               value={input}
