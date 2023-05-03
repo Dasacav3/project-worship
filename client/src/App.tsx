@@ -4,7 +4,8 @@ import Bibles from './pages/Bibles';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Songs from './pages/Songs';
-import './assets/main.css';
+import './assets/index.css';
+import './assets/tailwind.js';
 import Viewer from './components/Viewer';
 import WindowVisor from './context/WindowViewer';
 
