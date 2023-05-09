@@ -10,6 +10,7 @@ import SideBar from '../components/Sidebar';
 import SongForm from '../components/SongForm';
 import WindowVisor from '../context/WindowViewer';
 import i18n from '../store/i18n';
+import List from '../components/List';
 
 const Songs = ({ windowVisor }: any) => {
   const [sidebarOpen, setSideBarOpen] = useState(false);
@@ -80,24 +81,31 @@ const Songs = ({ windowVisor }: any) => {
       }
     });
 
-    const files = await response.json();
+    const data = await response.json();
 
-    setPrevPage(files.pagination.prev);
-    setNextPage(files.pagination.next);
+    setPrevPage(data.pagination.prev);
+    setNextPage(data.pagination.next);
 
-    if (files.pagination.prev === null) {
+    if (data.pagination.prev === null) {
       setButtonPrevStatus(true);
     } else {
       setButtonPrevStatus(false);
     }
 
-    if (files.pagination.next === null) {
+    if (data.pagination.next === null) {
       setButtonNextStatus(true);
     } else {
       setButtonNextStatus(false);
     }
 
-    setDataSongs(files);
+    const songs = data.data.map((song: any, index: number) => {
+      return {
+        id: song.id,
+        value: song.title
+      };
+    });
+
+    setDataSongs(songs);
   };
 
   const saveOrUpdateSong = async (id?: string) => {
@@ -143,8 +151,8 @@ const Songs = ({ windowVisor }: any) => {
     }
   };
 
-  const searchSong = async (id: string) => {
-    const response = await fetch(`${ApiUrl}/songs/${id}`, {
+  const searchSong = async (item: { id: string; value: string }) => {
+    const response = await fetch(`${ApiUrl}/songs/${item.id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -157,17 +165,27 @@ const Songs = ({ windowVisor }: any) => {
 
     setSongIsClicked(true);
     setDataSongClicked(song);
-    setDataSongLyrics(arrayOfLyrics);
+    setDataSongLyrics(
+      arrayOfLyrics.map((lyric: string, index: number) => {
+        return {
+          id: index,
+          value: lyric
+        };
+      })
+    );
   };
 
-  const sendMessage = (message: any, windowVisor: WindowVisor) => {
+  const sendMessage = (item: { id: string; value: string }) => {
     if (windowVisor.checkIfClosed() != false || windowVisor.getWinObj()?.name === '') {
       windowVisor.openObj();
     }
 
-    localStorage.setItem('textContent', message.textContent || '');
+    localStorage.setItem('textContent', item.value || '');
 
-    return windowVisor.getWinObj()?.postMessage(message);
+    return windowVisor.getWinObj()?.postMessage({
+      textContent: item.value,
+      valueInfo: ''
+    });
   };
 
   const deleteSong = async (id: string) => {
@@ -210,45 +228,6 @@ const Songs = ({ windowVisor }: any) => {
           timer: 2000
         });
       }
-    }
-  };
-
-  const handleKeyDownLyrics = (event: any) => {
-    // If the down arrow is pressed
-    if (event.keyCode === 40) {
-      setSelectedIndexLyrics(Math.min(selectedIndexLyrics + 1, dataSongLyrics.length - 1));
-      sendMessage(
-        {
-          textContent: dataSongLyrics[selectedIndexLyrics],
-          activeInfo: ''
-        },
-        windowVisor
-      );
-    }
-    // If the up arrow is pressed
-    if (event.keyCode === 38) {
-      setSelectedIndexLyrics(Math.max(selectedIndexLyrics - 1, 0));
-      sendMessage(
-        {
-          textContent: dataSongLyrics[selectedIndexLyrics],
-          activeInfo: ''
-        },
-        windowVisor
-      );
-    }
-  };
-
-  const handleKeyDownSong = (event: any) => {
-    // If the down arrow is pressed
-    if (event.keyCode === 40) {
-      setSelectedIndexSong(Math.min(selectedIndexSong + 1, dataSongs.data.length - 1));
-      searchSong(dataSongs.data[selectedIndexSong].id);
-    }
-
-    // If the up arrow is pressed
-    if (event.keyCode === 38) {
-      setSelectedIndexSong(Math.max(selectedIndexSong - 1, 0));
-      searchSong(dataSongs.data[selectedIndexSong].id);
     }
   };
 
@@ -381,58 +360,18 @@ const Songs = ({ windowVisor }: any) => {
           />
         </div>
         <div className="songStructures">
-          <ul className="text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 cursor-pointer overflow-scroll">
+          <div className="font-medium text-gray-900 bg-white rounded-lg border border-gray-200 cursor-pointer overflow-scroll">
             <div className="flex justify-center font-bold border-none">
               <p>{songsTranslation.title}</p>
             </div>
-            {dataSongs.data ? (
-              dataSongs.data.map((song: any, index: number) => (
-                <li
-                  className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200 outline-none"
-                  key={index}
-                  onClick={() => searchSong(song.id)}
-                  tabIndex={0}
-                  onKeyDown={handleKeyDownSong}
-                  style={{ backgroundColor: index === selectedIndexSong ? 'lightgray' : 'white' }}
-                >
-                  {song.title}
-                </li>
-              ))
-            ) : (
-              <></>
-            )}
-          </ul>
+            <List items={dataSongs} onItemClick={searchSong} />
+          </div>
           <div className="overflow-scroll">
-            <div>
+            <div className="font-medium text-gray-900 bg-white rounded-lg border border-gray-200 cursor-pointer">
               <div className="flex justify-center font-bold">
                 <p>{songsTranslation?.lyrics}</p>
               </div>
-              <ul className="songLyrics cursor-pointer">
-                {dataSongLyrics ? (
-                  dataSongLyrics.map((lyric: any, index: number) => (
-                    <li
-                      key={index}
-                      className="border w-full text-center outline-none"
-                      onClick={() =>
-                        sendMessage(
-                          {
-                            textContent: lyric,
-                            activeInfo: ''
-                          },
-                          windowVisor
-                        )
-                      }
-                      tabIndex={0}
-                      onKeyDown={handleKeyDownLyrics}
-                      style={{ backgroundColor: index === selectedIndexLyrics ? 'lightgray' : 'white' }}
-                    >
-                      {lyric}
-                    </li>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </ul>
+              <List items={dataSongLyrics} onItemClick={sendMessage} />
             </div>
           </div>
         </div>
