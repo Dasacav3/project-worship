@@ -3,13 +3,17 @@ import { ApiUrl } from '../api/env_vars';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import SideBar from '../components/Sidebar';
-import WindowVisor from '../context/WindowViewer';
+import List from '../components/List';
 import i18n from '../store/i18n';
 
 const Bibles = ({ windowVisor }: any) => {
   const [sidebarOpen, setSideBarOpen] = useState(false);
   const [bibleVersions, setBibleVersions] = useState<any>([]);
-  const [activeBibleVersion, setActiveBibleVersion] = useState<any>(1);
+  const [activeBibleVersion, setActiveBibleVersion] = useState<any>(
+    parseInt(localStorage.getItem('activeBibleVersion') || '1')
+      ? parseInt(localStorage.getItem('activeBibleVersion') || '1')
+      : 1
+  );
   const [activeBook, setActiveBook] = useState<any>(1);
   const [dataBibles, setDataBibles] = useState<any>([]);
   const [totalChapters, setTotalChapters] = useState<any>([]);
@@ -34,7 +38,15 @@ const Bibles = ({ windowVisor }: any) => {
       }
     });
 
-    const structure = await response.json();
+    const data = await response.json();
+
+    const structure = data.map((item: any) => {
+      return {
+        id: item.id,
+        value: item.book,
+        data: item
+      };
+    });
 
     setBibleStructure(structure);
   };
@@ -52,35 +64,55 @@ const Bibles = ({ windowVisor }: any) => {
     setBibleVersions(bibleVersions);
   };
 
-  const setTotalChaptersByBook = (book: any) => {
+  const setTotalChaptersByBook = (book: { id: string; value: string; data?: any }) => {
     setActiveBook(book.id);
 
     let chapters = [];
 
-    for (let i = 1; i <= book.chapters; i++) {
+    for (let i = 1; i <= book.data.chapters; i++) {
       chapters.push(i);
     }
 
-    setTotalChapters(chapters);
+    const chaptersByBook = chapters.map((chapter: any, index: number) => {
+      return {
+        id: index + 1,
+        value: chapter
+      };
+    });
+
+    setTotalChapters(chaptersByBook);
   };
 
-  const searchBible = async (chapter: number) => {
-    const response = await fetch(`${ApiUrl}/bibles/${activeBibleVersion}?book=${activeBook}&chapter=${chapter}`, {
+  const searchBible = async (item: { id: string; value: string; data?: string }) => {
+    const response = await fetch(`${ApiUrl}/bibles/${activeBibleVersion}?book=${activeBook}&chapter=${item.value}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
     });
 
-    const lyrics = await response.json();
+    const data = await response.json();
+
+    const lyrics = data.map((item: any, index: number) => {
+      return {
+        id: index + 1,
+        value: item.text,
+        data: item
+      };
+    });
 
     setDataBibles(lyrics);
   };
 
-  const sendMessage = (message: any, windowVisor: WindowVisor) => {
+  const sendMessage = (item: { id: string; value: string; data?: any }) => {
     if (windowVisor.checkIfClosed() != false || windowVisor.getWinObj()?.name === '') {
       windowVisor.openObj();
     }
+
+    const message = {
+      textContent: item.value,
+      activeInfo: `${item.data.bookName} ${item.data.chapter}:${item.id}`
+    };
 
     localStorage.setItem('textContent', message.textContent || '');
     localStorage.setItem('activeInfo', message.activeInfo || '');
@@ -100,7 +132,10 @@ const Bibles = ({ windowVisor }: any) => {
                 <li
                   className="py-2 px-4 w-full rounded-t-lg border-b border-gray-200"
                   key={index}
-                  onClick={() => setActiveBibleVersion(version.id)}
+                  onClick={() => {
+                    setActiveBibleVersion(version.id);
+                    localStorage.setItem('activeBibleVersion', version.id);
+                  }}
                 >
                   <input
                     id={`bibleVersion${index}`}
@@ -123,43 +158,28 @@ const Bibles = ({ windowVisor }: any) => {
       </div>
       <div className="containerBibles">
         <div className="bibleStructures">
-          <ul className="grid grid-cols-2 overflow-scroll">
+          <div className="overflow-scroll">
             <div className="flex justify-center font-bold col-span-2">
               <p>{biblesTranslations.books}</p>
             </div>
-            {bibleStructure ? (
-              bibleStructure.map((item: any, index: number) => (
-                <div
-                  className="py-2 px-4 w-full rounded-md border border-gray-300 outline-none cursor-pointer"
-                  key={index}
-                  onClick={() => setTotalChaptersByBook(item)}
-                >
-                  {item.book}
-                </div>
-              ))
-            ) : (
-              <></>
-            )}
-          </ul>
+            <List
+              items={bibleStructure}
+              onItemClick={setTotalChaptersByBook}
+              listStyle="grid grid-cols-2 cursor-pointer text-center"
+            />
+          </div>
           <div className="overflow-scroll">
             <div>
               <div className="flex justify-center font-bold">
                 <p>{biblesTranslations.chapters}</p>
               </div>
-              <div className="grid grid-cols-10 cursor-pointer">
-                {totalChapters ? (
-                  totalChapters.map((chapter: any, index: number) => (
-                    <div
-                      className="py-2 text-center w-full rounded-xl border border-gray-400 outline-none"
-                      key={index}
-                      onClick={() => searchBible(chapter)}
-                    >
-                      {chapter}
-                    </div>
-                  ))
-                ) : (
-                  <></>
-                )}
+              <div className="cursor-pointer">
+                <List
+                  items={totalChapters}
+                  onItemClick={searchBible}
+                  listStyle="grid grid-cols-10"
+                  itemStyle="py-2 text-center w-full rounded-xl border border-gray-400 outline-none"
+                />
               </div>
             </div>
           </div>
@@ -169,32 +189,7 @@ const Bibles = ({ windowVisor }: any) => {
                 <p>{biblesTranslations.verses}</p>
               </div>
               <ul className="songLyrics cursor-pointer">
-                {dataBibles ? (
-                  dataBibles.map((lyric: any, index: number) => (
-                    <li
-                      key={index}
-                      className="border border-gray-300 w-full text-center outline-none"
-                      onClick={() =>
-                        {
-                          let info = `${lyric.bookName} ${lyric.chapter}:${index + 1}`;
-                          let text = `${lyric.text}`;
-                          sendMessage(
-                            {
-                              textContent: text,
-                              activeInfo: info
-                            },
-                            windowVisor
-                          )
-                        }
-                      }
-                      tabIndex={0}
-                    >
-                      {`${index + 1}. ${lyric.text}`}
-                    </li>
-                  ))
-                ) : (
-                  <></>
-                )}
+                <List items={dataBibles} onItemClick={sendMessage} listedItem={true} />
               </ul>
             </div>
           </div>
