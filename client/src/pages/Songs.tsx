@@ -22,8 +22,6 @@ const Songs = ({ windowVisor }: any) => {
   const [dataSongClicked, setDataSongClicked] = useState<any>([]);
   const [dataSongLyrics, setDataSongLyrics] = useState<any>([]);
   const [songIsClicked, setSongIsClicked] = useState(false);
-  const [selectedIndexSong, setSelectedIndexSong] = useState(0);
-  const [selectedIndexLyrics, setSelectedIndexLyrics] = useState(0);
   const [input, setInput] = useState('');
 
   useEffect(() => {
@@ -184,7 +182,7 @@ const Songs = ({ windowVisor }: any) => {
 
     return windowVisor.getWinObj()?.postMessage({
       textContent: item.value,
-      valueInfo: ''
+      activeInfo: ''
     });
   };
 
@@ -241,8 +239,15 @@ const Songs = ({ windowVisor }: any) => {
     });
 
     const data = await response.json();
+    <div className=""></div>;
+    const songs = data.data.map((song: any, index: number) => {
+      return {
+        id: song.id,
+        value: song.title
+      };
+    });
 
-    setDataSongs(data);
+    setDataSongs(songs);
   };
 
   return (
