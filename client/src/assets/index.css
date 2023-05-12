@@ -325,6 +325,12 @@ header {
   font-weight: 600;
 }
 
+.selected {
+  background-color: var(--color-primary);
+  color: var(--text-color-secondary);
+  font-weight: 600;
+}
+
 .wrapper {
   @apply bg-white hover:bg-gray-800 shadow-xl hover:shadow-none cursor-pointer w-80 rounded-3xl flex flex-col items-center justify-center;
 }
