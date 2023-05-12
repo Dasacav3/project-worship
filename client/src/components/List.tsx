@@ -1,8 +1,11 @@
 import { Component, KeyboardEvent } from 'react';
 
 type ListProps = {
-  items: Array<{ id: string; value: string }>;
+  items: Array<{ id: string; value: string; data?: any }>;
   onItemClick: (item: { id: string; value: string }) => void;
+  listedItem?: boolean;
+  listStyle?: string;
+  itemStyle?: string;
 };
 
 type ListState = {
@@ -39,16 +42,19 @@ class List extends Component<ListProps, ListState> {
   render() {
     const { items } = this.props;
     const { selectedIndex } = this.state;
+    const { listedItem } = this.props;
+    const { listStyle } = this.props;
+    const { itemStyle } = this.props;
 
     return (
-      <ul onKeyDown={this.handleKeyDown} tabIndex={0}>
+      <ul onKeyDown={this.handleKeyDown} tabIndex={0} className={`${listStyle}`}>
         {items.map((item, index) => (
           <li
             key={index}
-            className={index === selectedIndex ? 'selected' : ''}
+            className={index === selectedIndex ? `selected ${itemStyle}` : `${itemStyle}`}
             onClick={() => this.handleItemClick(item, index)}
           >
-            {item.value}
+            {listedItem ? `${item.id}. ${item.value}` : item.value}
           </li>
         ))}
       </ul>
