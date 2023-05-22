@@ -203,7 +203,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 85%;
+  width: 90%;
 }
 
 .logo-wrap {
@@ -250,15 +250,15 @@ header {
   transition: left 0.3s ease-in-out;
   background-color: var(--color-primary);
   z-index: 10;
-  height: calc(100% - 80px);
+  height: 100%                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ;
 }
 
 .sidebar-toggle {
   position: absolute;
   top: 20%;
   right: -60px;
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
   z-index: 1;
   color: var(--text-color-secondary);
   background-color: var(--color-primary);
@@ -403,28 +403,32 @@ header {
 .backgroudStructures {
   display: grid;
   justify-items: center;
-  width: 85%;
+  width: 90%;
   gap: 1rem;
   margin: 1rem 0;
   grid-template-columns: repeat(4, minmax(320px, 1fr));
+  height: calc(100vh - 350px);
+  overflow: scroll;
 }
 
 .songStructures {
   display: grid;
-  width: 85%;
+  width: 90%;
   height: 60vh;
   gap: 1rem;
   margin: 1rem 0;
   grid-template-columns: repeat(2, minmax(320px, 1fr));
+  height: calc(100vh - 350px);
 }
 
 .bibleStructures {
   display: grid;
-  width: 85%;
+  width: 90%;
   height: 65vh;
   gap: 1rem;
   margin: 1rem 0;
   grid-template-columns: repeat(3, minmax(320px, 1fr));
+  height: calc(100vh - 350px);
 }
 
 .paginationButtons {
@@ -482,7 +486,6 @@ header {
   position: fixed;
   bottom: 0;
   padding: 1rem 2rem;
-  z-index: 20;
 }
 
 .footer-content {
@@ -491,8 +494,18 @@ header {
   align-items: center;
   justify-content: center;
   margin: 0;
-  z-index: 10;
+  width: 80%;
   font-weight: 600;
+}
+
+.footer-font-size {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+  font-weight: 800;
 }
 
 .footer-content-buttons {
@@ -500,7 +513,6 @@ header {
   flex-direction: row;
   justify-content: space-around;
   margin: 0.3rem 0;
-  z-index: 10;
   font-weight: 600;
 }
 
