@@ -1,6 +1,6 @@
 import 'material-icons/iconfont/material-icons.css';
 import i18n from '../store/i18n';
-import { version } from '../../package.json'
+import { version } from '../../../package.json'
 
 const SideBar = (props: Props) => {
   const sidebarTranslations : any = i18n.t('sidebar', { returnObjects: true });
