@@ -1,5 +1,6 @@
 import 'material-icons/iconfont/material-icons.css';
 import i18n from '../store/i18n';
+import { version } from '../../package.json'
 
 const SideBar = (props: Props) => {
   const sidebarTranslations : any = i18n.t('sidebar', { returnObjects: true });
@@ -27,6 +28,11 @@ const SideBar = (props: Props) => {
             <li className="sidebarListItem" title="Bibles">
               <a href="/bibles">
                 <span className="material-icons">description</span> {sidebarTranslations.bible}
+              </a>
+            </li>
+            <li className="sidebarListItem" title="Version">
+              <a href="#">
+                Version {version}
               </a>
             </li>
           </ul>
