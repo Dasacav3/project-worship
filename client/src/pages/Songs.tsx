@@ -137,7 +137,6 @@ const Songs = ({ windowVisor }: any) => {
         showConfirmButton: false,
         timer: 1200
       });
-      window.location.reload();
     } else {
       Swal.fire({
         title: songsTranslation.errorTitle,

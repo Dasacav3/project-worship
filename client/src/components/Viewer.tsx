@@ -14,15 +14,16 @@ const Viewer = ({
   const [fileType, setFileType] = useState(defaultFileType);
 
   document.body.style.overflow = 'hidden';
+  document.body.style.backgroundColor = '#000';
 
   const transitionTextContent = useTransition(textContent, {
-    from: { opacity: 0, transition: 'all 0.08s ease-in-out' },
-    enter: { opacity: 1, transition: 'all 0.08s ease-in-out' }
+    from: { opacity: 0, transition: 'all 0.1s ease-in-out' },
+    enter: { opacity: 1, transition: 'all 0.1s ease-in-out' }
   });
 
   const transitionActiveInfo = useTransition(activeInfo, {
-    from: { opacity: 0, transition: 'all 0.08s ease-in-out' },
-    enter: { opacity: 1, transition: 'all 0.08s ease-in-out' }
+    from: { opacity: 0, transition: 'all 0.1s ease-in-out' },
+    enter: { opacity: 1, transition: 'all 0.1s ease-in-out' }
   });
 
   const changeTextMarginLeft = (e: any) => {
@@ -101,12 +102,12 @@ const Viewer = ({
         return;
       }
 
+      processData(e.data);
       changeFontSize(localStorage.getItem('fs') || 3);
       changeTextMarginLeft(localStorage.getItem('ml') || 0);
       changeTextMarginRight(localStorage.getItem('mr') || 0);
       changeTextMarginTop(localStorage.getItem('mt') || 0);
       changeTextMarginBottom(localStorage.getItem('mb') || 0);
-      processData(e.data);
     });
   }, []);
 
