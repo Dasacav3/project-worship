@@ -1,2 +1,2 @@
-export const ApiUrl = 'http://localhost:4440';
-export const LocalUrl = 'http://localhost:5173';
+export const ApiUrl = import.meta.env.VITE_API_URL as string;
+export const LocalUrl = import.meta.env.VITE_LOCAL_URL as string;
