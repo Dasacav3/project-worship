@@ -175,7 +175,7 @@ const Footer = ({ windowVisor }: any) => {
               )}
             />
           </div>
-          <div className="footer-content">
+          <div className="footer-font-size">
             <label>{footerTranslations.fontSize}</label>
             <Range
               step={0.3}

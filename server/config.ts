@@ -15,6 +15,14 @@ const config = {
     credentials: true,
     methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
     origin: '*',
+    exposedHeaders: [
+      'Origin',
+      'X-Requested-With',
+      'Content-Type',
+      'Accept',
+      'X-Access-Token',
+      'Access-Control-Allow-Origin'
+    ],
     preflightContinue: false
   })
 };
