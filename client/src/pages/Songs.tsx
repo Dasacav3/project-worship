@@ -8,9 +8,10 @@ import Header from '../components/Header';
 import Modal from '../components/Modal';
 import SideBar from '../components/Sidebar';
 import SongForm from '../components/SongForm';
-import WindowVisor from '../context/WindowViewer';
 import i18n from '../store/i18n';
 import List from '../components/List';
+import Favorite from '../components/Favorite';
+import { Value } from 'sass';
 
 const Songs = ({ windowVisor }: any) => {
   const [sidebarOpen, setSideBarOpen] = useState(false);
@@ -23,6 +24,9 @@ const Songs = ({ windowVisor }: any) => {
   const [dataSongLyrics, setDataSongLyrics] = useState<any>([]);
   const [songIsClicked, setSongIsClicked] = useState(false);
   const [input, setInput] = useState('');
+  const [favorites, setFavorites] = useState<any>(
+    localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites') || '') : []
+  );
 
   useEffect(() => {
     fetchData(`${ApiUrl}/songs`);
@@ -99,7 +103,11 @@ const Songs = ({ windowVisor }: any) => {
     const songs = data.data.map((song: any, index: number) => {
       return {
         id: song.id,
-        value: song.title
+        value: song.title,
+        data: {
+          icon: 'grade',
+          favorites: favorites
+        }
       };
     });
 
@@ -166,7 +174,11 @@ const Songs = ({ windowVisor }: any) => {
       arrayOfLyrics.map((lyric: string, index: number) => {
         return {
           id: index,
-          value: lyric
+          value: lyric,
+          data: {
+            icon: '',
+            favorites: []
+          }
         };
       })
     );
@@ -247,6 +259,24 @@ const Songs = ({ windowVisor }: any) => {
     });
 
     setDataSongs(songs);
+  };
+
+  const markAsFavorite = async (item: { id: string; value: string }) => {
+    if (favorites.includes(item.id)) {
+      console.log('includes');
+      console.log(favorites);
+      console.log(item.id);
+      const index = favorites.indexOf(item.id);
+      console.log(index);
+      if (index > -1) {
+        favorites.splice(index, 1);
+      }
+      setFavorites([...favorites]);
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+    } else {
+      setFavorites([...favorites, item.id]);
+      localStorage.setItem('favorites', JSON.stringify([...favorites, item.id]));
+    }
   };
 
   return (
@@ -368,7 +398,7 @@ const Songs = ({ windowVisor }: any) => {
             <div className="flex justify-center font-bold border-none">
               <p>{songsTranslation.title}</p>
             </div>
-            <List items={dataSongs} onItemClick={searchSong} />
+            <List items={dataSongs} onItemClick={searchSong} onIconClick={markAsFavorite} />
           </div>
           <div className="overflow-scroll">
             <div className="font-medium text-gray-900 bg-white rounded-lg border border-gray-200 cursor-pointer">
@@ -376,6 +406,19 @@ const Songs = ({ windowVisor }: any) => {
                 <p>{songsTranslation?.lyrics}</p>
               </div>
               <List items={dataSongLyrics} onItemClick={sendMessage} />
+            </div>
+          </div>
+          <div className="overflow-scroll">
+            <div className="font-medium text-gray-900 bg-white rounded-lg border border-gray-200 cursor-pointer">
+              <div className="flex justify-center font-bold">
+                <p>{songsTranslation?.favorites}</p>
+              </div>
+              <List
+                items={favorites.map((element: any, index: number) => {
+                  return { id: element, value: index };
+                })}
+                onItemClick={sendMessage}
+              />
             </div>
           </div>
         </div>

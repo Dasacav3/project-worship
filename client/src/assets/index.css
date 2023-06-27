@@ -417,7 +417,7 @@ header {
   height: 60vh;
   gap: 1rem;
   margin: 1rem 0;
-  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  grid-template-columns: repeat(2, minmax(320px, 1fr)) 0.5fr;
   height: calc(100vh - 350px);
 }
 
