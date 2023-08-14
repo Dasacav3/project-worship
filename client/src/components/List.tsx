@@ -15,11 +15,14 @@ type ListState = {
 };
 
 class List extends Component<ListProps, ListState> {
+  favorites: Array<string> = [];
+
   constructor(props: ListProps) {
     super(props);
     this.state = {
       selectedIndex: 0
     };
+    this.favorites = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites') || '') : [];
   }
 
   handleKeyDown = (event: KeyboardEvent) => {
@@ -50,31 +53,30 @@ class List extends Component<ListProps, ListState> {
     const { items } = this.props;
     const { selectedIndex } = this.state;
     const { listedItem } = this.props;
-    const { listStyle } = this.props;
-    const { itemStyle } = this.props;
+    const { listStyle } = this.props || '';
+    const { itemStyle } = this.props || '';
 
     return (
       <ul onKeyDown={this.handleKeyDown} tabIndex={0} className={`${listStyle}`}>
         {items.map((item, index) => (
-          <p key={index} className={index === selectedIndex ? `flex selected ${itemStyle}` : `flex ${itemStyle}`}>
-            <p onClick={() => this.handleOnIconClick(item)}>
-              {item.data?.icon ? (
+          <div key={index} className={index === selectedIndex ? `flex selected ${itemStyle}` : `flex ${itemStyle}`}>
+            {item.data?.icon ? (
+              <p onClick={() => this.handleOnIconClick(item)}>
                 <span
                   className={
-                    item.data && item.data.favorites.find((favorite: string) => favorite === item.id)
+                    item.data && this.favorites.find((favorite: string) => favorite === item.id)
                       ? 'material-icons'
                       : 'material-icons-outlined'
                   }
                 >
-                  {' '}
-                  {item.data?.icon}{' '}
+                  grade
                 </span>
-              ) : null}
-            </p>
-            <li onClick={() => this.handleItemClick(item, index)}>
+              </p>
+            ) : null}
+            <li className="w-full" onClick={() => this.handleItemClick(item, index)}>
               <p> {listedItem ? `${item.id}. ${item.value}` : item.value}</p>
             </li>
-          </p>
+          </div>
         ))}
       </ul>
     );

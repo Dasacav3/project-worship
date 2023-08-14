@@ -250,11 +250,15 @@ const Songs = ({ windowVisor }: any) => {
     });
 
     const data = await response.json();
-    <div className=""></div>;
+
     const songs = data.data.map((song: any, index: number) => {
       return {
         id: song.id,
-        value: song.title
+        value: song.title,
+        data: {
+          icon: 'grade',
+          favorites: favorites
+        }
       };
     });
 
@@ -263,18 +267,19 @@ const Songs = ({ windowVisor }: any) => {
 
   const markAsFavorite = async (item: { id: string; value: string }) => {
     if (favorites.includes(item.id)) {
-      console.log('includes');
-      console.log(favorites);
-      console.log(item.id);
       const index = favorites.indexOf(item.id);
-      console.log(index);
+
       if (index > -1) {
         favorites.splice(index, 1);
       }
+
       setFavorites([...favorites]);
+
       localStorage.setItem('favorites', JSON.stringify(favorites));
     } else {
+      console.log([...favorites, item.id]);
       setFavorites([...favorites, item.id]);
+
       localStorage.setItem('favorites', JSON.stringify([...favorites, item.id]));
     }
   };
