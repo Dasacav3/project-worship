@@ -203,7 +203,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
+  width: 91.666667%;
 }
 
 .logo-wrap {
@@ -403,7 +403,7 @@ header {
 .backgroudStructures {
   display: grid;
   justify-items: center;
-  width: 90%;
+  width: 91.666667%;
   gap: 1rem;
   margin: 1rem 0;
   grid-template-columns: repeat(4, minmax(320px, 1fr));
@@ -413,17 +413,17 @@ header {
 
 .songStructures {
   display: grid;
-  width: 90%;
+  width: 91.666667%;
   height: 60vh;
   gap: 1rem;
   margin: 1rem 0;
-  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  grid-template-columns: repeat(2, minmax(320px, 1fr)) 0.5fr;
   height: calc(100vh - 350px);
 }
 
 .bibleStructures {
   display: grid;
-  width: 90%;
+  width: 91.666667%;
   height: 65vh;
   gap: 1rem;
   margin: 1rem 0;
@@ -436,7 +436,7 @@ header {
   flex-direction: row;
   justify-content: space-between;
   margin: 2rem 0;
-  width: 80%;
+  width: 91.666667%;
 }
 
 .paginationButtons button {

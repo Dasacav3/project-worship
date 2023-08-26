@@ -1,23 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
-import Backgrounds from './pages/Backgrounds';
-import Bibles from './pages/Bibles';
-import Home from './pages/Home';
 import NotFound from './pages/NotFound';
-import Songs from './pages/Songs';
 import './assets/index.css';
 import './assets/tailwind.js';
 import Viewer from './components/Viewer';
 import WindowVisor from './context/WindowViewer';
+import Main from './pages/Main';
 
 const App = () => {
   const windowVisor = new WindowVisor(500, 500);
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/backgrounds" element={<Backgrounds windowVisor={windowVisor} />} />
-      <Route path="/songs" element={<Songs windowVisor={windowVisor} />} />
-      <Route path="/bibles" element={<Bibles windowVisor={windowVisor} />} />
+      <Route path="/" element={<Main windowVisor={windowVisor} />} />
       <Route
         path="/viewer"
         element={
