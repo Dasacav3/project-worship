@@ -27,7 +27,8 @@
         "importErrorTitle": "Import Error",
         "importError": "Error importing songs",
         "import": "Import",
-        "favorites": "Favorites"
+        "favorites": "Favorites",
+        "addFavorite": "Add to Favorites"
     },
     "backgrounds": {
         "title": "Backgrounds",

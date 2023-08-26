@@ -10,12 +10,10 @@ import SideBar from '../components/Sidebar';
 import SongForm from '../components/SongForm';
 import i18n from '../store/i18n';
 import List from '../components/List';
-import Favorite from '../components/Favorite';
-import { Value } from 'sass';
 
 const Songs = ({ windowVisor }: any) => {
   const [sidebarOpen, setSideBarOpen] = useState(false);
-  const [dataSongs, setDataSongs] = useState<any>([]);
+  const [dataSongs, setDataSongs] = useState<[]>([]);
   const [prevPage, setPrevPage] = useState('');
   const [nextPage, setNextPage] = useState('');
   const [buttonPrevStatus, setButtonPrevStatus] = useState(false);
@@ -103,11 +101,7 @@ const Songs = ({ windowVisor }: any) => {
     const songs = data.data.map((song: any, index: number) => {
       return {
         id: song.id,
-        value: song.title,
-        data: {
-          icon: 'grade',
-          favorites: favorites
-        }
+        value: song.title
       };
     });
 
@@ -174,11 +168,7 @@ const Songs = ({ windowVisor }: any) => {
       arrayOfLyrics.map((lyric: string, index: number) => {
         return {
           id: index,
-          value: lyric,
-          data: {
-            icon: '',
-            favorites: []
-          }
+          value: lyric
         };
       })
     );
@@ -254,11 +244,7 @@ const Songs = ({ windowVisor }: any) => {
     const songs = data.data.map((song: any, index: number) => {
       return {
         id: song.id,
-        value: song.title,
-        data: {
-          icon: 'grade',
-          favorites: favorites
-        }
+        value: song.title
       };
     });
 
@@ -266,115 +252,116 @@ const Songs = ({ windowVisor }: any) => {
   };
 
   const markAsFavorite = async (item: { id: string; value: string }) => {
-    if (favorites.includes(item.id)) {
-      const index = favorites.indexOf(item.id);
+    const result = favorites.find((favorite: any) => favorite.id === item.id);
 
-      if (index > -1) {
-        favorites.splice(index, 1);
-      }
+    if (result) {
+      const index = favorites.indexOf(result);
+      favorites.splice(index, 1);
 
       setFavorites([...favorites]);
 
       localStorage.setItem('favorites', JSON.stringify(favorites));
-    } else {
-      console.log([...favorites, item.id]);
-      setFavorites([...favorites, item.id]);
 
-      localStorage.setItem('favorites', JSON.stringify([...favorites, item.id]));
+      return;
     }
+
+    favorites.push(item);
+
+    setFavorites([...favorites]);
+
+    localStorage.setItem('favorites', JSON.stringify(favorites));
   };
 
   return (
     <>
       <Header title={songsTranslation.title} />
       <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
-      <div className="w-10/12 m-auto">
+      <div className="w-11/12 m-auto">
         <div className="flex flex-row justify-between mt-3 mb-3">
-          <div className="flex">
-            <input
-              type="text"
-              value={input}
-              onChange={searchSongByNameOrContent}
-              placeholder={songsTranslation.search}
-              className="border border-gray-300 rounded px-4 py-2"
-            />
+          <div className="w-full">
+            <div className="flex">
+              <input
+                type="text"
+                value={input}
+                onChange={searchSongByNameOrContent}
+                placeholder={songsTranslation.search}
+                className="w-full border border-gray-300 rounded px-4 py-2"
+              />
+            </div>
+          </div>
+          <div className="flex flex-row w-6/12 justify-around">
+            {songIsClicked ? (
+              <>
+                <Button
+                  title={
+                    <>
+                      {songsTranslation.addFavorite}
+                      {favorites.find((favorite: any) => favorite.id === dataSongClicked.id) ? (
+                        <span className="material-icons">grade</span>
+                      ) : (
+                        <span className="material-icons-outlined">grade</span>
+                      )}{' '}
+                    </>
+                  }
+                  click={() =>
+                    markAsFavorite({
+                      id: dataSongClicked.id,
+                      value: dataSongClicked.title
+                    })
+                  }
+                ></Button>
+                <Modal
+                  title={songsTranslation.edit}
+                  content={
+                    <SongForm
+                      songTitle={dataSongClicked.title}
+                      songType={dataSongClicked.type}
+                      songTone={dataSongClicked.tone}
+                      songLyrics={dataSongClicked.lyrics}
+                      songIsClicked={true}
+                    />
+                  }
+                  open={
+                    <>
+                      {songsTranslation.edit}
+                      <span className="material-icons-outlined">edit</span>
+                    </>
+                  }
+                  saveButton={true}
+                  closeButton={true}
+                  save={songsTranslation.save}
+                  close={songsTranslation.close}
+                  click={() => saveOrUpdateSong(dataSongClicked.id)}
+                />
+                <Button
+                  title={
+                    <>
+                      {songsTranslation.delete}
+                      <span className="material-icons-outlined">delete</span>
+                    </>
+                  }
+                  click={() => deleteSong(dataSongClicked.id)}
+                />
+              </>
+            ) : (
+              <></>
+            )}
             <Modal
-              title={songsTranslation.edit}
-              content={
-                <div className="w-full h-full flex">
-                  <div className="extraOutline p-4 bg-white w-max bg-whtie m-auto rounded-lg">
-                    <div
-                      className="file_upload p-5 relative border-4 border-dotted border-gray-300 rounded-lg"
-                      style={{
-                        width: '450px'
-                      }}
-                    >
-                      <div className="flex w-full justify-center">
-                        <span className="material-icons text-yellow-700 text-6xl">upload_file</span>
-                      </div>
-                      <div className="input_field flex flex-col w-max mx-auto text-center">
-                        <label>
-                          <input className="text-sm cursor-pointer w-36 hidden" type="file" onChange={handleFile} />
-                          <div className="bg-yellow-700 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-yellow-600">
-                            Select
-                          </div>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              title={songsTranslation.new}
+              content={<SongForm />}
+              open={
+                <>
+                  {songsTranslation.add}
+                  <span className="material-icons-outlined">add</span>
+                </>
               }
-              open={songsTranslation.import}
-              saveButton={true}
-              closeButton={true}
               save={songsTranslation.save}
               close={songsTranslation.close}
-              click={() => saveOrUpdateSong(dataSongClicked.id)}
+              saveButton={true}
+              closeButton={true}
+              click={() => saveOrUpdateSong()}
             />
           </div>
-          {songIsClicked ? (
-            <>
-              <Modal
-                title={songsTranslation.edit}
-                content={
-                  <SongForm
-                    songTitle={dataSongClicked.title}
-                    songType={dataSongClicked.type}
-                    songTone={dataSongClicked.tone}
-                    songLyrics={dataSongClicked.lyrics}
-                    songIsClicked={true}
-                  />
-                }
-                open={songsTranslation.edit}
-                saveButton={true}
-                closeButton={true}
-                save={songsTranslation.save}
-                close={songsTranslation.close}
-                click={() => saveOrUpdateSong(dataSongClicked.id)}
-              />
-              <Button
-                title={
-                  <>
-                    {songsTranslation.delete}
-                    <span className="material-icons-outlined">delete</span>
-                  </>
-                }
-                click={() => deleteSong(dataSongClicked.id)}
-              />
-            </>
-          ) : (
-            <></>
-          )}
-          <Modal
-            title={songsTranslation.new}
-            content={<SongForm />}
-            open={songsTranslation.add}
-            save={songsTranslation.save}
-            close={songsTranslation.close}
-            saveButton={true}
-            closeButton={true}
-            click={() => saveOrUpdateSong()}
-          />
         </div>
       </div>
       <div className="containerSongs">
@@ -418,12 +405,7 @@ const Songs = ({ windowVisor }: any) => {
               <div className="flex justify-center font-bold">
                 <p>{songsTranslation?.favorites}</p>
               </div>
-              <List
-                items={favorites.map((element: any, index: number) => {
-                  return { id: element, value: index };
-                })}
-                onItemClick={sendMessage}
-              />
+              <List items={favorites} onItemClick={searchSong} />
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ type ListState = {
 };
 
 class List extends Component<ListProps, ListState> {
-  favorites: Array<string> = [];
+  favorites: Array<string>;
 
   constructor(props: ListProps) {
     super(props);
@@ -60,19 +60,6 @@ class List extends Component<ListProps, ListState> {
       <ul onKeyDown={this.handleKeyDown} tabIndex={0} className={`${listStyle}`}>
         {items.map((item, index) => (
           <div key={index} className={index === selectedIndex ? `flex selected ${itemStyle}` : `flex ${itemStyle}`}>
-            {item.data?.icon ? (
-              <p onClick={() => this.handleOnIconClick(item)}>
-                <span
-                  className={
-                    item.data && this.favorites.find((favorite: string) => favorite === item.id)
-                      ? 'material-icons'
-                      : 'material-icons-outlined'
-                  }
-                >
-                  grade
-                </span>
-              </p>
-            ) : null}
             <li className="w-full" onClick={() => this.handleItemClick(item, index)}>
               <p> {listedItem ? `${item.id}. ${item.value}` : item.value}</p>
             </li>

@@ -29,7 +29,8 @@
         "importErrorTitle": "Error",
         "importError": "Error al importar las canciones",
         "import": "Importar",
-        "favorites": "Favoritos"
+        "favorites": "Favoritos",
+        "addFavorite": "Agregar a Favoritos"
     },
     "backgrounds": {
         "title": "Fondos",
