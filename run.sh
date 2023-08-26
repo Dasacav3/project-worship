@@ -17,6 +17,8 @@ echo "Type 'exit' to close the terminal"$'\n'
 
 input=""
 
+open http://localhost:5173 > /dev/null 2>&1 &
+
 while [ "$input" != "exit" ]
 do
     # Read user input
