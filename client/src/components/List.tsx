@@ -6,6 +6,8 @@ type ListProps = {
   listedItem?: boolean;
   listStyle?: string;
   itemStyle?: string;
+  onIconClick?: (item: { id: string; value: string }) => void;
+  favorites?: Array<{ id: string; value: string }>;
 };
 
 type ListState = {
@@ -13,11 +15,14 @@ type ListState = {
 };
 
 class List extends Component<ListProps, ListState> {
+  favorites: Array<string>;
+
   constructor(props: ListProps) {
     super(props);
     this.state = {
       selectedIndex: 0
     };
+    this.favorites = localStorage.getItem('favorites') ? JSON.parse(localStorage.getItem('favorites') || '') : [];
   }
 
   handleKeyDown = (event: KeyboardEvent) => {
@@ -39,23 +44,26 @@ class List extends Component<ListProps, ListState> {
     this.setState({ selectedIndex: index });
   };
 
+  handleOnIconClick = (item: { id: string; value: string }): any => {
+    const { onIconClick } = this.props;
+    onIconClick && onIconClick(item);
+  };
+
   render() {
     const { items } = this.props;
     const { selectedIndex } = this.state;
     const { listedItem } = this.props;
-    const { listStyle } = this.props;
-    const { itemStyle } = this.props;
+    const { listStyle } = this.props || '';
+    const { itemStyle } = this.props || '';
 
     return (
       <ul onKeyDown={this.handleKeyDown} tabIndex={0} className={`${listStyle}`}>
         {items.map((item, index) => (
-          <li
-            key={index}
-            className={index === selectedIndex ? `selected ${itemStyle}` : `${itemStyle}`}
-            onClick={() => this.handleItemClick(item, index)}
-          >
-            {listedItem ? `${item.id}. ${item.value}` : item.value}
-          </li>
+          <div key={index} className={index === selectedIndex ? `flex selected ${itemStyle}` : `flex ${itemStyle}`}>
+            <li className="w-full" onClick={() => this.handleItemClick(item, index)}>
+              <p> {listedItem ? `${item.id}. ${item.value}` : item.value}</p>
+            </li>
+          </div>
         ))}
       </ul>
     );

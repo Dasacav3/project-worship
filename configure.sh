@@ -1,3 +1,6 @@
+# Install jq
+sudo apt update && sudo apt install jq -y
+
 # Npm packages for backend
 npm install -g postcss-cli postcss
 npm install
