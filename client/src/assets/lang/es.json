@@ -28,7 +28,9 @@
         "importSuccess": "Canciones importadas con éxito",
         "importErrorTitle": "Error",
         "importError": "Error al importar las canciones",
-        "import": "Importar"
+        "import": "Importar",
+        "favorites": "Favoritos",
+        "addFavorite": "Agregar a Favoritos"
     },
     "backgrounds": {
         "title": "Fondos",

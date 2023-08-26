@@ -165,7 +165,7 @@ const Bibles = ({ windowVisor }: any) => {
             <List
               items={bibleStructure}
               onItemClick={setTotalChaptersByBook}
-              listStyle="grid grid-cols-2 cursor-pointer text-center"
+              itemStyle="cursor-pointer w-full"
             />
           </div>
           <div className="overflow-scroll">
@@ -178,7 +178,7 @@ const Bibles = ({ windowVisor }: any) => {
                   items={totalChapters}
                   onItemClick={searchBible}
                   listStyle="grid grid-cols-10"
-                  itemStyle="py-2 text-center w-full rounded-xl border border-gray-400 outline-none"
+                  itemStyle="py-1 text-center w-full h-full flex-col rounded-xl border border-gray-400 outline-none"
                 />
               </div>
             </div>
@@ -188,9 +188,7 @@ const Bibles = ({ windowVisor }: any) => {
               <div className="flex justify-center font-bold">
                 <p>{biblesTranslations.verses}</p>
               </div>
-              <ul className="songLyrics cursor-pointer">
-                <List items={dataBibles} onItemClick={sendMessage} listedItem={true} />
-              </ul>
+              <List items={dataBibles} onItemClick={sendMessage} listedItem={true} itemStyle="w-full flex-col" />
             </div>
           </div>
         </div>

@@ -1,39 +1,50 @@
 import 'material-icons/iconfont/material-icons.css';
 import i18n from '../store/i18n';
-import { version } from '../../../package.json'
+import { version } from '../../../package.json';
+import { useNavigate } from 'react-router-dom';
+import { MouseEventHandler } from 'react';
 
 const SideBar = (props: Props) => {
-  const sidebarTranslations : any = i18n.t('sidebar', { returnObjects: true });
+  const sidebarTranslations: any = i18n.t('sidebar', { returnObjects: true });
   const sidebarClass = props.isOpen ? 'sidebar open' : 'sidebar';
+
+  const navigate = useNavigate();
+  const changePage =
+    (page: string): MouseEventHandler<HTMLHyperlinkElementUtils> =>
+    event => {
+      event.preventDefault();
+
+      const searchParams = new URLSearchParams(`?page=${page}`);
+      navigate({ search: searchParams.toString() });
+    };
+
   return (
     <div className={sidebarClass}>
       <div className="sidebarContent">
         <nav>
           <ul className="sidebarList">
             <li className="sidebarListItem" title="Home">
-              <a href="/">
+              <a onClick={changePage('home')}>
                 <span className="material-icons">add_home</span> {sidebarTranslations.home}
               </a>
             </li>
             <li className="sidebarListItem" title="Backgrounds">
-              <a href="/backgrounds">
+              <a onClick={changePage('backgrounds')}>
                 <span className="material-icons">wallpaper</span> {sidebarTranslations.backgrounds}
               </a>
             </li>
             <li className="sidebarListItem" title="Songs">
-              <a href="/songs">
+              <a onClick={changePage('songs')}>
                 <span className="material-icons">library_music</span> {sidebarTranslations.songs}
               </a>
             </li>
             <li className="sidebarListItem" title="Bibles">
-              <a href="/bibles">
+              <a onClick={changePage('bibles')}>
                 <span className="material-icons">description</span> {sidebarTranslations.bible}
               </a>
             </li>
             <li className="sidebarListItem" title="Version">
-              <a href="#">
-                Version {version}
-              </a>
+              <a href="#">Version {version}</a>
             </li>
           </ul>
         </nav>
