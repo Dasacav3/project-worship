@@ -27,4 +27,4 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/uploads', express.static(path.resolve('uploads')));
 
-app.listen(process.env.API_PORT || 3000, () => console.log(`Server running on port ${process.env.API_PORT || 3000}`));
+app.listen(process.env.API_PORT || 3000, () => console.info(`Server running on port ${process.env.API_PORT || 3000}`));

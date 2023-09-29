@@ -40,10 +40,9 @@ export default class CreateFilePostController {
             .resize(320, 240)
             .toFile(thumbnailPath, (err, info) => {
               if (err) {
-                console.log(err);
-                console.log('Thumbnail not created');
+                console.error(err);
               }
-              console.log('Thumbnail created');
+              console.info('Thumbnail created');
             });
         });
       } catch (err) {
@@ -57,9 +56,8 @@ export default class CreateFilePostController {
         .resize(320, 240)
         .toFile(`server/uploads/thumbnails/${filename}`, (err, info) => {
           if (err) {
-            console.log(err);
+            console.error(err);
           }
-          console.log('Thumbnail created');
         });
     }
 

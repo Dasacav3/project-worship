@@ -10,7 +10,6 @@ export async function openDb() {
       driver: sqlite3.Database
     });
   } catch (error) {
-    console.log(error);
     return Promise.reject(error);
   }
 }

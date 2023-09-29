@@ -19,9 +19,8 @@ export default class ImportSongsPostController {
         try {
             const createSongAction = new CreateSongAction();
             createSongAction.execute(uuid, song.ti || '', song.tono || '', song.estilo || '', song.le || '');
-            console.log(`Imported song ${song.ti}`);
         } catch (error) {
-            console.log(`Error importing song ${song.ti}: ${error}`);
+            console.error(`Error importing song ${song.ti}: ${error}`);
         }
       }
     }
