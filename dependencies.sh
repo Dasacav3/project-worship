@@ -6,15 +6,19 @@ curl -fsSL https://fnm.vercel.app/install | bash
 
 # Export fnm path
 
-if [ -n "$ZSH_VERSION" ]; then
+case $SHELL in
+*/zsh) 
    # assume Zsh
    source ~/.zshrc
-elif [ -n "$BASH_VERSION" ]; then
-    source ~/.bashrc
-else
-    # asume something else
-    echo "Unable to determine shell type"
-fi
+   ;;
+*/bash)
+   # assume Bash
+   source ~/.bashrc
+   ;;
+*)
+    echo "SHELL not found"
+    ;;
+esac
 
 # Install Node.js
 
