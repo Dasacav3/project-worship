@@ -14,9 +14,6 @@ fnm install 20
 # Set Node.js version as default
 fnm default 20
 
-# Install Jq (assuming you're on a Linux/Unix system)
-sudo apt-get install jq -y
-
 # Update npm
 npm install -g npm
 
