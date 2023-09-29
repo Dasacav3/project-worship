@@ -5,3 +5,4 @@ server/uploads/*
 build/
 database/*
 nodemon.log
+.pnpm-store
